@@ -17,18 +17,20 @@ class Customer : public Person {
 
     public:
         Customer();
-        Customer(int bank_num, int spent, int C_ID, string BANK, string pur_his, string new_note);
+        Customer(int bank_num, int spent, int C_ID, string BANK, string pur_his, string new_note, int age, int phone, string name, string address);
         //string Purchase(model, price);
 
         int get_bankAccount();
+        void set_bankAccount(int bank_num);
+
+        string get_bank();
+        void set_bank(string BANK);
+
+        string get_purchase_history();
         int get_spendings();
         int get_clientId();
-        string get_bank();
-        string get_purchase_history();
+
         string get_notes();
-        
-        void set_bank(string BANK);
-        void set_bankAccount(int bank_num);
         void set_notes(string new_note);
 
 };
