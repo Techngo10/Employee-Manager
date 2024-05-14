@@ -3,7 +3,7 @@
 #include <string.h>
 using namespace std;
 
-Marketing::Marketing(){"position", 0};
+Marketing::Marketing(){"position", 0;};
 Marketing::Marketing(string new_position, float success){
     
 };

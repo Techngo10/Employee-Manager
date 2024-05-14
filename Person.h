@@ -17,17 +17,19 @@ public:
   Person();
   Person(int new_age, int new_phone, string new_name, string new_address);
 
-  int get_age();
+  int get_age() const;
   void set_age(int new_age);
 
-  int get_phone();
+  int get_phone() const;
   void set_phone(int new_phone);
 
-  string get_name();
+  string get_name() const;
   void set_name(string new_name);
 
-  string get_address();
+  string get_address() const;
   void set_address(string new_address);
+
+  bool operator==(const Person& other) const;
   
 };
 
