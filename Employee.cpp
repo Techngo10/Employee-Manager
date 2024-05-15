@@ -1,37 +1,38 @@
 #include "Employee.h"
 #include <iostream>
 #include <string>
-    
 using namespace std;
-
-Employee::Employee() : Person(), ID(0), salary_hourly(0), hours_weekly(0), date_joined(""), performance(5) {
+int Employee::_counter = 0;
+Employee::Employee() : ID(_counter), salary_hourly(0), hours_weekly(0), date_joined(""), performance(5) {
     for (int i = 0; i < 5; i++) {
         attendance[i] = true; // Monday -> Friday
     }
     attendance[5] = false; // Saturday
     attendance[6] = false; // Sunday
+    _counter++;
 }
 
-Employee::Employee(int ID, float salary_hourly, float hours_weekly, string date_joined, int age, int phone, string name, string address)
-    : Person(age, phone, name, address), ID(ID), salary_hourly(salary_hourly), hours_weekly(hours_weekly), date_joined(date_joined), performance(5) {
+Employee::Employee( float salary_hourly, float hours_weekly, string date_joined, int age, int phone, string name, string address)
+    :  ID(_counter), Person(age, phone, name, address), salary_hourly(salary_hourly), hours_weekly(hours_weekly), date_joined(date_joined), performance(5) {
     for (int i = 0; i < 5; i++) {
         attendance[i] = true; // Monday -> Friday
     }
     attendance[5] = false; // Saturday
     attendance[6] = false; // Sunday
+    _counter++;
 }
 
 int Employee::get_ID() {return ID;};
-void Employee::set_ID(int ID) {this->ID = ID;};
+//void Employee::set_ID(int ID) {this->ID = ID;};
 
 bool Employee::get_attendance(int day) {
-    if(day >= 0 && day <=7){ // if valid day
+    if(day >= 0 && day <=6){ // if valid day
         return attendance[day]; // get attendance
     }
     return false; // default false if out of range
 };
 void Employee::set_attendance(bool attending, int day) {
-    if(day >= 0 && day <=7){ // if valid day
+    if(day >= 0 && day <=6){ // if valid day
         attendance[day] = attending; // set attendacnce to desired
     }
 };

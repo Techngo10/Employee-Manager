@@ -17,11 +17,12 @@ private:
     int performance;
  
 public:
+    static int _counter;
     Employee();
-    Employee(int ID, float salary_hourly, float hours_weekly, string date_joined, int age, int phone, string name, string address);
+    Employee(float salary_hourly, float hours_weekly, string date_joined, int age, int phone, string name, string address);
 
     int get_ID();
-    void set_ID(int ID);
+    //void set_ID(int ID);
 
     bool get_attendance(int day);
     void set_attendance(bool attending, int day);
@@ -40,5 +41,6 @@ public:
 };
 
 
-
+ 
 #endif // EMPLOYEE_H
+ 

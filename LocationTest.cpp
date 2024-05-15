@@ -1,43 +1,32 @@
-#include "Location.h"
-#include "Person.h"
 #include <iostream>
+#include "Location.h"
 
 int main() {
-    Location l1("testlocation");
+    // Create a location
+    Location location("123 Main St");
 
-    Person p1(12, 0411, "name", "address");
-    Person p2(122, 04112, "name2", "address2");
-    Person p3(123, 04113, "name3", "address3");
-    Person p4(124, 04114, "name4", "address4");
+    // Add some people
+    Person person1(25, 123456789, "Alice", "123 Main St");
+    Person person2(30, 987654321, "Bob", "456 Elm St");
+    Person person3(35, 555555555, "Charlie", "789 Oak St");
 
-    // Adding people to the location
-    l1.addPerson(p1);
-    l1.addPerson(p2);
-    l1.addPerson(p3);
-    l1.addPerson(p4);
+    location.addPerson(person1);
+    location.addPerson(person2);
+    location.addPerson(person3);
 
-    // Displaying initial list of people
-    std::cout << "Initial list of people in location:" << std::endl;
-    for (const Person& person : l1.people) {
-        std::cout << "Name: " << person.get_name() << ", Age: " << person.get_age() << ", Phone: " << person.get_phone() << ", Address: " << person.get_address() << std::endl;
+    // Print initial people
+    std::cout << "People in the location:" << std::endl;
+    for (int i = 0; i < location.get_curr_size(); ++i) {
+        std::cout << "Name: " << location.people[i].get_name() << ", Age: " << location.people[i].get_age() << std::endl;
     }
-    std::cout << std::endl;
 
-    // Removing a person by name
-    std::string nameToRemove = "name2";
-    std::cout << "Removing person with name: " << nameToRemove << std::endl;
-    bool removed = l1.rmPerson(nameToRemove);
-    if (removed) {
-        std::cout << "Person removed successfully." << std::endl;
-    } else {
-        std::cout << "Person with name '" << nameToRemove << "' not found in the location." << std::endl;
-    }
-    std::cout << std::endl;
+    // Remove a person
+    location.rmPerson("Bob");
 
-    // Displaying updated list of people
-    std::cout << "Updated list of people in location:" << std::endl;
-    for (const Person& person : l1.people) {
-        std::cout << "Name: " << person.get_name() << ", Age: " << person.get_age() << ", Phone: " << person.get_phone() << ", Address: " << person.get_address() << std::endl;
+    // Print remaining people
+    std::cout << "\nAfter removing Bob:" << std::endl;
+    for (int i = 0; i < location.get_curr_size(); ++i) {
+        std::cout << "Name: " << location.people[i].get_name() << ", Age: " << location.people[i].get_age() << std::endl;
     }
 
     return 0;

@@ -1,12 +1,12 @@
 #include <iostream>
 #include "Employee.h"
-
+#include <string>
 using namespace std;
-
+  
 int main() {
     // Test Employee class
     cout << "Testing Employee class:" << endl;
-    Employee emp1(1001, 15.50, 40, "2024-01-01", 30, 987654321, "Jane Smith", "456 Elm St");
+    Employee emp1(23.33, 10.11, "01-01-2024", 20, 112233, "Jone", "Terrace");
     cout << "Employee 1 ID: " << emp1.get_ID() << ", Salary (hourly): $" << emp1.get_salary_hourly() << ", Hours (weekly): " << emp1.get_hours_weekly() << ", Date Joined: " << emp1.get_date_joined() << endl;
     cout << "Employee 1 performance: " << emp1.get_performance() << endl;
 

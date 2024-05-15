@@ -10,14 +10,17 @@ using namespace std;
 class Location{
 private:
     string address;
-    
-public:
-    vector<Person> people;
+    int curr_size;
 
+public:
+    Person* people;
+    
     Location(string address);
 
     string get_address();
     void set_address(string address);
+    int get_curr_size();
+
     bool addPerson(Person new_person);
     bool rmPerson(const std::string& name);
 
