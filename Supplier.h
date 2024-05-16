@@ -17,7 +17,7 @@ class Supplier: public Person {
 
     public:
         Supplier();
-        Supplier(int new_age, int new_phone, string new_name, string new_address, int amountCargo, float costAnnually, string* cargo);
+        Supplier(int age, int phone, string name, string address, int amountCargo, float costAnnually, string* cargos);
         ~Supplier();
 
         int get_amount_of_cargo();
@@ -25,10 +25,8 @@ class Supplier: public Person {
         float get_cost_annually();
 
         void set_amount_of_cargo(int amountCargo);
-        void set_cargo(string* cargo);
+        void set_cargo(string* cargo, int amount);
         void set_cost_annually(float costAnnually);
-
-
 
 };
 

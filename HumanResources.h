@@ -6,7 +6,7 @@
 #include "Employee.h"
 using namespace std;
 
-class HumanResources: public Employee {
+class HumanResources : public Employee {
     private:
         std::string position;
         int no_trained;
