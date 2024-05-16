@@ -3,7 +3,7 @@
 
 int main() {
     // Create a Manufacturing object
-    Manufacturing employee1(123, 20.5, 40, "2024-01-01", 30, 1234567890, "John Doe", "123 Main St", "Manager", "Certified", 10);
+    Manufacturing employee1(20.5, 40, "2024-01-01", 30, 1234567890, "John Doe", "123 Main St", "Manager", "Certified", 10);
 
     // Test member functions
     std::cout << "Position: " << employee1.get_position() << std::endl;

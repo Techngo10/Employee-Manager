@@ -1,33 +1,35 @@
 #ifndef RESEARCHDEV_H
 #define RESEARCHDEV_H
 
+#include "Employee.h"
 #include <iostream>
 #include <string>
 
 using namespace std;
 
-class ResearchDev {
+class ResearchDev : public Employee {
     private:
-        std::string position;
-        std::string finished_research;
-        std::string current_research;
-        std::string expertise;
+        string position;
+        string finished_research;
+        string current_research;
+        string expertise;
 
     public:
         ResearchDev();
-        ResearchDev(std::string new_position, std::string finished, std::string current, std::string expert);
+        ResearchDev(float salary_hourly, float hours_weekly, string date_joined, int age, int phone, string name, string address, 
+        string new_position, string finished, string current, string expert);
 
-        std::string get_position();
-        void set_position(std::string new_position);
+        string get_position();
+        void set_position(string new_position);
 
-        std::string get_finished();
-        void add_finished(std::string finished);
+        string get_finished();
+        void add_finished(string finished);
 
-        std::string get_research();
-        void set_research(std::string current);
+        string get_research();
+        void set_research(string current);
 
-        std::string get_expertise();
-        void add_expertise(std::string expert);
+        string get_expertise();
+        void add_expertise(string expert);
 
 };
 

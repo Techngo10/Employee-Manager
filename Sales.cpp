@@ -4,12 +4,8 @@
 using namespace std;
 
 Sales::Sales(){position = "none", conversion_rate = 0, cars_sold = 0, revenue = 0;}
-Sales::Sales(string new_position, float con_rate, int sales, float rev){
-    position = new_position;
-    conversion_rate = con_rate;
-    cars_sold = sales;
-    revenue = rev;
-};
+Sales::Sales(float salary_hourly, float hours_weekly, string date_joined, int age, int phone, string name, string address, string new_position, float con_rate, int sales, float rev)
+: Employee(salary_hourly, hours_weekly, date_joined, age, phone, name, address), position(new_position), conversion_rate(con_rate), cars_sold(sales), revenue(rev) {}
 
 string Sales::get_position(){return position;};
 void Sales::set_position(string new_position){position = new_position;};

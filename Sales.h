@@ -1,11 +1,12 @@
 #ifndef SALES_H
 #define SALES_H
 
+#include "Employee.h"
 #include <iostream>
 #include <string.h>
 using namespace std;
 
-class Sales {
+class Sales : public Employee {
     private:
         string position;
         float conversion_rate;
@@ -14,7 +15,8 @@ class Sales {
 
     public:
         Sales();
-        Sales(string new_position, float con_rate, int sales, float rev);
+        Sales(float salary_hourly, float hours_weekly, string date_joined, int age, int phone, string name, string address, 
+        string new_position, float con_rate, int sales, float rev);
 
         string get_position();
         void set_position(string new_position);

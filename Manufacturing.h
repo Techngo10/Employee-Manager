@@ -14,7 +14,7 @@ class Manufacturing : public Employee {
 
     public:
         Manufacturing();
-        Manufacturing(int ID, float salary_hourly, float hours_weekly, string date_joined, int age, int phone, string name, string address, string position, string certification, int cars_complete);
+        Manufacturing(float salary_hourly, float hours_weekly, string date_joined, int age, int phone, string name, string address, string position, string certification, int cars_complete);
 
         string get_position();
         void set_position(string position);

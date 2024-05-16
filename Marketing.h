@@ -1,18 +1,19 @@
 #ifndef MARKETING_H
 #define MARKETING_H
 
+#include "Employee.h"
 #include <iostream>
 #include <string.h>
 using namespace std;
 
-class Marketing {
+class Marketing : public Employee {
     private:
         string position;
         float success_rate;
 
     public:
         Marketing();
-        Marketing(string new_position, float success);
+        Marketing(float salary_hourly, float hours_weekly, string date_joined, int age, int phone, string name, string address, string new_position, float success);
 
         string get_position();
         void set_position(string new_position);

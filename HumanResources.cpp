@@ -8,9 +8,9 @@ using namespace std;
 //Setting up all variables and making HR and employee which is a person
 HumanResources::HumanResources()
     : Employee(), position("none"), no_trained(0), no_hired(0), no_fired(0), no_retired(0) {}
-HumanResources::HumanResources(int ID, float salary_hourly, float hours_weekly, 
+HumanResources::HumanResources(float salary_hourly, float hours_weekly, 
     string date_joined, int age, int phone, string name, string address, string position) 
-    : Employee(ID, salary_hourly, hours_weekly, date_joined, age, phone, name, address), 
+    : Employee(salary_hourly, hours_weekly, date_joined, age, phone, name, address), 
       position(position), no_trained(0), no_hired(0), no_fired(0), no_retired(0) {} 
 
 
