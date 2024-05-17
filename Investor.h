@@ -8,7 +8,7 @@
 using namespace std;
 class Investor : public Person{
     private: 
-        float amount_of_investmwnt;
+        float amount_of_investment;
     
     public:
         Investor();

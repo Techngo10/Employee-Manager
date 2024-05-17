@@ -1,65 +1,3 @@
-# location: Location.cpp LocationTest.cpp Person.cpp
-# 	g++ -std=c++11 -o program Location.cpp LocationTest.cpp Person.cpp
-# 	./program
-# 	rm -r program
-
-# person: Person.cpp Person_test.cpp
-# 	g++ -std=c++11 -o program Person.cpp Person_test.cpp
-# 	./program
-# 	rm -r program
-	
-# employee: Employee.cpp Employee_test.cpp Person.cpp
-# 	g++ -std=c++11 -o program Employee.cpp Employee_test.cpp Person.cpp
-# 	./program
-# 	rm -r program
-
-# customer: Customer.cpp Customer_test.cpp Person.cpp
-# 	g++ -std=c++11 -o program Customer.cpp Customer_test.cpp Person.cpp
-# 	./program
-# 	rm -r program
-
-# software: Software.cpp Software_test.cpp Employee.cpp Person.cpp
-# 	g++ -std=c++11 -o program Software.cpp Software_test.cpp Employee.cpp Person.cpp
-# 	./program
-# 	rm -r program
-
-# finances: Finances.cpp Finances_test.cpp Employee.cpp Person.cpp
-# 	g++ -std=c++11 -o program Finances.cpp Finances_test.cpp Employee.cpp Person.cpp
-# 	./program
-# 	rm -r program
-
-# design: Design.cpp Design_test.cpp Employee.cpp Person.cpp
-# 	g++ -std=c++11 -o program Design.cpp Design_test.cpp Employee.cpp Person.cpp
-# 	./program
-# 	rm -r program
-
-# manufacturing: Manufacturing.cpp Manufacturing_test.cpp Employee.cpp Person.cpp
-# 	g++ -std=c++11 -o program Manufacturing.cpp Manufacturing_test.cpp Employee.cpp Person.cpp
-# 	./program
-# 	rm -r program
-
-# humanresources: HumanResources.cpp HumanResources_test.cpp Employee.cpp Person.cpp
-# 	g++ -std=c++11 -o program HumanResources.cpp HumanResources_test.cpp Employee.cpp Person.cpp
-# 	./program
-# 	rm -r program
-
-# researchdevelopment: ResearchDev.cpp ResearchDev_test.cpp Employee.cpp Person.cpp
-# 	g++ -std=c++11 -o program ResearchDev.cpp ResearchDev_test.cpp Employee.cpp Person.cpp
-# 	./program
-# 	rm -r program
-
-# sales: Sales.cpp Sales_test.cpp Employee.cpp Person.cpp
-# 	g++ -std=c++11 -o program Sales.cpp Sales_test.cpp Employee.cpp Person.cpp
-# 	./program
-# 	rm -r program
-
-# marketing: Marketing.cpp Marketing_test.cpp Employee.cpp Person.cpp
-# 	g++ -std=c++11 -o program Marketing.cpp Marketing_test.cpp Employee.cpp Person.cpp
-# 	./program
-# 	rm -r program
-
-
-
 # Makefile
 
 # Compiler
@@ -68,21 +6,105 @@ CXX = g++
 # Compiler flags
 CXXFLAGS = -std=c++11 -Wall -Wextra
 
-# Executable name
-TARGET = program
+.PHONY: customer
 
-# Source files
-SRCS = Manager.cpp Manager_test.cpp Person.cpp Employee.cpp
+customer:
+	$(CXX) $(CXXFLAGS) -o customer Customer_test.cpp Employee.cpp Person.cpp Customer.cpp
+	./customer
 
-# Build and run tests
-.PHONY: all
+.PHONY: design
 
-all:
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $(SRCS)
-	./$(TARGET)
+design:
+	$(CXX) $(CXXFLAGS) -o design Design_test.cpp Employee.cpp Person.cpp Design.cpp
+	./design
+
+.PHONY: employee
+
+employee:
+	$(CXX) $(CXXFLAGS) -o employee EmployeeTest.cpp Employee.cpp Person.cpp 
+	./employee
+
+.PHONY: finances
+
+finances:
+	$(CXX) $(CXXFLAGS) -o finances Finances_test.cpp Employee.cpp Person.cpp Finances.cpp
+	./finances
+
+.PHONY: humanresources
+
+humanresources:
+	$(CXX) $(CXXFLAGS) -o humanresources HumanResources_test.cpp Employee.cpp Person.cpp HumanResources.cpp
+	./humanresources
+
+.PHONY: investor
+
+investor:
+	$(CXX) $(CXXFLAGS) -o investor Investor_test.cpp Person.cpp Investor.cpp
+	./investor
+
+.PHONY: location
+
+location:
+	$(CXX) $(CXXFLAGS) -o location Location_test.cpp Employee.cpp Person.cpp Customer.cpp Design.cpp Finances.cpp HumanResources.cpp Investor.cpp Manager.cpp Manufacturing.cpp Marketing.cpp ResearchDev.cpp Sales.cpp Software.cpp Supplier.cpp VIP.cpp Location.cpp
+	./location
+
+.PHONY: manager
+
+manager:
+	$(CXX) $(CXXFLAGS) -o manager Manager_test.cpp Employee.cpp Person.cpp Manager.cpp
+	./manager
+
+.PHONY: manufcaturing
+
+manufcaturing:
+	$(CXX) $(CXXFLAGS) -o manufcaturing Manufcaturing_test.cpp Employee.cpp Person.cpp Manufacturing.cpp
+	./manufcaturing
+
+.PHONY: marketing
+
+marketing:
+	$(CXX) $(CXXFLAGS) -o marketing Marketing_test.cpp Employee.cpp Person.cpp Marketing.cpp
+	./marketing
+
+.PHONY: person
+
+person:
+	$(CXX) $(CXXFLAGS) -o person Person_test.cpp Person.cpp
+	./person
+
+.PHONY: ResearchDev
+
+researchdev:
+	$(CXX) $(CXXFLAGS) -o researchdev ResearchDev_test.cpp Employee.cpp Person.cpp ResearchDev.cpp
+	./researchdev
+
+.PHONY: sales
+
+sales:
+	$(CXX) $(CXXFLAGS) -o sales Sales_test.cpp Employee.cpp Person.cpp Sales.cpp
+	./sales
+
+.PHONY: software
+
+software:
+	$(CXX) $(CXXFLAGS) -o software Software_test.cpp Employee.cpp Person.cpp Software.cpp
+	./software
+
+.PHONY: supplier
+
+supplier:
+	$(CXX) $(CXXFLAGS) -o supplier Supplier_test.cpp Person.cpp Supplier.cpp
+	./supplier
+
+.PHONY: vip
+
+vip:
+	$(CXX) $(CXXFLAGS) -o vip VIP_test.cpp Customer.cpp Person.cpp VIP.cpp
+	./vip
 
 # Clean rule
+
 .PHONY: clean
 
 clean:
-	 rm $(TARGET)
+	 rm -f a.out customer design employee finances humanresources investor location manager manufcaturing marketing person researchdev sales software supplier vip

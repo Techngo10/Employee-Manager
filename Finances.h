@@ -3,8 +3,9 @@
 
 #include <iostream>
 #include <string.h>
+#include "Employee.h"
 using namespace std;
-class Finances{
+class Finances: public Employee{
     private:
         string Positions;
         int turnover_monthly;
@@ -14,7 +15,7 @@ class Finances{
 
     public:
         Finances();
-        Finances(string position, int turnoverMonth, int profitMonth, int Budget, int Expense);
+        Finances(float salary_hourly, float hours_weekly, string date_joined, int age, int phone, string name, string address, string position, int turnoverMonth, int profitMonth, int Budget, int Expense);
 
         void check_turnover_profit(int turnoverMonth, int profitMonth);
         

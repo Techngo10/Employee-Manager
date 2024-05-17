@@ -13,7 +13,7 @@ class Software: public Employee{
     private:
         string Positions;
         string Languages;
-        int amount_projects_finished;
+        string projects_finished;
         string projects_current;
 
     public:
@@ -23,12 +23,12 @@ class Software: public Employee{
         string get_position();
         string get_languages();
         string get_projects_current();
-        int get_finished();
+        string get_finished();
      
 
         void set_position(string position);
         void set_language(string languages);
-        void add_finished(int num);
+        void set_finished(string finished);
         void set_projects_current(string currentProjects);
 
 };

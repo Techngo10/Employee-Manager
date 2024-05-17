@@ -14,7 +14,7 @@ int main() {
 
     // Update details
     designer.set_position("Senior Designer");
-    designer.add_finished(2);
+    designer.add_finished("Project 1");
     designer.set_design_current("New Design Project");
 
     // Display updated details

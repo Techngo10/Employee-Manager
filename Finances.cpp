@@ -3,8 +3,8 @@
 #include <string>
 using namespace std;
 
-        Finances::Finances(){Positions = "none"; turnover_monthly = 0; profit_monthly = 0; budget = 0; expense = 0;};
-        Finances::Finances(string position, int turnoverMonth, int profitMonth, int Budget, int Expense){
+        Finances::Finances(): Employee(), Positions("none"), turnover_monthly(0), profit_monthly(0), budget(0), expense(0) {};
+        Finances::Finances(float salary_hourly, float hours_weekly, string date_joined, int age, int phone, string name, string address, string position, int turnoverMonth, int profitMonth, int Budget, int Expense): Employee( salary_hourly, hours_weekly, date_joined, age, phone, name, address){
             Positions = position ;
             turnover_monthly = turnoverMonth;
             profit_monthly = profitMonth; 

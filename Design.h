@@ -9,7 +9,7 @@ using namespace std;
 class Design : public Employee {
     private:
         string position;
-        int amount_design_finished;
+        string amount_design_finished;
         string design_current;
 
     public:
@@ -20,8 +20,8 @@ class Design : public Employee {
         string get_position();
         void set_position(string position);
 
-        int get_finished();
-        void add_finished(int amount_design_finished);
+        string get_finished();
+        void set_finished(string amount_design_finished);
 
         string get_design_current();
         void set_design_current(string design_current);

@@ -57,6 +57,16 @@ bool Location::rmPerson(const std::string& name) {
 
     curr_size--;                                    // Updates the size
 
+    // Code to remove the extra size of the dynamic array
+    Person** new_people = new Person*[curr_size];   // Creates a new array of correct size
+    for (int i = 0; i < curr_size; i++){            // Copies the old array to the new array
+        new_people[i] = people[i];
+    }
+
+    delete[] people;                                // Deletes the old array so there isnt a memory leak
+
+    people = new_people;                            // Makes the old pointer now point to the new array
+    
     return true;
 }
 
