@@ -28,3 +28,7 @@ bool Person::operator==(const Person& other) const {
     return (age == other.age && phone_number == other.phone_number && 
             name == other.name && address == other.address);
 }
+
+
+void Person::set_position(string position) {};
+string Person::get_position() {return "";};

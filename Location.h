@@ -13,7 +13,7 @@ private:
     int curr_size;
 
 public:
-    Person* people;
+    Person** people;
     
     Location(string address);
 
@@ -21,8 +21,10 @@ public:
     void set_address(string address);
     int get_curr_size();
 
-    bool addPerson(Person new_person);
+    bool addPerson(Person* new_person);
     bool rmPerson(const std::string& name);
+
+    ~Location();
 
 };
 

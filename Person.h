@@ -30,6 +30,11 @@ public:
   void set_address(string new_address);
 
   bool operator==(const Person& other) const;
+
+
+  // Virtual functions
+  virtual void set_position(string position) = 0;
+  virtual string get_position() = 0;
   
 };
 

@@ -8,7 +8,7 @@ using namespace std;
 // Creates a location from a given address
 Location::Location(string address) {
     this->address = address;
-    people = new Person[0];
+    people = new Person*[0];
     curr_size = 0;
 };
 
@@ -20,9 +20,9 @@ void Location::set_address(string address) {this->address = address;};
 int Location::get_curr_size() {return curr_size;};
 
 // add person code using the person
-bool Location::addPerson(Person new_person) {
+bool Location::addPerson(Person* new_person) {
 
-    Person* new_people = new Person[curr_size + 1]; // Creates a new array of size one larger than the old one
+    Person** new_people = new Person*[curr_size + 1]; // Creates a new array of size one larger than the old one
     for (int i = 0; i < curr_size; i++){            // Copies the old array to the new array
         new_people[i] = people[i];
     }
@@ -41,7 +41,7 @@ bool Location::rmPerson(const std::string& name) {
 
     int index = -1;                                 // Sets index at -1 to setup for the no found clause
     for (int i = 0; i < curr_size; i ++){           // Searches all the 
-        if (people[i].get_name() == name){
+        if (people[i]->get_name() == name){
             index = i;
             break;
         }
@@ -62,3 +62,4 @@ bool Location::rmPerson(const std::string& name) {
 
 
 
+Location::~Location() {delete[] people;}
