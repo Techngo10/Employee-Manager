@@ -33,8 +33,8 @@ public:
 
 
   // Virtual functions
-  virtual void set_position(string position) = 0;
-  virtual string get_position() = 0;
+  virtual void set_position(string position);
+  virtual string get_position();
   
 };
 
