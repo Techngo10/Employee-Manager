@@ -45,7 +45,7 @@ investor:
 .PHONY: location
 
 location:
-	$(CXX) $(CXXFLAGS) -o location Location_test.cpp Employee.cpp Person.cpp Customer.cpp Design.cpp Finances.cpp HumanResources.cpp Investor.cpp Manager.cpp Manufacturing.cpp Marketing.cpp ResearchDev.cpp Sales.cpp Software.cpp Supplier.cpp VIP.cpp Location.cpp
+	$(CXX) $(CXXFLAGS) -o location Location_test.cpp Functions.cpp Employee.cpp Person.cpp Customer.cpp Design.cpp Finances.cpp HumanResources.cpp Investor.cpp Manager.cpp Manufacturing.cpp Marketing.cpp ResearchDev.cpp Sales.cpp Software.cpp Supplier.cpp VIP.cpp Location.cpp
 	./location
 
 .PHONY: manager

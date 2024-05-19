@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+#include "Functions.h"
 #include "Software.h"
 #include "Finances.h"
 #include "Design.h"
@@ -10,6 +11,7 @@
 #include "ResearchDev.h"
 #include "Sales.h"
 #include "Marketing.h"
+#include "Manager.h"
 
 int main() {
 // Create a location
@@ -27,6 +29,8 @@ Manufacturing manufacturing1(12, 33, "3rd Nov", 22, 123321, "Jones", "Japan", "e
 HumanResources humanresources1 (31, 33.9, "10th mar", 20, 234432, "Copper", "Germany", "retirement manager");
 ResearchDev researchDev1(66, 20, "24ed Jan", 56, 45666, "Jacky", "Henly St", "major researcher", "energy saving", "accurate GPS", "energy");
 Marketing marketing1(49.1, 22.12, "12th July", 29, 999000, "Charile", "William St", "South America region manager", 5) ;
+Manager manager1(50, 40, "2nd Feb", 29, 041532153, "Kurt", "Hutt Street", "123", "General Manager");
+
 location.addPerson(&person1);
 location.addPerson(&person2);
 location.addPerson(&person3);
@@ -38,6 +42,7 @@ location.addPerson(&manufacturing1);
 location.addPerson(&humanresources1);
 location.addPerson(&researchDev1);
 location.addPerson(&marketing1);
+location.addPerson(&manager1);
 
 
 // Print initial people
@@ -146,6 +151,14 @@ std::cout <<location.people[9]->get_expertise()<< std::endl;
  location.people[10]->set_success_rate(2.11);
  std::cout <<location.people[10]->get_position() << std::endl;
  std::cout <<location.people[10]->get_success_rate() << std::endl;
- 
+
+
+  //Testing access function
+
+  string Permission;
+
+  Access(&location, Permission, "Kurt", "123");
+  
+  cout << "Permission level: " << Permission << endl;
   return 0;
 }
