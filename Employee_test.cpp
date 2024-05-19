@@ -2,7 +2,7 @@
 #include "Employee.h"
 #include <string>
 using namespace std;
-  
+
 int main() {
     // Test Employee class
     cout << "Testing Employee class:" << endl;

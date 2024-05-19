@@ -4,6 +4,7 @@
 #include "Person.h"
 #include <iostream>
 #include <string.h>
+
 using namespace std;
 
 class Customer : public Person {
@@ -33,6 +34,12 @@ class Customer : public Person {
         string get_notes();
         void set_notes(string new_note);
 
+        virtual int get_referrals();
+        virtual void set_referrals(int referrals);
+
+        virtual void displayPrizes();
+       // virtual bool buy_prize(string prizeName);
+            
 };
 
 #endif //CUSTOMER_H

@@ -6,8 +6,9 @@
 using namespace std;
 
 int main() {
+     Customer Customer1;
+    //VIP vip1(100020333, 200000, 10001, "commonwealth", "Cybertruck, Model 3", "rich man", 99, 887766, "RICH", "India", 3);
 
-    Customer Customer1;
     cout << "Name: " << Customer1.get_name() << endl;
     cout << "Age: " << Customer1.get_age() << endl;
     cout << "Phone Number: " << Customer1.get_phone() << endl;
@@ -25,6 +26,17 @@ int main() {
     Customer1.set_bankAccount(12345);
     cout << "New Bank: " << Customer1.get_bank() <<endl;
     cout << "New Bank number: " << Customer1.get_bankAccount() << endl;
+
+    Customer1.set_referrals(50);
+    std::cout << "\nRemaining referrals: " << Customer1.get_referrals() << std::endl;
+
+    Customer1.displayPrizes();
+    std::cout << "\nBuying another prize...\n";
+    //Customer1.buy_prize("Towel");
+
+
+
+    
 
     return 0;
 }

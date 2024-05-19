@@ -93,6 +93,7 @@ float Person::get_revenue() {return 0;};
 void Person::add_revenue(float rev) {(void)rev;};
 
 //Research Development functions
+void Person::add_finished(string finished) {(void)finished;};
 
 // string Person::get_finished() {return "";};
 // void Person::add_finished(string finished) {};

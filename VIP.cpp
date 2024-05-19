@@ -1,16 +1,14 @@
 #include "VIP.h"
+#include "Customer.h"
 #include <iostream>
 #include <string>
 
-VIP::VIP() : VIP_type("none"), referrals(0) {}
+VIP::VIP() : Customer(), referrals(0) {}
 
 VIP::VIP(int bank_num, int spent, int C_ID, string BANK, string pur_his, string new_note,
-int age, int phone, string name, string address, string VIP_type, int referrals)
+int age, int phone, string name, string address, int referrals)
 : Customer(bank_num, spent, C_ID, BANK, pur_his, new_note, age, phone, name, address),
-  VIP_type(VIP_type), referrals(referrals) {}
-
-string VIP::get_VIP_type(){return VIP_type;}
-void VIP::set_VIP_type(string VIP_type){this->VIP_type = VIP_type;}
+ referrals(referrals) {}
 
 int VIP::get_referrals(){return referrals;}
 void VIP::set_referrals(int referrals){this->referrals = referrals;}
@@ -29,20 +27,16 @@ void VIP::displayPrizes() {
     }
 }
 
-bool VIP::buy_prize(string prizeName) {
-    //auto it = availablePrizes.find(prizeName); - Kurt: not sure why this is needed as when its removed it solves a pink error
-    if (availablePrizes.find(prizeName) == availablePrizes.end()) {
-        cout << "Invalid prize name!" << endl;
-        return false;
-    }
+// bool VIP::buy_prize(string prizeName) {
+//     //auto it = availablePrizes.find(prizeName); - Kurt: not sure why this is needed as when its removed it solves a pink error
 
-    int prizeCost = availablePrizes[prizeName];
-    if (referrals < prizeCost) {
-        cout << "Insufficient referrals to buy the prize!" << endl;
-        return false;
-    }
+//     int prizeCost = availablePrizes[prizeName];
+//     if (referrals < prizeCost) {
+//         cout << "Insufficient referrals to buy the prize!" << endl;
+//         return false;
+//     }
 
-    referrals -= prizeCost;
-    cout << "Congratulations! You have successfully bought " << prizeName << "!" << endl;
-    return true;
-}
+//     referrals -= prizeCost;
+//     cout << "Congratulations! You have successfully bought " << prizeName << "!" << endl;
+//     return true;
+// }

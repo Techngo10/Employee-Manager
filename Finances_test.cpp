@@ -36,7 +36,7 @@ int main() {
   cout << staff1.get_expense() << endl;
   cout << staff1.get_position() << endl;
 
-  Finances staff2("Financial planner", 12000, 80000, 100000, 1000);
+  Finances staff2(40, 33, "1st Jan", 53, 556677, "David", "Hong Kong", "Financial planner", 12000, 80000, 100000, 1000);
   staff2.check_turnover_profit(staff2.get_turnover(), staff2.get_profit());
   cout << staff2.get_budget() << endl;
   cout << staff2.get_expense() << endl;

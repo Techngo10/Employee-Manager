@@ -96,6 +96,7 @@ public:
   
 
   // Researh Development
+  virtual void add_finished(string finished);
 
   virtual string get_research();
   virtual void set_research(string current);

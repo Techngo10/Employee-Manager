@@ -3,7 +3,7 @@
 
 int main() {
     // Creating a VIP member
-    VIP vipMember(123456, 100, 789, "Bank", "History", "Note", 30, 1234567890, "John Doe", "123 Main St", "Gold", 50);
+    VIP vipMember(123456, 100, 789, "Bank", "History", "Note", 30, 1234567890, "John Doe", "123 Main St", 50);
 
     // Display available prizes
     vipMember.displayPrizes();
