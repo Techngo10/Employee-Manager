@@ -4,7 +4,7 @@
 
 int main() {
     // Create a Design object
-    Design designer(20.5, 40, "2024-01-01", 30, 1234567890, "John Doe", "123 Main St", "Designer", 5, 3);
+    Design designer(20.5, 40, "2024-01-01", 30, 1234567890, "John Doe", "123 Main St", "Designer", "Project1, Project2", "Project1");
 
     // Display initial details
     std::cout << "Initial Details:" << std::endl;
@@ -14,7 +14,7 @@ int main() {
 
     // Update details
     designer.set_position("Senior Designer");
-    designer.add_finished("Project 1");
+    designer.set_finished("Project 1");
     designer.set_design_current("New Design Project");
 
     // Display updated details

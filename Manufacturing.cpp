@@ -5,7 +5,7 @@
 
 Manufacturing::Manufacturing() : position("none"), certification("none"), cars_complete(0) {};
 Manufacturing::Manufacturing(float salary_hourly, float hours_weekly, string date_joined, int age, int phone, string name, string address, string position, string certification, int cars_complete)
-: Employee(salary_hourly, hours_weekly, date_joined, age, phone, name, address), position("none"), certification("none"), cars_complete(0) {}
+: Employee(salary_hourly, hours_weekly, date_joined, age, phone, name, address), position(position), certification(certification), cars_complete(cars_complete) {}
 
 string Manufacturing::get_position(){return position;};
 void Manufacturing::set_position(string position){this->position = position;};

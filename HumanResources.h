@@ -19,7 +19,7 @@ class HumanResources : public Employee {
         HumanResources(float salary_hourly, float hours_weekly, 
             string date_joined, int age, int phone, string name, string address, string position);
 
-        std::string get_position();
+        string get_position();
         void set_position(std::string new_position);
 
         int get_trained();

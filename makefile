@@ -54,11 +54,11 @@ manager:
 	$(CXX) $(CXXFLAGS) -o manager Manager_test.cpp Employee.cpp Person.cpp Manager.cpp
 	./manager
 
-.PHONY: manufcaturing
+.PHONY: manufacturing
 
-manufcaturing:
-	$(CXX) $(CXXFLAGS) -o manufcaturing Manufcaturing_test.cpp Employee.cpp Person.cpp Manufacturing.cpp
-	./manufcaturing
+manufacturing:
+	$(CXX) $(CXXFLAGS) -o manufacturing Manufacturing_test.cpp Employee.cpp Person.cpp Manufacturing.cpp
+	./manufacturing
 
 .PHONY: marketing
 

@@ -2,18 +2,18 @@
 #include <iostream>
 #include <string>
 
-VIP::VIP() : VIP_type("none"), referals(0) {}
+VIP::VIP() : VIP_type("none"), referrals(0) {}
 
 VIP::VIP(int bank_num, int spent, int C_ID, string BANK, string pur_his, string new_note,
-int age, int phone, string name, string address, string VIP_type, int referals)
+int age, int phone, string name, string address, string VIP_type, int referrals)
 : Customer(bank_num, spent, C_ID, BANK, pur_his, new_note, age, phone, name, address),
-  VIP_type(VIP_type), referals(referals) {}
+  VIP_type(VIP_type), referrals(referrals) {}
 
 string VIP::get_VIP_type(){return VIP_type;}
 void VIP::set_VIP_type(string VIP_type){this->VIP_type = VIP_type;}
 
-int VIP::get_referrals(){return referals;}
-void VIP::set_referrals(int referals){this->referals = referals;}
+int VIP::get_referrals(){return referrals;}
+void VIP::set_referrals(int referrals){this->referrals = referrals;}
 
 // Define a data structure to store the available prizes
 map<string, int> availablePrizes = {
@@ -30,19 +30,19 @@ void VIP::displayPrizes() {
 }
 
 bool VIP::buy_prize(string prizeName) {
-    auto it = availablePrizes.find(prizeName);
+    //auto it = availablePrizes.find(prizeName); - Kurt: not sure why this is needed as when its removed it solves a pink error
     if (availablePrizes.find(prizeName) == availablePrizes.end()) {
         cout << "Invalid prize name!" << endl;
         return false;
     }
 
     int prizeCost = availablePrizes[prizeName];
-    if (referals < prizeCost) {
+    if (referrals < prizeCost) {
         cout << "Insufficient referrals to buy the prize!" << endl;
         return false;
     }
 
-    referals -= prizeCost;
+    referrals -= prizeCost;
     cout << "Congratulations! You have successfully bought " << prizeName << "!" << endl;
     return true;
 }

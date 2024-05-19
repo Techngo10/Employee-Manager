@@ -3,7 +3,7 @@
 #include <string>
 using namespace std;
 int Employee::_counter = 0;
-Employee::Employee() : ID(_counter), salary_hourly(0), hours_weekly(0), date_joined(""), performance(5) {
+Employee::Employee() : Person(), ID(_counter), salary_hourly(0), hours_weekly(0), date_joined(""), performance(5) {
     for (int i = 0; i < 5; i++) {
         attendance[i] = true; // Monday -> Friday
     }
@@ -13,7 +13,7 @@ Employee::Employee() : ID(_counter), salary_hourly(0), hours_weekly(0), date_joi
 }
 
 Employee::Employee( float salary_hourly, float hours_weekly, string date_joined, int age, int phone, string name, string address)
-    :  ID(_counter), Person(age, phone, name, address), salary_hourly(salary_hourly), hours_weekly(hours_weekly), date_joined(date_joined), performance(5) {
+    :  Person(age, phone, name, address), ID(_counter), salary_hourly(salary_hourly), hours_weekly(hours_weekly), date_joined(date_joined), performance(5) {
     for (int i = 0; i < 5; i++) {
         attendance[i] = true; // Monday -> Friday
     }
