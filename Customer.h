@@ -5,41 +5,35 @@
 #include <iostream>
 #include <string.h>
 
-using namespace std;
-
 class Customer : public Person {
     private:
         int bank_number;
         int spendings;
         int clientId;
-        string bank;
-        string purchase_history;
-        string notes;
+        std::string bank;
+        std::string purchase_history;
+        std::string notes;
 
     public:
+        //Initialisation
         Customer();
-        Customer(int bank_num, int spent, int C_ID, string BANK, string pur_his, string new_note, int age, int phone, string name, string address);
-        //string Purchase(model, price);
+        Customer(int bank_num, int spent, int C_ID, std::string BANK, std::string pur_his, std::string new_note, int age, int phone, std::string name, std::string address);
 
+        //Getters
         int get_bankAccount();
-        void set_bankAccount(int bank_num);
-
-        string get_bank();
-        void set_bank(string BANK);
-
-        string get_purchase_history();
+        std::string get_bank();
+        std::string get_purchase_history();
         int get_spendings();
         int get_clientId();
+        std::string get_notes();
 
-        string get_notes();
-        void set_notes(string new_note);
+        //Setters
+        void set_bankAccount(int bank_num);
+        void set_bank(std::string BANK);
+        void set_purchase_history(std::string history);
+        void set_spendings(int spendings);
+        void set_notes(std::string new_note);
 
-        virtual int get_referrals();
-        virtual void set_referrals(int referrals);
-
-        virtual void displayPrizes();
-       // virtual bool buy_prize(string prizeName);
-            
 };
 
 #endif //CUSTOMER_H

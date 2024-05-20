@@ -10,7 +10,7 @@ using namespace std;
 
 class VIP : public Customer {
     private:
-        string VIP_type;
+        //string VIP_type;
         int referrals;
  
     public:

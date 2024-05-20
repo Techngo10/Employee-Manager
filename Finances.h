@@ -1,35 +1,38 @@
 #ifndef FINANCES_H
 #define FINANCES_H
 
-#include <iostream>
-#include <string.h>
 #include "Employee.h"
-using namespace std;
+
 class Finances: public Employee{
     private:
-        string Positions;
+        std::string position;
         int turnover_monthly;
         int profit_monthly;
         int budget;
         int expense;
 
     public:
+        //Initialisation
         Finances();
-        Finances(float salary_hourly, float hours_weekly, string date_joined, int age, int phone, string name, string address, string position, int turnoverMonth, int profitMonth, int Budget, int Expense);
+        Finances(float salary_hourly, float hours_weekly, std::string date_joined, int age, int phone, std::string name, std::string address, 
+        std::string position, int turnover_monthly, int profit_monthly, int budget, int expense);
 
-        void check_turnover_profit(int turnoverMonth, int profitMonth);
+        //Function to check the profit vs the turnover
+        void check_turnover_profit(int turnover_monthly, int profit_monthly);
         
-        string get_position();
+        //Getters
+        std::string get_position();
         int get_turnover();
         int get_profit();
         int get_budget();
         int get_expense();
 
-        void set_position(string position);
-        void set_turnover(int turnoverMonth);
-        void set_profit(int profitMonth);
-        void set_budget(int Budget);
-        void set_expense(int Expense);
+        //Setters
+        void set_position(std::string position);
+        void set_turnover(int turnover_monthly);
+        void set_profit(int profit_monthly);
+        void set_budget(int budget);
+        void set_expense(int expense);
 };
 
 

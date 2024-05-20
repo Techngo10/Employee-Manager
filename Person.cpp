@@ -71,6 +71,8 @@ string Person::get_bank() {return "";};
 void Person::set_bank(string BANK) {(void)BANK;};
 
 string Person::get_purchase_history() {return "";};
+void Person::set_purchase_history(string history){(void)history;};
+void Person::set_spendings(int spendings) {(void)spendings;};
 int Person::get_spendings() {return 0;};
 int Person::get_clientId() {return 0;};
 
@@ -110,16 +112,16 @@ void Person::set_success_rate(float success) {(void)success;};
 
 //HumanResources
 int Person::get_trained() {return 0;};
-void Person::add_trained(int trained) {(void)trained;};
+void Person::set_trained(int no_trained) {(void)no_trained;};
 
 int Person::get_hired() {return 0;};
-void Person::add_hired(int hired) {(void)hired;};
+void Person::set_hired(int no_hired) {(void)no_hired;};
 
 int Person::get_fired() {return 0;};
-void Person::add_fired(int fired) {(void)fired;};
+void Person::set_fired(int no_fired) {(void)no_fired;};
 
 int Person::get_retired() {return 0;};
-void Person::add_retired(int retired) {(void)retired;};
+void Person::set_retired(int no_retired) {(void)no_retired;};
 
 //Manufactoring
 string Person::get_certification(){ return "";};
@@ -139,15 +141,19 @@ bool Person::buy_prize(string prizeName){(void)prizeName; return true;};
 
 //Supplier
 int Person::get_amount_of_cargo() {return 0;};
-string* Person::get_cargo() {string* cargo = new string[0]; return cargo;};
+string Person::get_cargo() {return "";};
 float Person::get_cost_annually() {return 0;};
 
 void Person::set_amount_of_cargo(int amountCargo) {(void)amountCargo;};
-void Person::set_cargo(string* cargo, int amount) {(void)cargo; (void)amount;};
+void Person::set_cargo(string cargo) {(void)cargo;};
 void Person::set_cost_annually(float costAnnually) {(void)costAnnually;};
 
 //Employee functions
 int Person::get_ID() {return 0;};
+void Person::set_ID(int ID) {(void)ID;}
+
+// int Person::get_counter() {return 0;};
+// void Person::set_counder(int counter) {(void)counter;};
 
 bool Person::get_attendance(int day) {(void)day; return true;};
 void Person::set_attendance(bool attending, int day) {(void)attending; (void)day;};
@@ -156,6 +162,7 @@ int Person::get_performance() {return 0;};
 void Person::set_performance(int performance) {(void)performance;};
 
 string Person::get_date_joined() {return "";};
+void Person::set_date_joined(string date_joined) {(void)date_joined;}
 
 float Person::get_salary_hourly() {return 0;};
 void Person::set_salary_hourly(float salary_hourly) {(void)salary_hourly;};

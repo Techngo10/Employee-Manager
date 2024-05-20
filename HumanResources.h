@@ -1,10 +1,7 @@
 #ifndef HUMANRESOURCES_H
 #define HUMANRESOURCES_H
 
-#include <iostream>
-#include <string>
 #include "Employee.h"
-using namespace std;
 
 class HumanResources : public Employee {
     private:
@@ -15,25 +12,24 @@ class HumanResources : public Employee {
         int no_retired;
 
     public:
+        //Initialisation
         HumanResources();
         HumanResources(float salary_hourly, float hours_weekly, 
-            string date_joined, int age, int phone, string name, string address, string position);
+            std::string date_joined, int age, int phone, std::string name, std::string address, std::string position);
 
-        string get_position();
-        void set_position(std::string new_position);
-
+        //Getters
+        std::string get_position();
         int get_trained();
-        void add_trained(int trained);
-
         int get_hired();
-        void add_hired(int hired);
-
         int get_fired();
-        void add_fired(int fired);
-
         int get_retired();
-        void add_retired(int retired);
 
+        //Setters
+        void set_position(std::string position);
+        void set_trained(int no_trained);
+        void set_hired(int no_hired);
+        void set_fired(int no_fired);
+        void set_retired(int no_retired);
 };
 
 #endif

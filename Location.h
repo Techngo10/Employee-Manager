@@ -1,32 +1,35 @@
 #ifndef LOCATION_H
 #define LOCATION_H
 
-#include <iostream>
 #include "Person.h"
-#include <vector>
-#include <algorithm>
-using namespace std;
+
 
 class Location{
-private:
-    string address;
-    int curr_size;
+    private:
+        std::string address;
+        int curr_size;
 
-public:
-    Person** people;
-    
-    Location(string address);
+    public:
+        //People in public as it needs to be accessable
+        Person** people;
 
-    string get_address();
-    void set_address(string address);
-    int get_curr_size();
+        //Initialisation
+        Location();
+        Location(std::string address);
 
-    bool addPerson(Person* new_person);
-    bool rmPerson(const std::string& name);
+        //Deconstructor
+        ~Location();
 
-    ~Location();
+        //Functions
+        bool addPerson(Person* new_person);
+        bool rmPerson(const std::string& name);
 
+        //Getters
+        std::string get_address();
+        int get_curr_size();
+
+        //Setters
+        void set_address(std::string address);
 };
-
 
 #endif // LOCATION_H

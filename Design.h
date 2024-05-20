@@ -2,30 +2,28 @@
 #define DESIGN_H
 
 #include "Employee.h"
-#include <iostream>
-#include <string.h>
-using namespace std;
 
 class Design : public Employee {
     private:
-        string position;
-        string design_finished;
-        string design_current;
+        std::string position;
+        std::string design_finished;
+        std::string design_current;
 
     public:
+        //Initialisation
         Design();
-        Design(float salary_hourly, float hours_weekly, string date_joined, int age, int phone, string name, string address, 
-        string position, string design_finished, string design_current);
+        Design(float salary_hourly, float hours_weekly, std::string date_joined, int age, int phone, std::string name, std::string address, 
+        std::string position, std::string design_finished, std::string design_current);
 
-        string get_position();
-        void set_position(string position);
+        //Getters
+        std::string get_position();
+        std::string get_finished();
+        std::string get_design_current();
 
-        string get_finished();
-        void set_finished(string design_finished);
-
-        string get_design_current();
-        void set_design_current(string design_current);
-
+        //Setters
+        void set_position(std::string position);
+        void set_finished(std::string design_finished);
+        void set_design_current(std::string design_current);
 };
 
 #endif

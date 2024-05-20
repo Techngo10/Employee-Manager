@@ -23,13 +23,13 @@ class ResearchDev : public Employee {
         void set_position(string new_position);
 
         string get_finished();
-        void add_finished(string finished);
+        void set_finished(string finished);
 
         string get_research();
         void set_research(string current);
 
         string get_expertise();
-        void add_expertise(string expert);
+        void set_expertise(string expert);
 
 };
 

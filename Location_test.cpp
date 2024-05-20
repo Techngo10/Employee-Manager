@@ -12,16 +12,18 @@
 #include "Sales.h"
 #include "Marketing.h"
 #include "Manager.h"
+#include "Supplier.h"
+#include "Customer.h"
 
 int main() {
 // Create a location
 Location location("123 Main St");
  
 // Add some people
-Person person1(25, 123456789, "Alice", "123 Main St");
-Person person2(30, 987654321, "Bob", "456 Elm St");
-Person person3(35, 555555555, "Charlie", "789 Oak St");
 Software software1(20, 40, "17th May", 20, 0412312451, "Victor", "city", "Top Programmer");
+Software software2(2, 40, "17th May", 20, 0412312451, "Victor", "city", "Top Programmer");
+Software software3(20, 40, "17th May", 20, 0412312451, "Victor", "city", "Top Programmer");
+Software software4(20, 40, "17th May", 20, 0412312451, "Victor", "city", "Top Programmer");
 Finances finances1(10, 12, "12nd June", 33, 999000, "Peter", "USA", "finacial planner", 9999, 99999, 100000, 200);
 Sales sales1(15, 20, "21 July", 32, 123410, "John", "somewhere", "Sales Junior", 20.22, 50000, 20000); 
 Design design1(22, 12, "2nd Dec", 34, 34566543, "Lee", "Mel", "car designer", "wheel design; outlook design", "software system design");
@@ -30,11 +32,16 @@ HumanResources humanresources1 (31, 33.9, "10th mar", 20, 234432, "Copper", "Ger
 ResearchDev researchDev1(66, 20, "24ed Jan", 56, 45666, "Jacky", "Henly St", "major researcher", "energy saving", "accurate GPS", "energy");
 Marketing marketing1(49.1, 22.12, "12th July", 29, 999000, "Charile", "William St", "South America region manager", 5) ;
 Manager manager1(50, 40, "2nd Feb", 29, 041532153, "Kurt", "Hutt Street", "123", "General Manager");
+Customer customer1(1, 1, 1, "", "", "", 10, 1, "", "");
 
-location.addPerson(&person1);
-location.addPerson(&person2);
-location.addPerson(&person3);
+string cargos[2] = {"wheel", "engine"};
+string* cargos1 = cargos;
+Supplier supplier(22, 12345, "Bob Peter", "West Terrace", 2, 120000.4, cargos1);
+
 location.addPerson(&software1);
+location.addPerson(&software2);
+location.addPerson(&software3);
+location.addPerson(&software4);
 location.addPerson(&finances1);
 location.addPerson(&sales1);
 location.addPerson(&design1);
@@ -43,7 +50,8 @@ location.addPerson(&humanresources1);
 location.addPerson(&researchDev1);
 location.addPerson(&marketing1);
 location.addPerson(&manager1);
-
+location.addPerson(&supplier);
+location.addPerson(&customer1);
 
 // Print initial people
 std::cout << "People in the location:" << std::endl;
@@ -160,5 +168,10 @@ std::cout <<location.people[9]->get_expertise()<< std::endl;
   Access(&location, Permission, "Kurt", "123");
   
   cout << "Permission level: " << Permission << endl;
+
+Save(&location, "savetest.txt");
+
+
+
   return 0;
 }
