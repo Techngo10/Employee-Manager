@@ -12,8 +12,8 @@ int main() {
 
     // Update position, certification, and cars completed
     employee1.set_position("Supervisor");
-    employee1.add_certification("Advanced Certified");
-    employee1.add_cars_complete(5);
+    employee1.set_certification("Advanced Certified");
+    employee1.set_cars_complete(5);
 
     // Test member functions after update
     std::cout << "\nAfter Update:" << std::endl;

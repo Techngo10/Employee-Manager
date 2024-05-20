@@ -15,11 +15,11 @@ int main() {
     std::cout << "New Conversion Rate: " << salesperson.get_conversion_rate() << std::endl;
 
     std::cout << "Cars Sold: " << salesperson.get_cars_sold() << std::endl;
-    salesperson.add_cars_sold(5);
+    salesperson.set_cars_sold(5);
     std::cout << "Updated Cars Sold: " << salesperson.get_cars_sold() << std::endl;
 
     std::cout << "Revenue: $" << salesperson.get_revenue() << std::endl;
-    salesperson.add_revenue(75000.0);
+    salesperson.set_revenue(75000.0);
     std::cout << "Updated Revenue: $" << salesperson.get_revenue() << std::endl;
 
     return 0;

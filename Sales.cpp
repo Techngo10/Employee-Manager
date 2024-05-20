@@ -14,7 +14,7 @@ float Sales::get_conversion_rate(){return conversion_rate;};
 void Sales::set_conversion_rate(float con_rate){conversion_rate = con_rate;};
 
 int Sales::get_cars_sold(){return cars_sold;};
-void Sales::add_cars_sold(int sales){cars_sold = sales;};
+void Sales::set_cars_sold(int sales){cars_sold = sales;};
 
 float Sales::get_revenue(){return revenue;};
-void Sales::add_revenue(float rev){revenue = rev;};
+void Sales::set_revenue(float rev){revenue = rev;};

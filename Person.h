@@ -1,7 +1,6 @@
 #ifndef PERSON_H
 #define PERSON_H
 
-#include <ctime>
 #include <iostream>
 #include <string>
 using namespace std;
@@ -15,19 +14,19 @@ private:
 
 public:
   Person();
-  Person(int new_age, int new_phone, string new_name, string new_address);
+  Person(int age, int phone_number, string name, string address);
 
   int get_age() const;
-  void set_age(int new_age);
+  void set_age(int age);
 
   int get_phone() const;
-  void set_phone(int new_phone);
+  void set_phone(int phone);
 
   string get_name() const;
-  void set_name(string new_name);
+  void set_name(string name);
 
   string get_address() const;
-  void set_address(string new_address);
+  void set_address(string address);
 
   bool operator==(const Person& other) const;
 
@@ -91,27 +90,27 @@ public:
   virtual void set_conversion_rate(float con_rate);
 
   virtual int get_cars_sold();
-  virtual void add_cars_sold(int sales);
+  virtual void set_cars_sold(int sales);
 
   virtual float get_revenue();
-  virtual void add_revenue(float rev);
+  virtual void set_revenue(float rev);
   
 
   // Researh Development
-  virtual void add_finished(string finished);
+  //virtual void set_finished(string finished);
 
   virtual string get_research();
   virtual void set_research(string current);
 
   virtual string get_expertise();
-  virtual void add_expertise(string expert);
+  virtual void set_expertise(string expert);
 
   // Employee functions
   virtual int get_ID();
   virtual void set_ID(int ID);
 
   virtual int get_counter();
-  virtual void set_counder(int counter);
+  virtual void set_counter(int counter);
 
   virtual bool get_attendance(int day);
   virtual void set_attendance(bool attending, int day);
@@ -185,9 +184,9 @@ public:
 
 // Manufacturing
 virtual string get_certification();
-virtual void add_certification(string certification);
+virtual void set_certification(string certification);
 virtual int get_cars_complete();
-virtual void add_cars_complete(int cars_complete);
+virtual void set_cars_complete(int cars_complete);
 
 };
 

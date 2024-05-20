@@ -34,9 +34,8 @@ Marketing marketing1(49.1, 22.12, "12th July", 29, 999000, "Charile", "William S
 Manager manager1(50, 40, "2nd Feb", 29, 041532153, "Kurt", "Hutt Street", "123", "General Manager");
 Customer customer1(1, 1, 1, "", "", "", 10, 1, "", "");
 
-string cargos[2] = {"wheel", "engine"};
-string* cargos1 = cargos;
-Supplier supplier(22, 12345, "Bob Peter", "West Terrace", 2, 120000.4, cargos1);
+
+Supplier supplier(22, 12345, "Bob Peter", "West Terrace", 2, 120000.4, "cargos1");
 
 location.addPerson(&software1);
 location.addPerson(&software2);
@@ -105,8 +104,8 @@ std::cout << "expense of the finances1: " << location.people[4]->get_expense() <
 //Sales
 location.people[5]->set_position("Manager");
 location.people[5]->set_conversion_rate(10.22);
-location.people[5]->add_cars_sold(20);
-location.people[5]->add_revenue(10000);
+location.people[5]->set_cars_sold(20);
+location.people[5]->set_revenue(10000);
 
 std::cout << "Sales Position: " << location.people[5]->get_position() << std::endl;
 std::cout << "Conversion Rate: " << location.people[5]->get_conversion_rate() << std::endl; 
@@ -125,8 +124,8 @@ std::cout << location.people[6]->get_design_current() << std::endl;
 
 // Manufacturing
 location.people[7]->set_position("Top Manufacturer"); 
-location.people[7]->add_certification("Metal Work; Welder;");
-location.people[7]->add_cars_complete(109);
+location.people[7]->set_certification("Metal Work; Welder;");
+location.people[7]->set_cars_complete(109);
 
 std::cout <<location.people[7]->get_position() << std::endl;
 std::cout << location.people[7]->get_certification() << std::endl;
@@ -134,10 +133,10 @@ std::cout << location.people[7]->get_cars_complete()<< std::endl;
 
 //HumanResources
 location.people[8]->set_position("applyment manager");
-location.people[8]->add_trained(11);
-location.people[8]->add_hired(22);
-location.people[8]->add_fired(33);
-location.people[8]->add_retired(44);
+location.people[8]->set_trained(11);
+location.people[8]->set_hired(22);
+location.people[8]->set_fired(33);
+location.people[8]->set_retired(44);
 std::cout <<location.people[8]->get_position() << std::endl;
 std::cout <<location.people[8]->get_trained() << std::endl;
 std::cout <<location.people[8]->get_hired() << std::endl;
@@ -146,9 +145,9 @@ std::cout <<location.people[8]->get_retired() << std::endl;
 
 //ResearchDev
 location.people[9]->set_position("research manager");
-location.people[9]->add_finished("finished idk");
+location.people[9]->set_finished("finished idk");
 location.people[9]->set_research(" concistent driving");
-location.people[9]->add_expertise("AI driving");
+location.people[9]->set_expertise("AI driving");
 std::cout <<location.people[9]->get_position()<< std::endl;
 std::cout <<location.people[9]->get_finished()<< std::endl;
 std::cout <<location.people[9]->get_research()<< std::endl;
@@ -169,7 +168,15 @@ std::cout <<location.people[9]->get_expertise()<< std::endl;
   
   cout << "Permission level: " << Permission << endl;
 
-Save(&location, "savetest.txt");
+  Save(&location, "savetest.txt");
+
+  Location location3;
+
+  Load(&location3, "savetest.txt");
+
+  cout << "test\n";
+
+  //cout << location3.people[0]->get_age() << endl;
 
 
 

@@ -25,10 +25,10 @@ class Sales : public Employee {
         void set_conversion_rate(float con_rate);
 
         int get_cars_sold();
-        void add_cars_sold(int sales);
+        void set_cars_sold(int sales);
 
         float get_revenue();
-        void add_revenue(float rev);
+        void set_revenue(float rev);
 
 
 };

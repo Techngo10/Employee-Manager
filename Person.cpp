@@ -4,28 +4,20 @@
 #include <iostream>
 using namespace std;
 
-Person::Person() {
-  age = 0, phone_number = 0, name = "name", address = "address";
-};
-Person::Person(int new_age, int new_phone, string new_name,
-               string new_address) {
-  age = new_age;
-  phone_number = new_phone;
-  name = new_name;
-  address = new_address;
-};
+Person::Person() : age(0), phone_number(0), name(""), address("") {};
+Person::Person(int age, int phone_number, string name, string address) : age(age), phone_number(phone_number), name(name), address(address) {};
 
-int Person::get_age() const { return age; };
-void Person::set_age(int new_age) { age = new_age; };
+int Person::get_age() const {return age;};
+void Person::set_age(int new_age) {age = new_age;};
 
-int Person::get_phone() const { return phone_number; };
-void Person::set_phone(int new_phone) { phone_number = new_phone; };
+int Person::get_phone() const {return phone_number;};
+void Person::set_phone(int new_phone) {phone_number = new_phone;};
 
-string Person::get_name() const { return name; };
-void Person::set_name(string new_name) { name = new_name; };
+string Person::get_name() const {return name;};
+void Person::set_name(string new_name) {name = new_name;};
 
-string Person::get_address() const { return address; };
-void Person::set_address(string new_address) { address = new_address; };
+string Person::get_address() const {return address;};
+void Person::set_address(string new_address) {address = new_address;};
 
 bool Person::operator==(const Person& other) const {
   return (age == other.age && phone_number == other.phone_number &&
@@ -89,22 +81,22 @@ float Person::get_conversion_rate() {return 0;};
 void Person::set_conversion_rate(float con_rate) {(void)con_rate;};
 
 int Person::get_cars_sold() {return 0;};
-void Person::add_cars_sold(int sales) {(void)sales;};
+void Person::set_cars_sold(int sales) {(void)sales;};
 
 float Person::get_revenue() {return 0;};
-void Person::add_revenue(float rev) {(void)rev;};
+void Person::set_revenue(float rev) {(void)rev;};
 
 //Research Development functions
-void Person::add_finished(string finished) {(void)finished;};
+//void Person::set_finished(string finished) {(void)finished;};
 
 // string Person::get_finished() {return "";};
-// void Person::add_finished(string finished) {};
+// void Person::set_finished(string finished) {};
 
 string Person::get_research() {return "";};
 void Person::set_research(string current) {(void)current;};
 
 string Person::get_expertise() {return "";};
-void Person::add_expertise(string expert) {(void)expert;};
+void Person::set_expertise(string expert) {(void)expert;};
 
 //Marketing functions
 float Person::get_success_rate() {return 0;};
@@ -125,9 +117,9 @@ void Person::set_retired(int no_retired) {(void)no_retired;};
 
 //Manufactoring
 string Person::get_certification(){ return "";};
-void Person::add_certification(string certification) {(void)certification;};
+void Person::set_certification(string certification) {(void)certification;};
 int Person::get_cars_complete(){return 0;};
-void Person::add_cars_complete(int cars_complete) {(void)cars_complete;};
+void Person::set_cars_complete(int cars_complete) {(void)cars_complete;};
 
 //VIP
 string Person::get_VIP_type(){ return "";};
@@ -152,8 +144,8 @@ void Person::set_cost_annually(float costAnnually) {(void)costAnnually;};
 int Person::get_ID() {return 0;};
 void Person::set_ID(int ID) {(void)ID;}
 
-// int Person::get_counter() {return 0;};
-// void Person::set_counder(int counter) {(void)counter;};
+int Person::get_counter() {return 0;};
+void Person::set_counter(int counter) {(void)counter;};
 
 bool Person::get_attendance(int day) {(void)day; return true;};
 void Person::set_attendance(bool attending, int day) {(void)attending; (void)day;};

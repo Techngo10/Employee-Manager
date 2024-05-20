@@ -3,6 +3,9 @@
 #include <string>
 #include <cstring>
 #include <fstream>
+#include <sstream>
+#include <vector>
+#include <map>
 #include "Customer.h"
 #include "Design.h"
 #include "Employee.h"
@@ -319,14 +322,16 @@ void Save(Location *location, std::string file){
     }
 }
 
-// Load data
+//Load data
 void Load(Location *location, std::string file){
     std::ifstream saveFile(file);
     std::string line;
 
     if (saveFile.is_open()){
+        std::cout << "Check1" << endl;
         std::string address;
         int curr_size;
+        int counter;
 
         std::getline(saveFile, line);
         address = line.substr(line.find(": ") + 2);
@@ -335,9 +340,13 @@ void Load(Location *location, std::string file){
         std::getline(saveFile, line);
         curr_size = std::stoi(line.substr(line.find(": ") + 2));
 
+        std::getline(saveFile, line);
+        curr_size = std::stoi(line.substr(line.find(": ") + 2));
+
         for (int i = 0; i < curr_size; i ++){
             std::getline(saveFile, line);
-            std::string type = line.substr(line.find(std::to_string(i) + "type: ") + 2);
+            std::string type = line.substr(line.find("type: ") + 6);
+            //cout << line.substr(line.find("type: ") + 6) << endl;
 
             if (type == "customer"){
                 Customer *customer = new Customer();
@@ -407,7 +416,7 @@ void Load(Location *location, std::string file){
                 }
                 location->addPerson(design);
                 
-            } else if(type == "finances") {
+            } else if (type == "finances") {
                 Finances *finances = new Finances();
                 for (int k = 0; k < 15; k++) {
                     std::getline(saveFile, line);
@@ -492,7 +501,7 @@ void Load(Location *location, std::string file){
                 
             } else if (type == "investor") {
                 Investor *investor = new Investor();
-                    for (int k = 0; k < 5 ; k++) {
+                    for (int k = 0; k < 6 ; k++) {
                         std::getline(saveFile, line);
                         std::string value = line.substr(line.find(": ") + 2);       
                         if (line.find(std::to_string(i) + "investor_age") != std::string::npos){
@@ -577,9 +586,9 @@ void Load(Location *location, std::string file){
                     } else if (line.find(std::to_string(i) + "position ") != std::string::npos){
                         manufacturing->set_position(value);
                     } else if (line.find(std::to_string(i) + "certification ") != std::string::npos){
-                        manufacturing->add_certification(value);   
+                        manufacturing->set_certification(value);   
                     } else if (line.find(std::to_string(i) + "cars_complete ") != std::string::npos){
-                        manufacturing->add_cars_complete(std::stoi(value));   
+                        manufacturing->set_cars_complete(std::stoi(value));   
                     }
                 }
                 location->addPerson(manufacturing);    
@@ -615,7 +624,7 @@ void Load(Location *location, std::string file){
                     } else if (line.find(std::to_string(i) + "position ") != std::string::npos){
                         researchDev->set_position(value);
                     } else if (line.find(std::to_string(i) + "finished_research ") != std::string::npos){
-                        researchDev->add_finished(value);   
+                        researchDev->set_finished(value);   
                     } else if (line.find(std::to_string(i) + "current research ") != std::string::npos){
                         researchDev->set_research(value);   
                     } else if (line.find(std::to_string(i) + "expertise ") != std::string::npos){
@@ -690,50 +699,54 @@ void Load(Location *location, std::string file){
                     } else if (line.find(std::to_string(i) + " conversation rate ") != std::string::npos){
                         sales->set_conversion_rate(std::stoi(value));
                     } else if (line.find(std::to_string(i) + "add cars sold ") != std::string::npos){
-                        sales->add_cars_sold(std::stoi(value));
+                        sales->set_cars_sold(std::stoi(value));
                     } else if (line.find(std::to_string(i) + "add revenue ") != std::string::npos){
-                        sales->add_revenue(std::stoi(value));
+                        sales->set_revenue(std::stoi(value));
                     }
                 }
                 location->addPerson(sales);
             } else if (type == "software") {
                 Software *software = new Software();
-                for (int k = 0; k < 13; k++){
+                //for (int k = 0; k < 13; k++){
                     std::getline(saveFile, line);
-                    std::string value = line.substr(line.find(": ") + 2);
-                    if (line.find(std::to_string(i) + "software_age") != std::string::npos){
-                        software->set_age(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "software_phone") != std::string::npos){
-                        software->set_phone(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "software_name") != std::string::npos){
-                        software->set_name(value);
-                    } else if (line.find(std::to_string(i) + "software_address") != std::string::npos){
-                        software->set_address(value);
-                    } else if (line.find(std::to_string(i) + "software_ID") != std::string::npos){
-                        software->set_ID(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "software_salary_hourly") != std::string::npos){
-                        software->set_salary_hourly(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "software_hours_weekly") != std::string::npos){
-                        software->set_hours_weekly(std::stoi(value));
-                    } for (int j = 0; j < 7; j++){
-                        if (line.find(std::to_string(i) + "software_attendance" + std::to_string(j)) != std::string::npos){
-                                software->set_attendance(std::stoi(value), j);
-                            }
-                    } if (line.find(std::to_string(i) + "software_date_joined") != std::string::npos){
-                        software->set_date_joined(value);
-                    } else if (line.find(std::to_string(i) + "performance") != std::string::npos){
-                        software->set_performance(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "position ") != std::string::npos){
-                        software->set_position(value);
-                    } else if (line.find(std::to_string(i) + " languages ") != std::string::npos){
-                        software->set_language(value);                   
-                    location->addPerson(software);
-                    } else if (line.find(std::to_string(i) + " projects_finished ") != std::string::npos){
-                        software->set_finished(value);
-                    } else if (line.find(std::to_string(i) + " projects_current ") != std::string::npos){
-                        software->set_projects_current(value);                         
-                    }
-                }
+                    software->set_age(std::stoi(line.substr(line.find(": ") + 2)));
+                    
+                    std::getline(saveFile, line);
+                    software->set_phone(std::stoi(line.substr(line.find(": ") + 2)));
+                    
+                    std::getline(saveFile, line);
+                    software->set_name((line.substr(line.find(": ") + 2)));
+                    // } if (line.find(std::to_string(i) + "software_phone") != std::string::npos){
+                    //     software->set_phone(std::stoi(value));
+                    // } else if (line.find(std::to_string(i) + "software_name") != std::string::npos){
+                    //     software->set_name(value);
+                    // } else if (line.find(std::to_string(i) + "software_address") != std::string::npos){
+                    //     software->set_address(value);
+                    // } else if (line.find(std::to_string(i) + "software_ID") != std::string::npos){
+                    //     software->set_ID(std::stoi(value));
+                    // } else if (line.find(std::to_string(i) + "software_salary_hourly") != std::string::npos){
+                    //     software->set_salary_hourly(std::stoi(value));
+                    // } else if (line.find(std::to_string(i) + "software_hours_weekly") != std::string::npos){
+                    //     software->set_hours_weekly(std::stoi(value));
+                    // } for (int j = 0; j < 7; j++){
+                    //     if (line.find(std::to_string(i) + "software_attendance" + std::to_string(j)) != std::string::npos){
+                    //             software->set_attendance(std::stoi(value), j);
+                    //         }
+                    // } if (line.find(std::to_string(i) + "software_date_joined") != std::string::npos){
+                    //     software->set_date_joined(value);
+                    // } else if (line.find(std::to_string(i) + "performance") != std::string::npos){
+                    //     software->set_performance(std::stoi(value));
+                    // } else if (line.find(std::to_string(i) + "position ") != std::string::npos){
+                    //     software->set_position(value);
+                    // } else if (line.find(std::to_string(i) + " languages ") != std::string::npos){
+                    //     software->set_language(value);                   
+                    // location->addPerson(software);
+                    // } else if (line.find(std::to_string(i) + " projects_finished ") != std::string::npos){
+                    //     software->set_finished(value);
+                    // } else if (line.find(std::to_string(i) + " projects_current ") != std::string::npos){
+                    //     software->set_projects_current(value);                         
+                    // }
+                //}
                 location->addPerson(software);
 
             } else if (type == "supplier") {
@@ -761,9 +774,10 @@ void Load(Location *location, std::string file){
                 } 
 
                 location->addPerson(supplier);
-            } else if(type == "VIP") {
+            } else if (type == "VIP") {
                 VIP *vip = new VIP();
                 for (int k = 0; k < 5; k++){
+                    std::cout << "Check2" << endl;
                     std::getline(saveFile, line);
                     std::string value = line.substr(line.find(": ") + 2);
 
@@ -786,5 +800,8 @@ void Load(Location *location, std::string file){
                 std::cerr << "Unable to open file for loading." << std::endl;
             }
         }
+        std::cout << "Check3" << endl;
     }
+    
 }
+

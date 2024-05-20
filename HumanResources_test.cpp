@@ -14,10 +14,10 @@ int main() {
     std::cout << "New Position: " << hr.get_position() << std::endl;
 
     // Testing adders
-    hr.add_trained(5);
-    hr.add_hired(2);
-    hr.add_fired(1);
-    hr.add_retired(3);
+    hr.set_trained(5);
+    hr.set_hired(2);
+    hr.set_fired(1);
+    hr.set_retired(3);
 
     // Testing getters for added values
     std::cout << "Trained: " << hr.get_trained() << std::endl;

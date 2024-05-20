@@ -21,8 +21,8 @@ class Manufacturing : public Employee {
 
         //Setters
         void set_position(std::string position);
-        void add_certification(std::string certification);
-        void add_cars_complete(int cars_complete);
+        void set_certification(std::string certification);
+        void set_cars_complete(int cars_complete);
 };
 
 #endif

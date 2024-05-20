@@ -12,5 +12,5 @@ int Manufacturing::get_cars_complete(){return cars_complete;};
 
 //Setters
 void Manufacturing::set_position(string position){this->position = position;};
-void Manufacturing::add_certification(string certification){this->certification = certification;};
-void Manufacturing::add_cars_complete(int cars_complete){this->cars_complete = cars_complete;};
+void Manufacturing::set_certification(string certification){this->certification = certification;};
+void Manufacturing::set_cars_complete(int cars_complete){this->cars_complete = cars_complete;};

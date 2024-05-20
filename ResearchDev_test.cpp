@@ -11,7 +11,7 @@ int main() {
     std::cout << "New Position: " << researcher.get_position() << std::endl;
 
     std::cout << "Finished Research: " << researcher.get_finished() << std::endl;
-    researcher.add_finished("Project C");
+    researcher.set_finished("Project C");
     std::cout << "Updated Finished Research: " << researcher.get_finished() << std::endl;
 
     std::cout << "Current Research: " << researcher.get_research() << std::endl;
@@ -19,7 +19,7 @@ int main() {
     std::cout << "New Current Research: " << researcher.get_research() << std::endl;
 
     std::cout << "Expertise: " << researcher.get_expertise() << std::endl;
-    researcher.add_expertise("Deep Learning");
+    researcher.set_expertise("Deep Learning");
     std::cout << "Updated Expertise: " << researcher.get_expertise() << std::endl;
 
     return 0;

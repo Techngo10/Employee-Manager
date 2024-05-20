@@ -11,15 +11,15 @@ class Marketing : public Employee {
     public:
         //Initialisation
         Marketing();
-        Marketing(float salary_hourly, float hours_weekly, std::string date_joined, int age, int phone, std::string name, std::string address, std::string new_position, float success);
+        Marketing(float salary_hourly, float hours_weekly, std::string date_joined, int age, int phone, std::string name, std::string address, std::string position, float success_rate);
 
         //Getters
         std::string get_position();
         float get_success_rate();
 
         //Setters
-        void set_position(std::string new_position);
-        void set_success_rate(float success);
+        void set_position(std::string position);
+        void set_success_rate(float success_rate);
 };
 
 #endif //MARKETING_H
