@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-Person::Person() : age(0), phone_number(0), name(""), address("") {};
+Person::Person() : age(0), phone_number(0), name("none"), address("none") {};
 Person::Person(int age, int phone_number, string name, string address) : age(age), phone_number(phone_number), name(name), address(address) {};
 
 int Person::get_age() const {return age;};
@@ -68,7 +68,7 @@ void Person::set_spendings(int spendings) {(void)spendings;};
 int Person::get_spendings() {return 0;};
 int Person::get_clientId() {return 0;};
 
-string Person::get_notes() {return "";};
+string Person::get_notes() {return "none";};
 void Person::set_notes(string new_note) {(void)new_note;};
 
 

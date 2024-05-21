@@ -5,10 +5,10 @@
 using namespace std;
 
 Software::Software()
-    : Employee(), Positions("none"), Languages("none"), projects_finished(""), projects_current("none") {}
+    : Employee(), Positions("none"), Languages("none"), projects_finished("none"), projects_current("none") {}
 
 Software::Software(float salary_hourly, float hours_weekly, string date_joined, int age, int phone, string name, string address, string position)
-    : Employee(salary_hourly, hours_weekly, date_joined, age, phone, name, address), Positions(position), Languages("none"), projects_finished(""), projects_current("none") {}
+    : Employee(salary_hourly, hours_weekly, date_joined, age, phone, name, address), Positions(position), Languages("none"), projects_finished("none"), projects_current("none") {}
 
 string Software::get_position() { return Positions; };
 string Software::get_languages() { return Languages; };

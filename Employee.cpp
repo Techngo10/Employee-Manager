@@ -4,7 +4,7 @@
 int Employee::_counter = 0;
 
 //Initialisation
-Employee::Employee() : Person(), ID(_counter), salary_hourly(0), hours_weekly(0), date_joined(""), performance(5) {
+Employee::Employee() : Person(), ID(_counter), salary_hourly(0), hours_weekly(0), date_joined("none"), performance(5) {
     for (int i = 0; i < 5; i++) {attendance[i] = true;} // Monday -> Friday
     attendance[5] = false; // Saturday
     attendance[6] = false; // Sunday

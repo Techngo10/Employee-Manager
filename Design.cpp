@@ -2,7 +2,7 @@
 #include "Employee.h"
 
 //Initialisation
-Design::Design() : Employee(), position("none"), design_finished(""), design_current("none") {}
+Design::Design() : Employee(), position("none"), design_finished("none"), design_current("none") {}
 Design::Design(float salary_hourly, float hours_weekly, std::string date_joined, int age, int phone, std::string name, std::string address, std::string position, std::string design_finished, std::string design_current) 
 : Employee(salary_hourly, hours_weekly, date_joined, age, phone, name, address), position(position), design_finished(design_finished), design_current(design_current) {}
 

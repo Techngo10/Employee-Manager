@@ -3,7 +3,7 @@
 
 //Initialisation
 Location::Location() {
-    address = "";
+    address = "none";
     people = new Person*[0];    //Creats an array with 0 size as people will be added with a function
     curr_size = 0;
 };
