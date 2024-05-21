@@ -23,7 +23,7 @@
  
 int main(){
 
-    //system("clear");
+    system("clear");
     std::cout << "        BBBBBBq  BBBBBBE    BBBBBBBQ     BBQBi  BQBB     BBBBQBBi     iBBBBBBBBi    BQBQBBBBb\n"
                  "        BBQBBBB  BBBBBBP    QBBBBBBB     BBBBB  BBBB    iBBBQBBB2    rQBBBQQBBBBi   BBBBQBQBZ\n"
                  "        BBBBBBB iBBBBBB5    BBBBBQBB     QBBBB  BBBQ    IBBBBBBBB    BBBBB  BQBBB   BBBBBrrLi\n"
@@ -48,7 +48,7 @@ int main(){
     }
 
     if (input == "e"){
-        //system("clear");
+        system("clear");
         std::cout << "Program shutting down.\n";
         return 0;
     }
@@ -98,15 +98,19 @@ int main(){
         
         std::cout << "File succesfully loaded\n";
 
-        std::cout << "Enter (help) for more commands or enter command:";
-        std::cin >> input;
         /////////////////////////////////////////////////
         std::string username;
-        cout << "enter your name: " << std::endl;
-        cin >> username;
-        std::string  password;
-        cout << "enter your password: " << std::endl;
-        cin >> password;
+        std::cout << "Enter your name: ";
+        std::getline(std::cin, username);
+
+        std::cin.ignore(); // Clear the newline character left in the input buffer
+
+        std::string password;
+        std::cout << "Enter your password: ";
+        std::getline(std::cin, password);
+
+        std::cin.ignore(); // Clear the newline character left in the input buffer
+
         if(Access(&location, username, password) == 0){
             std::cout << "Sorry, you can't access. Only manager can log in.\n";
             for(int j = 5 ; j > 0 ; j--){
@@ -123,44 +127,28 @@ int main(){
             }
         } else{
             std::cout <<"Welcome back!\n";
-            //break;
+
+            std::string n_input = "";
+
+            while(n_input != "e"){
+                std::getline(std::cin, n_input);
+                runCommand(&location, n_input);
+            }
         }
         ///////////////////////////////////////////////
     }
 
     if (input == "n"){
+        std::string n_input = "";
         std::cout << "Create a new Location."<< std :: endl;
         Location location;
 
-        int managerAge = 0; int managerPhone = 0; float managerSalary = 0; float managerHours = 0;
-        std::string manager_dateJoined = "none";  std::string managerPosition = "none";
-        std::string managerName = "none"; std::string managerAddress = "none";
-        std::string managerPassword = "none";
-        
-        std::cout << "Enter Manager's name: "; std::cin >> managerName;
-        std::cout << "Enter Manager's age: "; std::cin >> managerAge;
-        std::cout << "Enter Manager's phone: "; std::cin >> managerPhone;
-        std::cout << "Enter Manager's salary hourly: "; std::cin >> managerSalary;
-        std::cout << "Enter Manager's working hours: "; std::cin >> managerHours;
-        std::cout << "Enter Manager's date joined: "; std::cin >> manager_dateJoined;
-        std::cout << "Enter Manager's address: "; std::cin >> managerAddress;
-        std::cout << "Enter Manager's password: "; std::cin >> managerPassword;
-        std::cout << "Enter Manager's position: "; std::cin >> managerPosition;
- 
-        Manager *manager = new Manager(managerSalary, managerHours, manager_dateJoined, managerAge, managerPhone, managerName, managerAddress, managerPassword, managerPosition);
-        location.addPerson(manager);
+        runCommand(&location, "add Manager");
 
-
-        runCommand(&location, "set password Kurt");
-
-        // std::string newFileName;
-        // std::cout << "Enter the new filename: ";
-        // std::cin >> newFileName;
-
-        // Save(&location, newFileName);
-
-        std::cout << "New location created and saved successfully.\n";
-
+        while(n_input != "e"){
+            std::getline(std::cin, n_input);
+            runCommand(&location, n_input);
+        }
         
     }   
     

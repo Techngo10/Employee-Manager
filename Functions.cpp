@@ -122,8 +122,29 @@ float toFloat(const std::string& input) {
 //This function will interprate a string and use it 
 void runCommand(Location *location, std::string command) {
     std::vector<std::string> parts = splitString(command);
-
-    if (parts[0] == "get"){
+    if (command == "save"){
+        std::string fileName;
+        std::cout << "Enter the name of your save file (make sure to include .txt)";
+        std::cin >> fileName;
+        Save(location, fileName);
+    
+    } else if (command == "help"){
+        std::cout << "\nThere are 5 types of commands; get, set, rm, add and save.\n\n";
+        std::cout << "save - save your progress so you can load it later.\n\n";
+        std::cout << "get info: name - is the main command to get all the information based on the input name.\n\n";
+        std::cout << "set: variable: name - is the base command for setting data for a variable based on someone's name.\n";
+        std::cout << "variable: age, phonenumber, address, id, hourlysalary, weeklyhours, attendance, datejoined, performance,\n" 
+        "position, banknumber, bank, spendings, purchasehistory, notes, finisheddesigns, currentdesigns, turnover, profit,\n"
+        "budget, expense, trained, hired, fired, retired, investment, password, certification, carscomplete, success,\n" 
+        "finishedresearch, currentresearch, expertise, conversion, sold, revenue, languages, finishedprojects, currentprojects,\n" 
+        "cargoamount, annualcost, cargo, referrals\n\n";
+        std::cout << "rm: name - is the command used to remove a person based on their name.\n\n";
+        std::cout << "add: class: name - is the command to add a class with a new person name.\n";
+        std::cout << "class: Customer, Design, Finances, HumanResources, Investor, Manager, Manufacturing, ResearchDev, Sales,\n"
+        "Software, Supplier, VIP\n\n";
+        std::cout << "save - is the function to save your data into a file which can be loaded back in.\n\n";
+    
+    } else if (parts[0] == "get"){
         if (parts[1] == "info"){
             std::string role;
             int index; 
@@ -413,7 +434,7 @@ void runCommand(Location *location, std::string command) {
         if (parts[1] == "address"){
             std::string address;
             std::cout << "Enter address: ";
-            std::cin >> address;
+            std::getline(std::cin, address);
             location->people[index]->set_address(address);
             std::cout << "address was set successfully.\n";
         }
@@ -484,7 +505,7 @@ void runCommand(Location *location, std::string command) {
         if (parts[1] == "datejoined"){
             std::string dj;
             std::cout << "Enter Date Joined: ";
-            std::cin >> dj;
+            std::getline(std::cin, dj);
             location->people[index]->set_date_joined(dj);
             std::cout << "Date joined was set successfully.\n";
         }
@@ -503,7 +524,7 @@ void runCommand(Location *location, std::string command) {
         if (parts[1] == "position"){
             std::string position;
             std::cout << "Enter the employee's position: ";
-            std::cin >> position;
+            std::getline(std::cin, position);
             location->people[index]->set_position(position);
             std::cout << "Position was set successfully.\n";
         }
@@ -525,7 +546,7 @@ void runCommand(Location *location, std::string command) {
         if (parts[1] == "bank"){
             std::string bank;
             std::cout << "Enter the customer's bank: ";
-            std::cin >> bank;
+            std::getline(std::cin, bank);
             location->people[index]->set_bank(bank);
             std::cout << "Customer's bank was set successfully.\n";
         }
@@ -548,28 +569,28 @@ void runCommand(Location *location, std::string command) {
         if (parts[1] == "purchasehistory"){
             std::string p_history;
             std::cout << "Enter the Purchase History: ";
-            std::cin >> p_history;
+            std::getline(std::cin, p_history);
             location->people[index]->set_purchase_history(p_history);
             std::cout << "Purchase History was set successfully.\n";
         }
         if (parts[1] == "notes"){
             std::string notes;
             std::cout << "Enter the notes about customer: ";
-            std::cin >> notes;
+            std::getline(std::cin, notes);
             location->people[index]->set_notes(notes);
             std::cout << "Customer Notes was set successfully.\n";
         }
         if (parts[1] == "finisheddesigns"){
             std::string fin_des;
             std::cout << "Enter the Finished Designs: ";
-            std::cin >> fin_des;
+            std::getline(std::cin, fin_des);
             location->people[index]->set_finished(fin_des);
             std::cout << "Finished Designs was set successfully.\n";
         }
         if (parts[1] == "currentdesigns"){
             std::string cur_des;
             std::cout << "Enter the Current Designs: ";
-            std::cin >> cur_des;
+            std::getline(std::cin, cur_des);
             location->people[index]->set_design_current(cur_des);
             std::cout << "Current Designs was set successfully.\n";
         }
@@ -725,7 +746,7 @@ void runCommand(Location *location, std::string command) {
         if (parts[1] == "certification"){
             std::string Certification;
             std::cout << "Enter the Employee's certification: ";
-            std::cin >> Certification;
+            std::getline(std::cin, Certification);
             location->people[index]->set_certification(Certification);
             std::cout << "Certification was set successfully.\n";
         }
@@ -762,21 +783,21 @@ void runCommand(Location *location, std::string command) {
         if (parts[1] == "finishedresearch"){
             std::string fin_res;
             std::cout << "Enter Finished research: ";
-            std::cin >> fin_res;
+            std::getline(std::cin, fin_res);
             location->people[index]->set_finished(fin_res);
             std::cout << "Finished research was set successfully.\n";
         }
         if (parts[1] == "currentresearch"){
             std::string cur_res;
             std::cout << "Enter Employee's current research: ";
-            std::cin >> cur_res;
+            std::getline(std::cin, cur_res);
             location->people[index]->set_research(cur_res);
             std::cout << "Current research was set successfully.\n";
         }
         if (parts[1] == "expertise"){
             std::string Expertise;
             std::cout << "Enter the Employee's expertise: ";
-            std::cin >> Expertise;
+            std::getline(std::cin, Expertise);
             location->people[index]->set_expertise(Expertise);
             std::cout << "Expertise was set successfully.\n";
         }
@@ -828,21 +849,21 @@ void runCommand(Location *location, std::string command) {
         if (parts[1] == "languages"){
             std::string languages;
             std::cout << "Enter the Employee's languages: ";
-            std::cin >> languages;
+            std::getline(std::cin, languages);
             location->people[index]->set_language(languages);
             std::cout << "Languages was set successfully.\n";
         }
         if (parts[1] == "finishedprojects"){
             std::string fin_proj;
             std::cout << "Enter the Employee's Finished projects: ";
-            std::cin >> fin_proj;
+            std::getline(std::cin, fin_proj);
             location->people[index]->set_finished(fin_proj);
             std::cout << "Finished projects was set successfully.\n";
         }
         if (parts[1] == "currentprojects"){
             std::string cur_proj;
             std::cout << "Enter the Employee's Current projects: ";
-            std::cin >> cur_proj;
+            std::getline(std::cin, cur_proj);
             location->people[index]->set_projects_current(cur_proj);
             std::cout << "Current projects was set successfully.\n";
         }
@@ -879,7 +900,7 @@ void runCommand(Location *location, std::string command) {
         if (parts[1] == "cargo"){
             std::string cargo;
             std::cout << "Enter the cargo name: ";
-            std::cin >> cargo;
+            std::getline(std::cin, cargo);
             location->people[index]->set_cargo(cargo);
             std::cout << "Cargo name(s) was set successfully.\n";
         }
@@ -988,7 +1009,7 @@ void runCommand(Location *location, std::string command) {
             
             std::cout << "Please enter Design salary hourly: ";
             std::cin >> input;
-            age = toFloat(input);
+            salary_hourly = toFloat(input);
 
             std::cout << "Please enter Design hours weekly: ";
             std::cin >> input;
@@ -1048,7 +1069,7 @@ void runCommand(Location *location, std::string command) {
 
             std::cout << "Please enter Finances salary hourly: ";
             std::cin >> input;
-            age = toFloat(input);
+            salary_hourly = toFloat(input);
 
             std::cout << "Please enter Finances hours weekly: ";
             std::cin >> input;
@@ -1116,7 +1137,7 @@ void runCommand(Location *location, std::string command) {
             
             std::cout << "Please enter HumanResources salary hourly: ";
             std::cin >> input;
-            age = toFloat(input);
+            salary_hourly = toFloat(input);
 
             std::cout << "Please enter HumanResources hours weekly: ";
             std::cin >> input;
@@ -1148,13 +1169,29 @@ void runCommand(Location *location, std::string command) {
             std::getline(std::cin, position);
             if (position.empty()) {position = "none";}
 
+            std::cout << "Please enter HumanResources number of trained: ";
+            std::cin >> input;
+            no_trained = toInt(input);
+
+            std::cout << "Please enter HumanResources number of hired: ";
+            std::cin >> input;
+            no_hired = toInt(input);
+
+            std::cout << "Please enter HumanResources number of fired: ";
+            std::cin >> input;
+            no_fired = toInt(input);
+
+            std::cout << "Please enter HumanResources number of retired: ";
+            std::cin >> input;
+            no_retired = toInt(input);
+
             HumanResources* humanResources = new HumanResources(salary_hourly, hours_weekly, date_joined, age, phone, name, address, position);
             
             humanResources->set_trained(no_trained);
             humanResources->set_hired(no_hired);
             humanResources->set_fired(no_fired);
             humanResources->set_retired(no_retired);
-             location->addPerson(humanResources);
+            location->addPerson(humanResources);
             
         } else if (parts[1] == "Investor"){
             std::string input;
@@ -1204,7 +1241,7 @@ void runCommand(Location *location, std::string command) {
 
             std::cout << "Please enter Manager salary hourly: ";
             std::cin >> input;
-            age = toFloat(input);
+            salary_hourly = toFloat(input);
 
             std::cout << "Please enter Manager hours weekly: ";
             std::cin >> input;
@@ -1220,7 +1257,7 @@ void runCommand(Location *location, std::string command) {
 
             std::cin.ignore(); // Clear the newline character left in the input buffer
             
-             std::cout << "Please enter Manager joined date: ";
+            std::cout << "Please enter Manager joined date: ";
             std::getline(std::cin, date_joined);
             if (date_joined.empty()) {date_joined = "none";}
             
@@ -1260,7 +1297,7 @@ void runCommand(Location *location, std::string command) {
             
             std::cout << "Please enter Manufacturing salary hourly: ";
             std::cin >> input;
-            age = toFloat(input);
+            salary_hourly = toFloat(input);
 
             std::cout << "Please enter Manufacturing hours weekly: ";
             std::cin >> input;
@@ -1316,7 +1353,7 @@ void runCommand(Location *location, std::string command) {
             
             std::cout << "Please enter Marketing salary hourly: ";
             std::cin >> input;
-            age = toFloat(input);
+            salary_hourly = toFloat(input);
 
             std::cout << "Please enter Marketing hours weekly: ";
             std::cin >> input;
@@ -1374,7 +1411,7 @@ void runCommand(Location *location, std::string command) {
             
             std::cout << "Please enter ResearchDev salary hourly: ";
             std::cin >> input;
-            age = toFloat(input);
+            salary_hourly = toFloat(input);
 
             std::cout << "Please enter ResearchDev hours weekly: ";
             std::cin >> input;
@@ -1437,7 +1474,7 @@ void runCommand(Location *location, std::string command) {
             
             std::cout << "Please enter Sales salary hourly: ";
             std::cin >> input;
-            age = toFloat(input);
+            salary_hourly = toFloat(input);
 
             std::cout << "Please enter Sales hours weekly: ";
             std::cin >> input;
@@ -1503,7 +1540,7 @@ void runCommand(Location *location, std::string command) {
             
             std::cout << "Please enter their Software hourly: ";
             std::cin >> input;
-            age = toFloat(input);
+            salary_hourly = toFloat(input);
 
             std::cout << "Please enter Software hours weekly: ";
             std::cin >> input;
