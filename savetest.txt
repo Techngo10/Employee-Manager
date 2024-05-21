@@ -8,11 +8,11 @@ counter: 12
 0software_address: city
 0software_positions: Top Programmer
 0software_languages: none
-0software_projects_finished: 
+0software_projects_finished: none
 0software_projects_current: none
 0software_ID : 0
 0software_salary_hourly: 20
-0software-hours_weekly: 40
+0software_hours_weekly: 40
 0software_attendance0: 1
 0software_attendance1: 1
 0software_attendance2: 1
@@ -29,11 +29,11 @@ counter: 12
 1software_address: city
 1software_positions: Top Programmer
 1software_languages: none
-1software_projects_finished: 
+1software_projects_finished: none
 1software_projects_current: none
 1software_ID : 1
 1software_salary_hourly: 2
-1software-hours_weekly: 40
+1software_hours_weekly: 40
 1software_attendance0: 1
 1software_attendance1: 1
 1software_attendance2: 1
@@ -50,11 +50,11 @@ counter: 12
 2software_address: city
 2software_positions: Top Programmer
 2software_languages: none
-2software_projects_finished: 
+2software_projects_finished: none
 2software_projects_current: none
 2software_ID : 2
 2software_salary_hourly: 20
-2software-hours_weekly: 40
+2software_hours_weekly: 40
 2software_attendance0: 1
 2software_attendance1: 1
 2software_attendance2: 1
@@ -75,7 +75,7 @@ counter: 12
 3software_projects_current: computer science
 3software_ID : 3
 3software_salary_hourly: 20
-3software-hours_weekly: 40
+3software_hours_weekly: 40
 3software_attendance0: 1
 3software_attendance1: 1
 3software_attendance2: 1
@@ -170,8 +170,8 @@ counter: 12
 7manufacturing_cars_complete: 109
 8type: humanResources
 8humanResources_age: 20
-8humanResources_phone: 234432
 8humanResources_name: Copper
+8humanResources_phone: 234432
 8humanResources_address: Germany
 8humanResources_ID: 8
 8humanResources_salary_hourly: 31
@@ -247,17 +247,16 @@ counter: 12
 11manager_attendance6: 0
 11manager_date_joined: 2nd Feb
 11manager_performance: 5
-11manager_password: 123
 11manager_position: General Manager
+11manager_password: 123
 12type: supplier
 12supplier_age: 22
-12supplier_ phone_number: 12345
+12supplier_phone: 12345
 12supplier_name: Bob Peter
 12supplier_address: West Terrace
 12supplier_amount_cargo: 2
 12supplier_cost_annually: 120000
 12supplier_cargo: cargos1
-12supplier_amount_of_cargo: 2
 13type: customer
 13customer_age: 10
 13customer_phone: 1

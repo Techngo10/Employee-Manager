@@ -174,7 +174,8 @@ std::cout <<location.people[9]->get_expertise()<< std::endl;
 
   Load(&location3, "savetest.txt");
 
-  cout << "test\n";
+
+  //cout << location3.people[1]->get_age() << endl;
 
   //cout << location3.people[0]->get_age() << endl;
 

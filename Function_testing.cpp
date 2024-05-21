@@ -54,12 +54,16 @@ void Load(Location* location, const std::string& file) {
                 std::getline(saveFile, line); software->set_ID(std::stoi(line.substr(line.find(": ") + 2)));
                 std::getline(saveFile, line); software->set_salary_hourly(std::stoi(line.substr(line.find(": ") + 2)));
                 std::getline(saveFile, line); software->set_hours_weekly(std::stoi(line.substr(line.find(": ") + 2)));
-                std::getline(saveFile, line);
-                for (int j = 0; j < 7; j++) {
-                    if (line.find(std::to_string(i) + "software_attendance" + std::to_string(j)) != std::string::npos) {
-                        software->set_attendance(std::stoi(line.substr(line.find(": ") + 2)), j);
-                    }
+                for (int j = 0; j < 7; j++){
+                    std::getline(saveFile, line);
+                    software->set_attendance(std::stoi(line.substr(line.find(": ") + 2)), j);
                 }
+                // std::getline(saveFile, line);
+                // for (int j = 0; j < 7; j++) {
+                //     if (line.find(std::to_string(i) + "software_attendance" + std::to_string(j)) != std::string::npos) {
+                //         software->set_attendance(std::stoi(line.substr(line.find(": ") + 2)), j);
+                //     }
+                // }
                 std::getline(saveFile, line); software->set_date_joined(line.substr(line.find(": ") + 2));
                 std::getline(saveFile, line); software->set_performance(std::stoi(line.substr(line.find(": ") + 2)));
                 std::getline(saveFile, line); software->set_position(line.substr(line.find(": ") + 2));

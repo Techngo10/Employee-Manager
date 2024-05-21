@@ -28,7 +28,7 @@ int main() {
     location.people[1]->set_projects_current("web development");
 
     // Save data to a file
-    Save(&location, "savetest.txt");
+    //Save(&location, "savetest.txt");
 
     // Load data from the file
     Location loadedLocation;

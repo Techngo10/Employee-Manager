@@ -102,6 +102,14 @@ vip:
 	$(CXX) $(CXXFLAGS) -o vip VIP_test.cpp Customer.cpp Person.cpp VIP.cpp
 	./vip
 
+
+.PHONY: main
+
+main:
+	$(CXX) $(CXXFLAGS) -o main EmployeeManager.cpp Functions.cpp Employee.cpp Person.cpp Customer.cpp Design.cpp Finances.cpp HumanResources.cpp Investor.cpp Manager.cpp Manufacturing.cpp Marketing.cpp ResearchDev.cpp Sales.cpp Software.cpp Supplier.cpp VIP.cpp Location.cpp
+	./main
+
+	
 # Clean rule
 
 .PHONY: clean

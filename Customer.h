@@ -33,6 +33,7 @@ class Customer : public Person {
         void set_purchase_history(std::string history);
         void set_spendings(int spendings);
         void set_notes(std::string new_note);
+        void set_clientId(int clientId);
 
 };
 

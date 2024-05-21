@@ -67,6 +67,7 @@ void Person::set_purchase_history(string history){(void)history;};
 void Person::set_spendings(int spendings) {(void)spendings;};
 int Person::get_spendings() {return 0;};
 int Person::get_clientId() {return 0;};
+void Person::set_clientId(int clientId) {(void)clientId;};
 
 string Person::get_notes() {return "none";};
 void Person::set_notes(string new_note) {(void)new_note;};

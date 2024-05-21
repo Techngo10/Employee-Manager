@@ -21,3 +21,4 @@ void Customer::set_bank(std::string BANK){bank = BANK;};
 void Customer::set_notes(std::string new_note){notes = new_note;};
 void Customer::set_spendings(int spendings){this->spendings = spendings;};
 void Customer::set_purchase_history(std::string history){purchase_history = history;};
+void Customer::set_clientId(int clientId) {this->clientId = clientId;};

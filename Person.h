@@ -70,6 +70,7 @@ public:
   virtual int get_spendings();
   virtual void set_spendings(int spendings);
   virtual int get_clientId();
+  virtual void set_clientId(int clientId);
 
   virtual string get_notes();
   virtual void set_notes(string new_note);

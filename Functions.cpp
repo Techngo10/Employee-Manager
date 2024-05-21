@@ -24,7 +24,7 @@
 #include "VIP.h"
 
 // Password checking function
-bool Access(Location *location, std::string& perms, std::string username, std::string password){
+bool Access(Location *location, std::string username, std::string password){
     int index = -1;                                                 // Sets index at -1 to setup for the no found clause
     for (int i = 0; i < location->get_curr_size(); i ++){           // Searches all the names in location to find the index
         if (location->people[i]->get_name() == username){
@@ -41,7 +41,6 @@ bool Access(Location *location, std::string& perms, std::string username, std::s
     if (location->people[index]->get_password() == password){       // Checking if the password matches
 
         if (strcmp(typeid(*location->people[index]).name(), "7Manager") == 0){ // In GCC compiling this works as typeid will show 7 representing the characters in the class then the class name
-            perms = "Manager";                                      // A permission level is returned for later use
             std::cout << "Access granted." << std::endl;
             return true;
         }
@@ -49,6 +48,48 @@ bool Access(Location *location, std::string& perms, std::string username, std::s
 
     std::cout << "Username or password is incorrect. " << std::endl; // If no other check it hit then the username must not match the password
     return false;
+
+}
+
+//Since we only have c++11 we need to create the fileexists function
+bool fileExists(const std::string& filename) {
+    std::ifstream file(filename);
+    return file.good();
+}
+
+//Splits the string into 3 parts to setup for file reading
+std::vector<std::string> splitString(const std::string& input) {
+    std::vector<std::string> parts;
+    std::istringstream iss(input);
+    std::string part;
+
+    // Split the string based on space delimiter
+    while (std::getline(iss, part, ' ')) {
+        parts.push_back(part);
+    }
+
+    // If there are less than 3 parts, fill the remaining with empty strings
+    while (parts.size() < 3) {
+        parts.push_back("");
+    }
+
+    return parts;
+}
+
+//This function will interprate a string and use it 
+void runCommand(std::string command) {
+    std::vector<std::string> parts = splitString(command);
+
+    if (parts[0] == "get"){
+
+    } else if (parts[0] == "set"){
+
+    } else if (parts[0] == "rm"){
+
+    } else if (parts[0] == "add"){
+        
+    }
+
 
 }
 
@@ -127,8 +168,8 @@ void Save(Location *location, std::string file){
             } else if (strcmp(typeid(*location->people[i]).name(), "14HumanResources") == 0){
                 saveFile << i << "type: humanResources\n";
                 saveFile << i << "humanResources_age: " << location->people[i]->get_age() << "\n";
-                saveFile << i << "humanResources_phone: " << location->people[i]->get_phone() << "\n";
                 saveFile << i << "humanResources_name: " << location->people[i]->get_name() << "\n";
+                saveFile << i << "humanResources_phone: " << location->people[i]->get_phone() << "\n";
                 saveFile << i << "humanResources_address: " << location->people[i]->get_address() << "\n";
                 
                 saveFile << i << "humanResources_ID: " << location->people[i]->get_ID() << "\n";
@@ -180,8 +221,8 @@ void Save(Location *location, std::string file){
                 saveFile << i << "manager_date_joined: " << location->people[i]->get_date_joined() << "\n";
                 saveFile << i << "manager_performance: " << location->people[i]->get_performance() << "\n";
     
-                saveFile << i << "manager_password: " << location->people[i]->get_password() << "\n";
                 saveFile << i << "manager_position: " << location->people[i]->get_position() << "\n";
+                saveFile << i << "manager_password: " << location->people[i]->get_password() << "\n";
                 
             } else if (strcmp(typeid(*location->people[i]).name(), "13Manufacturing") == 0){
                 saveFile << i << "type: manufacturing\n";
@@ -279,7 +320,7 @@ void Save(Location *location, std::string file){
 
                 saveFile << i << "software_ID : " << location->people[i]->get_ID() << "\n";
                 saveFile << i << "software_salary_hourly: " << location->people[i]->get_salary_hourly() << "\n";
-                saveFile << i << "software-hours_weekly: " << location->people[i]->get_hours_weekly() << "\n";
+                saveFile << i << "software_hours_weekly: " << location->people[i]->get_hours_weekly() << "\n";
                 for (int j = 0; j < 7; j++){
                     saveFile << i << "software_attendance" << j << ": " << location->people[i]->get_attendance(j) << "\n";
                 }
@@ -290,15 +331,13 @@ void Save(Location *location, std::string file){
             } else if (strcmp(typeid(*location->people[i]).name(), "8Supplier") == 0){
                 saveFile << i << "type: supplier\n";
                 saveFile << i << "supplier_age: " << location->people[i]->get_age() << "\n";
-                saveFile << i << "supplier_ phone_number: " << location->people[i]->get_phone() << "\n";
+                saveFile << i << "supplier_phone: " << location->people[i]->get_phone() << "\n";
                 saveFile << i << "supplier_name: " << location->people[i]->get_name() << "\n";
                 saveFile << i << "supplier_address: " << location->people[i]->get_address() << "\n";
                 
                 saveFile << i << "supplier_amount_cargo: " << location->people[i]->get_amount_of_cargo() << "\n";
                 saveFile << i << "supplier_cost_annually: " << location->people[i]->get_cost_annually() << "\n";
                 saveFile << i << "supplier_cargo: " << location->people[i]->get_cargo() << "\n";
-                saveFile << i << "supplier_amount_of_cargo: " << location->people[i]->get_amount_of_cargo() << "\n";
-                
             
             } else if (strcmp(typeid(*location->people[i]).name(), "3VIP") == 0){
                 saveFile << i << "type: VIP\n";
@@ -323,12 +362,12 @@ void Save(Location *location, std::string file){
 }
 
 //Load data
-void Load(Location *location, std::string file){
+bool Load(Location *location, std::string file){
     std::ifstream saveFile(file);
     std::string line;
 
     if (saveFile.is_open()){
-        std::cout << "Check1" << endl;
+
         std::string address;
         int curr_size;
         int counter;
@@ -341,467 +380,679 @@ void Load(Location *location, std::string file){
         curr_size = std::stoi(line.substr(line.find(": ") + 2));
 
         std::getline(saveFile, line);
-        curr_size = std::stoi(line.substr(line.find(": ") + 2));
+        counter = std::stoi(line.substr(line.find(": ") + 2));
 
         for (int i = 0; i < curr_size; i ++){
+
             std::getline(saveFile, line);
             std::string type = line.substr(line.find("type: ") + 6);
             //cout << line.substr(line.find("type: ") + 6) << endl;
 
             if (type == "customer"){
                 Customer *customer = new Customer();
-                for (int k = 0; k < 10; k++) {
-                    std::getline(saveFile, line);
-                    std::string value = line.substr(line.find(": ") + 2);
+                    try{
+                        std::getline(saveFile, line); //std::cout << "Reading line for age: " << line << std::endl;
+                        customer->set_age(std::stoi(line.substr(line.find(": ") + 2)));
 
-                    if (line.find(std::to_string(i) + "customer_age") != std::string::npos){
-                        customer->set_age(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "customer_phone") != std::string::npos){
-                        customer->set_phone(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "customer_name") != std::string::npos){
-                        customer->set_name(value);
-                    } else if (line.find(std::to_string(i) + "customer_address") != std::string::npos){
-                        customer->set_address(value);
-                    } else if (line.find(std::to_string(i) + "customer_bank_number") != std::string::npos){
-                        customer->set_bankAccount(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "customer_spendings") != std::string::npos){
-                        customer->set_spendings(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "customer_clientId") != std::string::npos){
-                        customer->set_ID(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "customer_bank") != std::string::npos){
-                        customer->set_bank(value);
-                    } else if (line.find(std::to_string(i) + "customer_purchase_history") != std::string::npos){
-                        customer->set_purchase_history(value);
-                    } else if (line.find(std::to_string(i) + "customer_notes") != std::string::npos){
-                        customer->set_notes(value);
-                    } 
-                }
+                        std::getline(saveFile, line); //std::cout << "Reading line for phone: " << line << std::endl;
+                        customer->set_phone(std::stoi(line.substr(line.find(": ") + 2)));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for name: " << line << std::endl;
+                        customer->set_name(line.substr(line.find(": ") + 2));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for address: " << line << std::endl;
+                        customer->set_address(line.substr(line.find(": ") + 2));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for bank_number: " << line << std::endl;
+                        customer->set_bankAccount(std::stoi(line.substr(line.find(": ") + 2)));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for spendings: " << line << std::endl;
+                        customer->set_spendings(std::stoi(line.substr(line.find(": ") + 2)));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for clientId: " << line << std::endl;
+                        customer->set_ID(std::stoi(line.substr(line.find(": ") + 2)));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for bank: " << line << std::endl;
+                        customer->set_bank(line.substr(line.find(": ") + 2));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for purchase_history: " << line << std::endl;
+                        customer->set_purchase_history(line.substr(line.find(": ") + 2));
+                        
+                        std::getline(saveFile, line); //std::cout << "Reading line for notes: " << line << std::endl;
+                        customer->set_notes(line.substr(line.find(": ") + 2));
+                    
+                    } catch (const std::invalid_argument& e) {
+                        std::cerr << "Invalid argument: " << e.what() << " - Line content: " << line << std::endl;
+                        return false;
+                    } catch (const std::out_of_range& e) {
+                        std::cerr << "Out of range: " << e.what() << " - Line content: " << line << std::endl;
+                        return false;
+                    }
+                    
                 location->addPerson(customer);
                 
             } else if (type == "design") {
                 Design *design = new Design();
-                for (int k = 0; k < 13; k++) {
-                    std::getline(saveFile, line);
-                    std::string value = line.substr(line.find(": ") + 2);
+                    try{
+                        std::getline(saveFile, line); ////std::cout << "Reading line for age: " << line << std::endl;
+                        design->set_age(std::stoi(line.substr(line.find(": ") + 2)));
 
-                    if (line.find(std::to_string(i) + "design_age") != std::string::npos){
-                        design->set_age(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "design_phone") != std::string::npos){
-                        design->set_phone(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "design_name") != std::string::npos){
-                        design->set_name(value);
-                    } else if (line.find(std::to_string(i) + "design_address") != std::string::npos){
-                        design->set_address(value);
-                    } else if (line.find(std::to_string(i) + "design_ID") != std::string::npos){
-                        design->set_ID(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "design_salary_hourly") != std::string::npos){
-                        design->set_salary_hourly(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "design_hours_weekly") != std::string::npos){
-                        design->set_hours_weekly(std::stoi(value));
-                    } for (int j = 0; j < 7; j++){
-                        if (line.find(std::to_string(i) + "design_attendance" + std::to_string(j)) != std::string::npos){
-                                design->set_attendance(std::stoi(value), j);
-                            }
-                    } if (line.find(std::to_string(i) + "design_date_joined") != std::string::npos){
-                        design->set_date_joined(value);
-                    } else if (line.find(std::to_string(i) + "performance") != std::string::npos){
-                        design->set_performance(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "design_position") != std::string::npos){
-                        design->set_position(value);
-                    } else if (line.find(std::to_string(i) + "design_finsihed") != std::string::npos){
-                        design->set_finished(value);
-                    } else if (line.find(std::to_string(i) + "design_current") != std::string::npos){
-                        design->set_design_current(value);
+                        std::getline(saveFile, line); //std::cout << "Reading line for phone: " << line << std::endl;
+                        design->set_phone(std::stoi(line.substr(line.find(": ") + 2)));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for name: " << line << std::endl;
+                        design->set_name(line.substr(line.find(": ") + 2));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for address: " << line << std::endl;
+                        design->set_address(line.substr(line.find(": ") + 2));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for ID: " << line << std::endl;
+                        design->set_ID(std::stoi(line.substr(line.find(": ") + 2)));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for salary_hourly: " << line << std::endl;
+                        design->set_salary_hourly(std::stoi(line.substr(line.find(": ") + 2)));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for hours_weekly: " << line << std::endl;
+                        design->set_hours_weekly(std::stoi(line.substr(line.find(": ") + 2)));
+
+                        for (int j = 0; j < 7; j++) {
+                            std::getline(saveFile, line); //std::cout << "Reading line for attendance " << j << ": " << line << std::endl;
+                            design->set_attendance(std::stoi(line.substr(line.find(": ") + 2)), j);
+                        }
+                        
+                        std::getline(saveFile, line); //std::cout << "Reading line for date_joined: " << line << std::endl;
+                        design->set_date_joined(line.substr(line.find(": ") + 2));
+                        
+                        std::getline(saveFile, line); //std::cout << "Reading line for performance: " << line << std::endl;
+                        design->set_performance(std::stoi(line.substr(line.find(": ") + 2)));
+                        
+                        std::getline(saveFile, line); //std::cout << "Reading line for position: " << line << std::endl;
+                        design->set_position(line.substr(line.find(": ") + 2));
+                        //
+                        std::getline(saveFile, line); //std::cout << "Reading line for finished: " << line << std::endl;
+                        design->set_finished(line.substr(line.find(": ") + 2));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for current: " << line << std::endl;
+                        design->set_design_current(line.substr(line.find(": ") + 2));
+                    } catch (const std::invalid_argument& e) {
+                        std::cerr << "Invalid argument: " << e.what() << " - Line content: " << line << std::endl;
+                        return false;
+                    } catch (const std::out_of_range& e) {
+                        std::cerr << "Out of range: " << e.what() << " - Line content: " << line << std::endl;
+                        return false;
                     }
-                }
                 location->addPerson(design);
                 
             } else if (type == "finances") {
                 Finances *finances = new Finances();
-                for (int k = 0; k < 15; k++) {
-                    std::getline(saveFile, line);
-                    std::string value = line.substr(line.find(": ") + 2);
+                    try{
+                        std::getline(saveFile, line); ////std::cout << "Reading line for age: " << line << std::endl;
+                        finances->set_age(std::stoi(line.substr(line.find(": ") + 2)));
 
-                    if (line.find(std::to_string(i) + "finances_age") != std::string::npos){
-                        finances->set_age(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "finances_phone") != std::string::npos){
-                        finances->set_phone(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "finances_name") != std::string::npos){
-                        finances->set_name(value);
-                    } else if (line.find(std::to_string(i) + "finances_address") != std::string::npos){
-                        finances->set_address(value);
-                    } else if (line.find(std::to_string(i) + "finances_ID") != std::string::npos){
-                        finances->set_ID(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "finances_salary_hourly") != std::string::npos){
-                        finances->set_salary_hourly(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "finances_hours_weekly") != std::string::npos){
-                        finances->set_hours_weekly(std::stoi(value));
-                    } for (int j = 0; j < 7; j++){
-                        if (line.find(std::to_string(i) + "finances_attendance" + std::to_string(j)) != std::string::npos){
-                                finances->set_attendance(std::stoi(value), j);
-                            }
-                    } if (line.find(std::to_string(i) + "finances_date_joined") != std::string::npos){
-                        finances->set_date_joined(value);
-                    } else if (line.find(std::to_string(i) + "finances_performance") != std::string::npos){
-                        finances->set_performance(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "finances_position") != std::string::npos){
-                        finances->set_position(value);
-                    } else if (line.find(std::to_string(i) + "finances_turnover") != std::string::npos){
-                        finances->set_turnover(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "finances_profit") != std::string::npos){
-                        finances->set_profit(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "finances_budget") != std::string::npos){
-                        finances->set_budget(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "finances_expense") != std::string::npos){
-                        finances->set_expense(std::stoi(value));
+                        std::getline(saveFile, line); //std::cout << "Reading line for phone: " << line << std::endl;
+                        finances->set_phone(std::stoi(line.substr(line.find(": ") + 2)));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for name: " << line << std::endl;
+                        finances->set_name(line.substr(line.find(": ") + 2));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for address: " << line << std::endl;
+                        finances->set_address(line.substr(line.find(": ") + 2));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for ID: " << line << std::endl;
+                        finances->set_ID(std::stoi(line.substr(line.find(": ") + 2)));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for salary_hourly: " << line << std::endl;
+                        finances->set_salary_hourly(std::stoi(line.substr(line.find(": ") + 2)));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for hours_weekly: " << line << std::endl;
+                        finances->set_hours_weekly(std::stoi(line.substr(line.find(": ") + 2)));
+
+                        for (int j = 0; j < 7; j++) {
+                            std::getline(saveFile, line); //std::cout << "Reading line for attendance " << j << ": " << line << std::endl;
+                            finances->set_attendance(std::stoi(line.substr(line.find(": ") + 2)), j);
+                        }
+                        
+                        std::getline(saveFile, line); //std::cout << "Reading line for date_joined: " << line << std::endl;
+                        finances->set_date_joined(line.substr(line.find(": ") + 2));
+                        
+                        std::getline(saveFile, line); //std::cout << "Reading line for performance: " << line << std::endl;
+                        finances->set_performance(std::stoi(line.substr(line.find(": ") + 2)));
+                        
+                        std::getline(saveFile, line); //std::cout << "Reading line for position: " << line << std::endl;
+                        finances->set_position(line.substr(line.find(": ") + 2));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for turnover: " << line << std::endl;
+                        finances->set_turnover(std::stoi(line.substr(line.find(": ") + 2)));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for position: " << line << std::endl;
+                        finances->set_profit(std::stoi(line.substr(line.find(": ") + 2)));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for position: " << line << std::endl;
+                        finances->set_budget(std::stoi(line.substr(line.find(": ") + 2)));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for position: " << line << std::endl;
+                        finances->set_expense(std::stoi(line.substr(line.find(": ") + 2)));
+                    } catch (const std::invalid_argument& e) {
+                        std::cerr << "Invalid argument: " << e.what() << " - Line content: " << line << std::endl;
+                        return false;
+                    } catch (const std::out_of_range& e) {
+                        std::cerr << "Out of range: " << e.what() << " - Line content: " << line << std::endl;
+                        return false;
                     }
-                }
-                location->addPerson(finances);
-            } else if (type == "humanresources") {
-                HumanResources *humanResources = new HumanResources();
-                for (int k = 0; k < 15; k++) {
-                    std::getline(saveFile, line);
-                    std::string value = line.substr(line.find(": ") + 2);
 
-                    if (line.find(std::to_string(i) + "humanResources_age") != std::string::npos){
-                        humanResources->set_age(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "humanResources_phone") != std::string::npos){
-                        humanResources->set_phone(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "humanResources_name") != std::string::npos){
-                        humanResources->set_name(value);
-                    } else if (line.find(std::to_string(i) + "humanResources_address") != std::string::npos){
-                        humanResources->set_address(value);
-                    } else if (line.find(std::to_string(i) + "humanResources_ID") != std::string::npos){
-                        humanResources->set_ID(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "humanResources_salary_hourly") != std::string::npos){
-                        humanResources->set_salary_hourly(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "humanResources_hours_weekly") != std::string::npos){
-                        humanResources->set_hours_weekly(std::stoi(value));
-                    } for (int j = 0; j < 7; j++){
-                        if (line.find(std::to_string(i) + "humanResources_attendance" + std::to_string(j)) != std::string::npos){
-                                humanResources->set_attendance(std::stoi(value), j);
-                            }
-                    } if (line.find(std::to_string(i) + "humanResources_date_joined") != std::string::npos){
-                        humanResources->set_date_joined(value);
-                    } else if (line.find(std::to_string(i) + "humanResources_performance") != std::string::npos){
-                        humanResources->set_performance(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "humanResources_position") != std::string::npos){
-                        humanResources->set_position(value);
-                    } else if (line.find(std::to_string(i) + "humanResources_no_trained") != std::string::npos){
-                        humanResources->set_trained(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "humanResources_no_hired") != std::string::npos){
-                        humanResources->set_hired(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "humanResources_no_fired") != std::string::npos){
-                        humanResources->set_fired(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "humanResources_no_retired") != std::string::npos){
-                        humanResources->set_retired(std::stoi(value));
-                    } 
-                }
+                location->addPerson(finances);
+            } else if (type == "humanResources") {
+                HumanResources *humanResources = new HumanResources();
+                    try{
+                        std::getline(saveFile, line); ////std::cout << "Reading line for age: " << line << std::endl;
+                        humanResources->set_age(std::stoi(line.substr(line.find(": ") + 2)));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for name: " << line << std::endl;
+                        humanResources->set_name(line.substr(line.find(": ") + 2));
+                        
+                        std::getline(saveFile, line); //std::cout << "Reading line for phone: " << line << std::endl;
+                        humanResources->set_phone(std::stoi(line.substr(line.find(": ") + 2)));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for address: " << line << std::endl;
+                        humanResources->set_address(line.substr(line.find(": ") + 2));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for ID: " << line << std::endl;
+                        humanResources->set_ID(std::stoi(line.substr(line.find(": ") + 2)));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for salary_hourly: " << line << std::endl;
+                        humanResources->set_salary_hourly(std::stoi(line.substr(line.find(": ") + 2)));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for hours_weekly: " << line << std::endl;
+                        humanResources->set_hours_weekly(std::stoi(line.substr(line.find(": ") + 2)));
+
+                        for (int j = 0; j < 7; j++) {
+                            std::getline(saveFile, line); //std::cout << "Reading line for attendance " << j << ": " << line << std::endl;
+                            humanResources->set_attendance(std::stoi(line.substr(line.find(": ") + 2)), j);
+                        }
+                        
+                        std::getline(saveFile, line); //std::cout << "Reading line for date_joined: " << line << std::endl;
+                        humanResources->set_date_joined(line.substr(line.find(": ") + 2));
+                        
+                        std::getline(saveFile, line); //std::cout << "Reading line for performance: " << line << std::endl;
+                        humanResources->set_performance(std::stoi(line.substr(line.find(": ") + 2)));
+                        
+                        std::getline(saveFile, line); //std::cout << "Reading line for position: " << line << std::endl;
+                        humanResources->set_position(line.substr(line.find(": ") + 2));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for trained: " << line << std::endl;
+                        humanResources->set_trained(std::stoi(line.substr(line.find(": ") + 2)));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for hired: " << line << std::endl;
+                        humanResources->set_hired(std::stoi(line.substr(line.find(": ") + 2)));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for fired: " << line << std::endl;
+                        humanResources->set_fired(std::stoi(line.substr(line.find(": ") + 2)));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for retired: " << line << std::endl;
+                        humanResources->set_retired(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    } catch (const std::invalid_argument& e) {
+                        std::cerr << "Invalid argument: " << e.what() << " - Line content: " << line << std::endl;
+                        return false;
+                    } catch (const std::out_of_range& e) {
+                        std::cerr << "Out of range: " << e.what() << " - Line content: " << line << std::endl;
+                        return false;
+                    }
                 location->addPerson(humanResources);
                 
             } else if (type == "investor") {
                 Investor *investor = new Investor();
-                    for (int k = 0; k < 6 ; k++) {
-                        std::getline(saveFile, line);
-                        std::string value = line.substr(line.find(": ") + 2);       
-                        if (line.find(std::to_string(i) + "investor_age") != std::string::npos){
-                            investor->set_age(std::stoi(value));
-                        } else if (line.find(std::to_string(i) + "investor_phone") != std::string::npos){
-                            investor->set_phone(std::stoi(value));
-                        } else if (line.find(std::to_string(i) + "investor_name") != std::string::npos){
-                            investor->set_name(value);
-                        } else if (line.find(std::to_string(i) + "investor_address") != std::string::npos){
-                            investor->set_address(value);
-                        } else if (line.find(std::to_string(i) + "investor_amount_of_investment") != std::string::npos){
-                            investor->set_amount_of_investment(std::stoi(value));
+                    try{ 
+                        std::getline(saveFile, line); ////std::cout << "Reading line for age: " << line << std::endl;
+                        investor->set_age(std::stoi(line.substr(line.find(": ") + 2)));
+                        
+                        std::getline(saveFile, line); //std::cout << "Reading line for name: " << line << std::endl;
+                        investor->set_name(line.substr(line.find(": ") + 2));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for phone: " << line << std::endl;
+                        investor->set_phone(std::stoi(line.substr(line.find(": ") + 2)));
+                        
+                        std::getline(saveFile, line); //std::cout << "Reading line for address: " << line << std::endl;
+                        investor->set_address(line.substr(line.find(": ") + 2));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for ID: " << line << std::endl;
+                        investor->set_ID(std::stoi(line.substr(line.find(": ") + 2)));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for salary_hourly: " << line << std::endl;
+                        investor->set_salary_hourly(std::stoi(line.substr(line.find(": ") + 2)));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for hours_weekly: " << line << std::endl;
+                        investor->set_hours_weekly(std::stoi(line.substr(line.find(": ") + 2)));
+
+                        for (int j = 0; j < 7; j++) {
+                            std::getline(saveFile, line); //std::cout << "Reading line for attendance " << j << ": " << line << std::endl;
+                            investor->set_attendance(std::stoi(line.substr(line.find(": ") + 2)), j);
                         }
+                        
+                        std::getline(saveFile, line); //std::cout << "Reading line for date_joined: " << line << std::endl;
+                        investor->set_date_joined(line.substr(line.find(": ") + 2));
+                        
+                        std::getline(saveFile, line); //std::cout << "Reading line for performance: " << line << std::endl;
+                        investor->set_performance(std::stoi(line.substr(line.find(": ") + 2)));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for amount_of_investment: " << line << std::endl;
+                        investor->set_amount_of_investment(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    } catch (const std::invalid_argument& e) {
+                        std::cerr << "Invalid argument: " << e.what() << " - Line content: " << line << std::endl;
+                        return false;
+                    } catch (const std::out_of_range& e) {
+                        std::cerr << "Out of range: " << e.what() << " - Line content: " << line << std::endl;
+                        return false;
                     }
-                    
+
                 location->addPerson(investor);
 
             } else if (type == "manager") {
                 Manager *manager = new Manager();
-                for (int k = 0; k < 13; k++) {
-                    std::getline(saveFile, line);
-                    std::string value = line.substr(line.find(": ") + 2);
+                    try{
+                        std::getline(saveFile, line); ////std::cout << "Reading line for age: " << line << std::endl;
+                        manager->set_age(std::stoi(line.substr(line.find(": ") + 2)));
 
-                    if (line.find(std::to_string(i) + "manager_age") != std::string::npos){
-                        manager->set_age(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "manager_phone") != std::string::npos){
-                        manager->set_phone(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "manager_name") != std::string::npos){
-                        manager->set_name(value);
-                    } else if (line.find(std::to_string(i) + "manager_address") != std::string::npos){
-                        manager->set_address(value);
-                    } else if (line.find(std::to_string(i) + "manager_ID") != std::string::npos){
-                        manager->set_ID(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "manager_salary_hourly") != std::string::npos){
-                        manager->set_salary_hourly(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "manager_hours_weekly") != std::string::npos){
-                        manager->set_hours_weekly(std::stoi(value));
-                    } for (int j = 0; j < 7; j++){
-                        if (line.find(std::to_string(i) + "manager_attendance" + std::to_string(j)) != std::string::npos){
-                                manager->set_attendance(std::stoi(value), j);
-                            }
-                    } if (line.find(std::to_string(i) + "manager_date_joined") != std::string::npos){
-                        manager->set_date_joined(value);
-                    } else if (line.find(std::to_string(i) + "manager_performance") != std::string::npos){
-                        manager->set_performance(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "manager_position") != std::string::npos){
-                        manager->set_position(value);
-                    } else if (line.find(std::to_string(i) + "manager_password") != std::string::npos){
-                        manager->set_password(value);
+                        std::getline(saveFile, line); //std::cout << "Reading line for phone: " << line << std::endl;
+                        manager->set_phone(std::stoi(line.substr(line.find(": ") + 2)));
+                        
+                        std::getline(saveFile, line); //std::cout << "Reading line for name: " << line << std::endl;
+                        manager->set_name(line.substr(line.find(": ") + 2));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for address: " << line << std::endl;
+                        manager->set_address(line.substr(line.find(": ") + 2));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for ID: " << line << std::endl;
+                        manager->set_ID(std::stoi(line.substr(line.find(": ") + 2)));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for salary_hourly: " << line << std::endl;
+                        manager->set_salary_hourly(std::stoi(line.substr(line.find(": ") + 2)));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for hours_weekly: " << line << std::endl;
+                        manager->set_hours_weekly(std::stoi(line.substr(line.find(": ") + 2)));
+
+                        for (int j = 0; j < 7; j++) {
+                            std::getline(saveFile, line); //std::cout << "Reading line for attendance " << j << ": " << line << std::endl;
+                            manager->set_attendance(std::stoi(line.substr(line.find(": ") + 2)), j);
+                        }
+                        
+                        std::getline(saveFile, line); //std::cout << "Reading line for date_joined: " << line << std::endl;
+                        manager->set_date_joined(line.substr(line.find(": ") + 2));
+                        
+                        std::getline(saveFile, line); //std::cout << "Reading line for performance: " << line << std::endl;
+                        manager->set_performance(std::stoi(line.substr(line.find(": ") + 2)));
+                        
+                        std::getline(saveFile, line); //std::cout << "Reading line for position: " << line << std::endl;
+                        manager->set_position(line.substr(line.find(": ") + 2));
+                        
+                        std::getline(saveFile, line); //std::cout << "Reading line for password: " << line << std::endl;
+                        manager->set_password(line.substr(line.find(": ") + 2));
+                    
+                    } catch (const std::invalid_argument& e) {
+                        std::cerr << "Invalid argument: " << e.what() << " - Line content: " << line << std::endl;
+                        return false;
+                    } catch (const std::out_of_range& e) {
+                        std::cerr << "Out of range: " << e.what() << " - Line content: " << line << std::endl;
+                        return false;
                     }
-                }
+                    
                 location->addPerson(manager);  
 
             } else if (type == "manufacturing") {
                Manufacturing *manufacturing = new Manufacturing();
-               for (int k = 0; k < 13; k++) {
-                    std::getline(saveFile, line);
-                    std::string value = line.substr(line.find(": ") + 2);
-                    
-                    if (line.find(std::to_string(i) + "manufacturing_age") != std::string::npos){
-                        manufacturing->set_age(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "manufacturing_phone") != std::string::npos){
-                        manufacturing->set_phone(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "manufacturing_name") != std::string::npos){
-                        manufacturing->set_name(value);
-                    } else if (line.find(std::to_string(i) + "manufacturing_address") != std::string::npos){
-                        manufacturing->set_address(value);
-                    } else if (line.find(std::to_string(i) + "manufacturing_ID") != std::string::npos){
-                        manufacturing->set_ID(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "manufacturing_salary_hourly") != std::string::npos){
-                        manufacturing->set_salary_hourly(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "manufacturing_hours_weekly") != std::string::npos){
-                        manufacturing->set_hours_weekly(std::stoi(value));
-                    } for (int j = 0; j < 7; j++){
-                        if (line.find(std::to_string(i) + "manufacturing_attendance" + std::to_string(j)) != std::string::npos){
-                                manufacturing->set_attendance(std::stoi(value), j);
-                            }
-                    } if (line.find(std::to_string(i) + "manufacturing_date_joined") != std::string::npos){
-                        manufacturing->set_date_joined(value);
-                    } else if (line.find(std::to_string(i) + "performance") != std::string::npos){
-                        manufacturing->set_performance(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "position ") != std::string::npos){
-                        manufacturing->set_position(value);
-                    } else if (line.find(std::to_string(i) + "certification ") != std::string::npos){
-                        manufacturing->set_certification(value);   
-                    } else if (line.find(std::to_string(i) + "cars_complete ") != std::string::npos){
-                        manufacturing->set_cars_complete(std::stoi(value));   
+               try {
+                    std::getline(saveFile, line); ////std::cout << "Reading line for age: " << line << std::endl;
+                    manufacturing->set_age(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for phone: " << line << std::endl;
+                    manufacturing->set_phone(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for name: " << line << std::endl;
+                    manufacturing->set_name(line.substr(line.find(": ") + 2));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for address: " << line << std::endl;
+                    manufacturing->set_address(line.substr(line.find(": ") + 2));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for ID: " << line << std::endl;
+                    manufacturing->set_ID(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for salary_hourly: " << line << std::endl;
+                    manufacturing->set_salary_hourly(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for hours_weekly: " << line << std::endl;
+                    manufacturing->set_hours_weekly(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    for (int j = 0; j < 7; j++) {
+                        std::getline(saveFile, line); //std::cout << "Reading line for attendance " << j << ": " << line << std::endl;
+                        manufacturing->set_attendance(std::stoi(line.substr(line.find(": ") + 2)), j);
                     }
-                }
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for date_joined: " << line << std::endl;
+                    manufacturing->set_date_joined(line.substr(line.find(": ") + 2));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for performance: " << line << std::endl;
+                    manufacturing->set_performance(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for position: " << line << std::endl;
+                    manufacturing->set_position(line.substr(line.find(": ") + 2));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for certification: " << line << std::endl;
+                    manufacturing->set_certification(line.substr(line.find(": ") + 2));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for cars_complete: " << line << std::endl;
+                    manufacturing->set_cars_complete(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    } catch (const std::invalid_argument& e) {
+                        std::cerr << "Invalid argument: " << e.what() << " - Line content: " << line << std::endl;
+                        return false;
+                    } catch (const std::out_of_range& e) {
+                        std::cerr << "Out of range: " << e.what() << " - Line content: " << line << std::endl;
+                        return false;
+                    }
                 location->addPerson(manufacturing);    
 
             } else if (type == "researchDev") {
                 ResearchDev *researchDev = new ResearchDev();
-                for (int k = 0; k < 14; k++){
-                    std::getline(saveFile, line);
-                    std::string value = line.substr(line.find(": ") + 2);
-                    
-                    if (line.find(std::to_string(i) + "researchDev_age") != std::string::npos){
-                        researchDev->set_age(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "researchDev_phone") != std::string::npos){
-                        researchDev->set_phone(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "researchDev_name") != std::string::npos){
-                        researchDev->set_name(value);
-                    } else if (line.find(std::to_string(i) + "researchDev_address") != std::string::npos){
-                        researchDev->set_address(value);
-                    } else if (line.find(std::to_string(i) + "researchDev_ID") != std::string::npos){
-                        researchDev->set_ID(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "researchDev_salary_hourly") != std::string::npos){
-                        researchDev->set_salary_hourly(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "researchDev_hours_weekly") != std::string::npos){
-                        researchDev->set_hours_weekly(std::stoi(value));
-                    } for (int j = 0; j < 7; j++){
-                        if (line.find(std::to_string(i) + "researchDev_attendance" + std::to_string(j)) != std::string::npos){
-                                researchDev->set_attendance(std::stoi(value), j);
-                            }
-                    } if (line.find(std::to_string(i) + "researchDev_date_joined") != std::string::npos){
-                        researchDev->set_date_joined(value);
-                    } else if (line.find(std::to_string(i) + "performance") != std::string::npos){
-                        researchDev->set_performance(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "position ") != std::string::npos){
-                        researchDev->set_position(value);
-                    } else if (line.find(std::to_string(i) + "finished_research ") != std::string::npos){
-                        researchDev->set_finished(value);   
-                    } else if (line.find(std::to_string(i) + "current research ") != std::string::npos){
-                        researchDev->set_research(value);   
-                    } else if (line.find(std::to_string(i) + "expertise ") != std::string::npos){
-                        researchDev->set_expertise(value);             
+                try {
+                    std::getline(saveFile, line); ////std::cout << "Reading line for age: " << line << std::endl;
+                    researchDev->set_age(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for phone: " << line << std::endl;
+                    researchDev->set_phone(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for name: " << line << std::endl;
+                    researchDev->set_name(line.substr(line.find(": ") + 2));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for address: " << line << std::endl;
+                    researchDev->set_address(line.substr(line.find(": ") + 2));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for ID: " << line << std::endl;
+                    researchDev->set_ID(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for salary_hourly: " << line << std::endl;
+                    researchDev->set_salary_hourly(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for hours_weekly: " << line << std::endl;
+                    researchDev->set_hours_weekly(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    for (int j = 0; j < 7; j++) {
+                        std::getline(saveFile, line); //std::cout << "Reading line for attendance " << j << ": " << line << std::endl;
+                        researchDev->set_attendance(std::stoi(line.substr(line.find(": ") + 2)), j);
                     }
-                }
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for date_joined: " << line << std::endl;
+                    researchDev->set_date_joined(line.substr(line.find(": ") + 2));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for performance: " << line << std::endl;
+                    researchDev->set_performance(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for position: " << line << std::endl;
+                    researchDev->set_position(line.substr(line.find(": ") + 2));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for finished: " << line << std::endl;
+                    researchDev->set_finished(line.substr(line.find(": ") + 2));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for research: " << line << std::endl;
+                    researchDev->set_research(line.substr(line.find(": ") + 2));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for expertise: " << line << std::endl;
+                    researchDev->set_expertise(line.substr(line.find(": ") + 2));
+
+                    } catch (const std::invalid_argument& e) {
+                        std::cerr << "Invalid argument: " << e.what() << " - Line content: " << line << std::endl;
+                        return false;
+                    } catch (const std::out_of_range& e) {
+                        std::cerr << "Out of range: " << e.what() << " - Line content: " << line << std::endl;
+                        return false;
+                    }
                 location->addPerson(researchDev);      
 
             } else if (type == "marketing") {
                 Marketing *marketing = new Marketing();
-                for (int k = 0; k < 13; k++) {
-                    std::getline(saveFile, line);
-                    std::string value = line.substr(line.find(": ") + 2);
-                    if (line.find(std::to_string(i) + "marketing_age") != std::string::npos){
-                        marketing->set_age(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "marketing_phone") != std::string::npos){
-                        marketing->set_phone(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "marketing_name") != std::string::npos){
-                        marketing->set_name(value);
-                    } else if (line.find(std::to_string(i) + "marketing_address") != std::string::npos){
-                        marketing->set_address(value);
-                    } else if (line.find(std::to_string(i) + "marketing_ID") != std::string::npos){
-                        marketing->set_ID(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "rmarketing_salary_hourly") != std::string::npos){
-                        marketing->set_salary_hourly(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "marketing_hours_weekly") != std::string::npos){
-                        marketing->set_hours_weekly(std::stoi(value));
-                    } for (int j = 0; j < 7; j++){
-                        if (line.find(std::to_string(i) + "marketing_attendance" + std::to_string(j)) != std::string::npos){
-                                marketing->set_attendance(std::stoi(value), j);
-                            }
-                    } if (line.find(std::to_string(i) + "marketing_date_joined") != std::string::npos){
-                        marketing->set_date_joined(value);
-                    } else if (line.find(std::to_string(i) + "performance") != std::string::npos){
-                        marketing->set_performance(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "position ") != std::string::npos){
-                        marketing->set_position(value);
-                    } else if (line.find(std::to_string(i) + "success ") != std::string::npos){
-                        marketing->set_success_rate(std::stoi(value));
+                try {
+                    std::getline(saveFile, line); ////std::cout << "Reading line for age: " << line << std::endl;
+                    marketing->set_age(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for phone: " << line << std::endl;
+                    marketing->set_phone(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for name: " << line << std::endl;
+                    marketing->set_name(line.substr(line.find(": ") + 2));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for address: " << line << std::endl;
+                    marketing->set_address(line.substr(line.find(": ") + 2));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for ID: " << line << std::endl;
+                    marketing->set_ID(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for salary_hourly: " << line << std::endl;
+                    marketing->set_salary_hourly(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for hours_weekly: " << line << std::endl;
+                    marketing->set_hours_weekly(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    for (int j = 0; j < 7; j++) {
+                        std::getline(saveFile, line); //std::cout << "Reading line for attendance " << j << ": " << line << std::endl;
+                        marketing->set_attendance(std::stoi(line.substr(line.find(": ") + 2)), j);
                     }
-                }
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for date_joined: " << line << std::endl;
+                    marketing->set_date_joined(line.substr(line.find(": ") + 2));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for performance: " << line << std::endl;
+                    marketing->set_performance(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for position: " << line << std::endl;
+                    marketing->set_position(line.substr(line.find(": ") + 2));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for success_rate: " << line << std::endl;
+                    marketing->set_success_rate(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    } catch (const std::invalid_argument& e) {
+                        std::cerr << "Invalid argument: " << e.what() << " - Line content: " << line << std::endl;
+                        return false;
+                    } catch (const std::out_of_range& e) {
+                        std::cerr << "Out of range: " << e.what() << " - Line content: " << line << std::endl;
+                        return false;
+                    }
                 location->addPerson(marketing);
             } else if (type == "sales") {
-                 Sales *sales = new Sales();
-                 for (int k = 0; k < 14; k++) {
-                    std::getline(saveFile, line);
-                    std::string value = line.substr(line.find(": ") + 2);
-                    if (line.find(std::to_string(i) + "sales_age") != std::string::npos){
-                        sales->set_age(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "sales_phone") != std::string::npos){
-                        sales->set_phone(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "sales_name") != std::string::npos){
-                        sales->set_name(value);
-                    } else if (line.find(std::to_string(i) + "sales_address") != std::string::npos){
-                        sales->set_address(value);
-                    } else if (line.find(std::to_string(i) + "sales_ID") != std::string::npos){
-                        sales->set_ID(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "sales_salary_hourly") != std::string::npos){
-                        sales->set_salary_hourly(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "sales_hours_weekly") != std::string::npos){
-                        sales->set_hours_weekly(std::stoi(value));
-                    } for (int j = 0; j < 7; j++){
-                        if (line.find(std::to_string(i) + "sales_attendance" + std::to_string(j)) != std::string::npos){
-                                sales->set_attendance(std::stoi(value), j);
-                            }
-                    } if (line.find(std::to_string(i) + "sales_date_joined") != std::string::npos){
-                        sales->set_date_joined(value);
-                    } else if (line.find(std::to_string(i) + "performance") != std::string::npos){
-                        sales->set_performance(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "position ") != std::string::npos){
-                        sales->set_position(value);
-                    } else if (line.find(std::to_string(i) + " conversation rate ") != std::string::npos){
-                        sales->set_conversion_rate(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "add cars sold ") != std::string::npos){
-                        sales->set_cars_sold(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "add revenue ") != std::string::npos){
-                        sales->set_revenue(std::stoi(value));
+                Sales *sales = new Sales();
+                try {
+                    std::getline(saveFile, line); ////std::cout << "Reading line for age: " << line << std::endl;
+                    sales->set_age(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for name: " << line << std::endl;
+                    sales->set_name(line.substr(line.find(": ") + 2));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for phone: " << line << std::endl;
+                    sales->set_phone(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for address: " << line << std::endl;
+                    sales->set_address(line.substr(line.find(": ") + 2));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for ID: " << line << std::endl;
+                    sales->set_ID(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for salary_hourly: " << line << std::endl;
+                    sales->set_salary_hourly(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for hours_weekly: " << line << std::endl;
+                    sales->set_hours_weekly(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    for (int j = 0; j < 7; j++) {
+                        std::getline(saveFile, line); //std::cout << "Reading line for attendance " << j << ": " << line << std::endl;
+                        sales->set_attendance(std::stoi(line.substr(line.find(": ") + 2)), j);
                     }
-                }
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for date_joined: " << line << std::endl;
+                    sales->set_date_joined(line.substr(line.find(": ") + 2));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for performance: " << line << std::endl;
+                    sales->set_performance(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for position: " << line << std::endl;
+                    sales->set_position(line.substr(line.find(": ") + 2));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for conversion_rate: " << line << std::endl;
+                    sales->set_conversion_rate(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for cars_sold: " << line << std::endl;
+                    sales->set_cars_sold(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for revenue: " << line << std::endl;
+                    sales->set_revenue(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    } catch (const std::invalid_argument& e) {
+                        std::cerr << "Invalid argument: " << e.what() << " - Line content: " << line << std::endl;
+                        return false;
+                    } catch (const std::out_of_range& e) {
+                        std::cerr << "Out of range: " << e.what() << " - Line content: " << line << std::endl;
+                        return false;
+                    }
                 location->addPerson(sales);
             } else if (type == "software") {
                 Software *software = new Software();
-                //for (int k = 0; k < 13; k++){
-                    std::getline(saveFile, line);
+                try {
+                    std::getline(saveFile, line); ////std::cout << "Reading line for age: " << line << std::endl;
                     software->set_age(std::stoi(line.substr(line.find(": ") + 2)));
-                    
-                    std::getline(saveFile, line);
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for name: " << line << std::endl;
+                    software->set_name(line.substr(line.find(": ") + 2));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for phone: " << line << std::endl;
                     software->set_phone(std::stoi(line.substr(line.find(": ") + 2)));
-                    
-                    std::getline(saveFile, line);
-                    software->set_name((line.substr(line.find(": ") + 2)));
-                    // } if (line.find(std::to_string(i) + "software_phone") != std::string::npos){
-                    //     software->set_phone(std::stoi(value));
-                    // } else if (line.find(std::to_string(i) + "software_name") != std::string::npos){
-                    //     software->set_name(value);
-                    // } else if (line.find(std::to_string(i) + "software_address") != std::string::npos){
-                    //     software->set_address(value);
-                    // } else if (line.find(std::to_string(i) + "software_ID") != std::string::npos){
-                    //     software->set_ID(std::stoi(value));
-                    // } else if (line.find(std::to_string(i) + "software_salary_hourly") != std::string::npos){
-                    //     software->set_salary_hourly(std::stoi(value));
-                    // } else if (line.find(std::to_string(i) + "software_hours_weekly") != std::string::npos){
-                    //     software->set_hours_weekly(std::stoi(value));
-                    // } for (int j = 0; j < 7; j++){
-                    //     if (line.find(std::to_string(i) + "software_attendance" + std::to_string(j)) != std::string::npos){
-                    //             software->set_attendance(std::stoi(value), j);
-                    //         }
-                    // } if (line.find(std::to_string(i) + "software_date_joined") != std::string::npos){
-                    //     software->set_date_joined(value);
-                    // } else if (line.find(std::to_string(i) + "performance") != std::string::npos){
-                    //     software->set_performance(std::stoi(value));
-                    // } else if (line.find(std::to_string(i) + "position ") != std::string::npos){
-                    //     software->set_position(value);
-                    // } else if (line.find(std::to_string(i) + " languages ") != std::string::npos){
-                    //     software->set_language(value);                   
-                    // location->addPerson(software);
-                    // } else if (line.find(std::to_string(i) + " projects_finished ") != std::string::npos){
-                    //     software->set_finished(value);
-                    // } else if (line.find(std::to_string(i) + " projects_current ") != std::string::npos){
-                    //     software->set_projects_current(value);                         
-                    // }
-                //}
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for address: " << line << std::endl;
+                    software->set_address(line.substr(line.find(": ") + 2));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for position: " << line << std::endl;
+                    software->set_position(line.substr(line.find(": ") + 2));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for language: " << line << std::endl;
+                    software->set_language(line.substr(line.find(": ") + 2));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for finished: " << line << std::endl;
+                    software->set_finished(line.substr(line.find(": ") + 2));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for projects_current: " << line << std::endl;
+                    software->set_projects_current(line.substr(line.find(": ") + 2));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for ID: " << line << std::endl;
+                    software->set_ID(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for salary_hourly: " << line << std::endl;
+                    software->set_salary_hourly(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for hours_weekly: " << line << std::endl;
+                    software->set_hours_weekly(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    for (int j = 0; j < 7; j++) {
+                        std::getline(saveFile, line); //std::cout << "Reading line for attendance " << j << ": " << line << std::endl;
+                        software->set_attendance(std::stoi(line.substr(line.find(": ") + 2)), j);
+                    }
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for date_joined: " << line << std::endl;
+                    software->set_date_joined(line.substr(line.find(": ") + 2));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for performance: " << line << std::endl;
+                    software->set_performance(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    } catch (const std::invalid_argument& e) {
+                        std::cerr << "Invalid argument: " << e.what() << " - Line content: " << line << std::endl;
+                        return false;
+                    } catch (const std::out_of_range& e) {
+                        std::cerr << "Out of range: " << e.what() << " - Line content: " << line << std::endl;
+                        return false;
+                    }
                 location->addPerson(software);
 
             } else if (type == "supplier") {
-   
                 Supplier *supplier = new Supplier();
-                for (int k = 0; k < 7; k++){
-                    std::getline(saveFile, line);
-                    std::string value = line.substr(line.find(": ") + 2);
+                try {
+                    std::getline(saveFile, line); ////std::cout << "Reading line for age: " << line << std::endl;
+                    supplier->set_age(std::stoi(line.substr(line.find(": ") + 2)));
 
-                    if (line.find(std::to_string(i) + "supplier_age") != std::string::npos){
-                        supplier->set_age(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "supplier_phone") != std::string::npos){
-                        supplier->set_phone(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "supplier_name") != std::string::npos){
-                        supplier->set_name(value);
-                    } else if (line.find(std::to_string(i) + "supplier_address") != std::string::npos){
-                        supplier->set_address(value);
-                    } else if (line.find(std::to_string(i) + "supplier_amountCargo") != std::string::npos){
-                        supplier->set_amount_of_cargo(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "supplier_costAnnually") != std::string::npos){
-                        supplier->set_cost_annually(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "supplier_cargo") != std::string::npos){
-                        supplier->set_cargo(value);
-                    }  
-                } 
+                    std::getline(saveFile, line); //std::cout << "Reading line for phone: " << line << std::endl;
+                    supplier->set_phone(std::stoi(line.substr(line.find(": ") + 2)));
 
+                    std::getline(saveFile, line); //std::cout << "Reading line for name: " << line << std::endl;
+                    supplier->set_name(line.substr(line.find(": ") + 2));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for address: " << line << std::endl;
+                    supplier->set_address(line.substr(line.find(": ") + 2));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for amount_of_cargo: " << line << std::endl;
+                    supplier->set_amount_of_cargo(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for cost_annually: " << line << std::endl;
+                    supplier->set_cost_annually(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for cargo: " << line << std::endl;
+                    supplier->set_cargo(line.substr(line.find(": ") + 2));
+
+                    } catch (const std::invalid_argument& e) {
+                        std::cerr << "Invalid argument: " << e.what() << " - Line content: " << line << std::endl;
+                        return false;
+                    } catch (const std::out_of_range& e) {
+                        std::cerr << "Out of range: " << e.what() << " - Line content: " << line << std::endl;
+                        return false;
+                    }
                 location->addPerson(supplier);
             } else if (type == "VIP") {
                 VIP *vip = new VIP();
-                for (int k = 0; k < 5; k++){
-                    std::cout << "Check2" << endl;
-                    std::getline(saveFile, line);
-                    std::string value = line.substr(line.find(": ") + 2);
+                try {
+                    std::getline(saveFile, line); //std::cout << "Reading line for referrals: " << line << std::endl;
+                    vip->set_referrals(std::stoi(line.substr(line.find(": ") + 2)));
 
-                    if (line.find(std::to_string(i) + "design_age") != std::string::npos){
-                        vip-> set_bankAccount(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "design_phone") != std::string::npos){
-                        vip->set_bank(value);
-                    } else if (line.find(std::to_string(i) + "design_name") != std::string::npos){
-                        vip->set_purchase_history(value);
-                    } else if (line.find(std::to_string(i) + "design_address") != std::string::npos){
-                        vip->set_spendings(std::stoi(value));
-                    } else if (line.find(std::to_string(i) + "design_ID") != std::string::npos){
-                        vip->set_notes(value);
-                    } 
-                }
-                
+                    std::getline(saveFile, line); ////std::cout << "Reading line for age: " << line << std::endl;
+                    vip->set_age(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for phone: " << line << std::endl;
+                    vip->set_phone(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for name: " << line << std::endl;
+                    vip->set_name(line.substr(line.find(": ") + 2));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for address: " << line << std::endl;
+                    vip->set_address(line.substr(line.find(": ") + 2));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for bank_number: " << line << std::endl;
+                    vip->set_bankAccount(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for spendings: " << line << std::endl;
+                    vip->set_spendings(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for clientID: " << line << std::endl;
+                    vip->set_clientId(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for bank: " << line << std::endl;
+                    vip->set_bank(line.substr(line.find(": ") + 2));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for purchase_history: " << line << std::endl;
+                    vip->set_purchase_history(line.substr(line.find(": ") + 2));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for notes: " << line << std::endl;
+                    vip->set_notes(line.substr(line.find(": ") + 2));
+
+                    } catch (const std::invalid_argument& e) {
+                        std::cerr << "Invalid argument: " << e.what() << " - Line content: " << line << std::endl;
+                        return false;
+                    } catch (const std::out_of_range& e) {
+                        std::cerr << "Out of range: " << e.what() << " - Line content: " << line << std::endl;
+                        return false;
+                    }
                 location->addPerson(vip);
-
             } else {
                 std::cerr << "Unable to open file for loading." << std::endl;
+                return false;
             }
         }
-        std::cout << "Check3" << endl;
+    
+    location->people[0]->set_counter(counter);
     }
+
+    return true;
     
 }
-
