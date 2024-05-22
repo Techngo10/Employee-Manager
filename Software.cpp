@@ -1,29 +1,19 @@
-#include <iostream>
-#include <string>
 #include "Software.h"
 
-using namespace std;
-
+//Initialisation
 Software::Software()
-    : Employee(), Positions("none"), Languages("none"), projects_finished("none"), projects_current("none") {}
+    : Employee(), positions("none"), languages("none"), projects_finished("none"), projects_current("none") {}
+Software::Software(float salary_hourly, float hours_weekly, std::string date_joined, int age, int phone, std::string name, std::string address, std::string position)
+    : Employee(salary_hourly, hours_weekly, date_joined, age, phone, name, address), positions(position), languages("none"), projects_finished("none"), projects_current("none") {}
 
-Software::Software(float salary_hourly, float hours_weekly, string date_joined, int age, int phone, string name, string address, string position)
-    : Employee(salary_hourly, hours_weekly, date_joined, age, phone, name, address), Positions(position), Languages("none"), projects_finished("none"), projects_current("none") {}
+//Getters
+std::string Software::get_position() {return positions;};
+std::string Software::get_languages() {return languages;};
+std::string Software::get_projects_current() {return projects_current;};
+std::string Software::get_finished() {return projects_finished;};
 
-string Software::get_position() { return Positions; };
-string Software::get_languages() { return Languages; };
-string Software::get_projects_current() { return projects_current; };
-string Software::get_finished() { return projects_finished; };
-
-void Software::set_position(string position) {
-    Positions = position;
-};
-void Software::set_language(string languages) {
-    Languages = languages;
-};
-void Software::set_finished(string finished) {
-    projects_finished = finished;
-};
-void Software::set_projects_current(string currentProjects) {
-    projects_current = currentProjects;
-};
+//Setters
+void Software::set_position(std::string position) {this->positions = position;};
+void Software::set_language(std::string languages) {this->languages = languages;};
+void Software::set_finished(std::string projects_finished) {this->projects_finished = projects_finished;};
+void Software::set_projects_current(std::string projects_current) {this->projects_current = projects_current;};

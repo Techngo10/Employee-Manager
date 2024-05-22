@@ -8,6 +8,8 @@
 #include <map>
 #include <cctype>
 #include <stdexcept>
+#include <thread>
+#include <chrono>
 #include "Customer.h"
 #include "Design.h"
 #include "Employee.h"
@@ -68,19 +70,31 @@ std::vector<std::string> splitString(const std::string& input) {
     std::istringstream iss(input);
     std::string part;
 
-    // Split the string based on space delimiter
-    while (std::getline(iss, part, ' ')) {
+    // Extract the first part
+    if (std::getline(iss, part, ' ')) {
         parts.push_back(part);
+    } else {
+        parts.push_back("");
     }
 
-    // If there are less than 3 parts, fill the remaining with empty strings
-    while (parts.size() < 3) {
+    // Extract the second part
+    if (std::getline(iss, part, ' ')) {
+        parts.push_back(part);
+    } else {
+        parts.push_back("");
+    }
+
+    // Extract the rest of the input as the third part
+    if (std::getline(iss, part)) {
+        parts.push_back(part);
+    } else {
         parts.push_back("");
     }
 
     return parts;
 }
 
+//Converts a string to an integer and handles invalid inputs
 int toInt(std::string input) {
     bool valid = true;
     for (char c : input) {
@@ -92,6 +106,7 @@ int toInt(std::string input) {
     if (valid) {return std::stoi(input);} else {return 0;}
 }
 
+//Converts a string to a float and handles invalid inputs
 float toFloat(const std::string& input) {
     bool valid = true;
     bool decimalPointFound = false;
@@ -134,7 +149,8 @@ void runCommand(Location *location, std::string command) {
     } else if (command == "help"){
         std::cout << "\nThere are 6 types of commands; get, set, rm, add, e and save.\n\n";
         std::cout << "save - save your progress so you can load it later.\n\n";
-        std::cout << "get info: name - is the main command to get all the information based on the input name.\n\n";
+        std::cout << "get info: name - is the main command to get all the information based on the input name.\n";
+        std::cout << "get names - is the command to list all of the avaliable names.\n\n";
         std::cout << "set: variable: name - is the base command for setting data for a variable based on someone's name.\n";
         std::cout << "variable: age, phonenumber, address, id, hourlysalary, weeklyhours, attendance, datejoined, performance,\n" 
         "position, banknumber, bank, spendings, purchasehistory, notes, finisheddesigns, currentdesigns, turnover, profit,\n"
@@ -149,6 +165,12 @@ void runCommand(Location *location, std::string command) {
         std::cout << "e - is the function to exit, note you should save before exiting.\n\n";
     
     } else if (parts[0] == "get"){
+        if (parts[1] == "names"){
+            std::cout << "Names: \n\n";
+            for (int i = 0; i < location->get_curr_size(); i++){
+                std::cout << location->people[i]->get_name() << " - " << typeid(*location->people[i]).name() << std::endl;
+            }
+        }
         if (parts[1] == "info"){
             std::string role;
             int index; 
@@ -219,7 +241,7 @@ void runCommand(Location *location, std::string command) {
                 std::cout << "HumanResources " << parts[2] << " has information: \n\n";
                 std::cout << "Age: " << location->people[index]->get_age() << std::endl;
                 std::cout << "Phone number: " << location->people[index]->get_phone() << std::endl;
-                 std::cout << "Name: " << location->people[index]->get_name() << std::endl;
+                std::cout << "Name: " << location->people[index]->get_name() << std::endl;
                 std::cout << "Address: " << location->people[index]->get_address() << std::endl;
                 std::cout << "ID: " << location->people[index]->get_ID() << std::endl;
                 std::cout << "Hourly Salary: " << location->people[index]->get_salary_hourly() << std::endl;
@@ -239,7 +261,6 @@ void runCommand(Location *location, std::string command) {
                 std::cout << "Amount of retired: " << location->people[index]->get_retired() << std::endl;
                                                              
             } else if (role == "8Investor"){/////////////////////////////////////////////////////////////
-            //Investor(int age, int phone, std::string name, std::string address, float amount_of_investment);
                 std::cout << "Investor " << parts[2] << " has information: \n\n";
                 std::cout << "Age: " << location->people[index]->get_age() << std::endl;
                 std::cout << "Phone number: " << location->people[index]->get_phone() << std::endl;
@@ -248,23 +269,23 @@ void runCommand(Location *location, std::string command) {
                 std::cout << "amount of investment: " << location->people[index]->get_amount_of_investment() << std::endl;
 
             } else if (role == "7Manager"){/////////////////////////////////////////////////////////////   
-            std::cout << "Age: " << location->people[index]->get_age() << std::endl;
+                std::cout << "Age: " << location->people[index]->get_age() << std::endl;
                 std::cout << "Phone number: " << location->people[index]->get_phone() << std::endl;
-                 std::cout << "Name: " << location->people[index]->get_name() << std::endl;
+                std::cout << "Name: " << location->people[index]->get_name() << std::endl;
                 std::cout << "Address: " << location->people[index]->get_address() << std::endl;
-            std::cout << "Hourly Salary: " << location->people[index]->get_salary_hourly() << std::endl;
-            std::cout << "Weekly Hours: " << location->people[index]->get_hours_weekly() << std::endl;
-            std::cout << "ID: " << location->people[index]->get_ID() << std::endl;
-            for (int j = 0; j < 7; j++){
-                if (location->people[index]->get_attendance(j)){
-                    std::cout << "Day " << j + 1 << " : True\n"; 
-                } else {std::cout << "Day " << j + 1 << " : False\n";}
-            }
-            std::cout << "Date Joined: " << location->people[index]->get_date_joined() << std::endl;
-            std::cout << "Performance out of 10: " << location->people[index]->get_performance() << std::endl;
+                std::cout << "Hourly Salary: " << location->people[index]->get_salary_hourly() << std::endl;
+                std::cout << "Weekly Hours: " << location->people[index]->get_hours_weekly() << std::endl;
+                std::cout << "ID: " << location->people[index]->get_ID() << std::endl;
+                for (int j = 0; j < 7; j++){
+                    if (location->people[index]->get_attendance(j)){
+                        std::cout << "Day " << j + 1 << " : True\n"; 
+                    } else {std::cout << "Day " << j + 1 << " : False\n";}
+                }
+                std::cout << "Date Joined: " << location->people[index]->get_date_joined() << std::endl;
+                std::cout << "Performance out of 10: " << location->people[index]->get_performance() << std::endl;
                 
-            std::cout << "Position: " <<location -> people[index]->get_position() << std::endl;  
-            std::cout << "Password: " <<location -> people[index]->get_password() << std::endl;              
+                std::cout << "Position: " <<location -> people[index]->get_position() << std::endl;  
+                std::cout << "Password: " <<location -> people[index]->get_password() << std::endl;              
             } else if (role == "13Manufacturing"){/////////////////////////////////////////////////////////////
                 std::cout << "Manufacturing " << parts[2] << " has information: \n\n";
                 std::cout << "Age: " << location->people[index]->get_age() << std::endl;
@@ -923,18 +944,31 @@ void runCommand(Location *location, std::string command) {
                 std::cout << "Input out of range! Amount of Referrals set failed. " << e.what() << std::endl;
             }
         }
+        if (parts[1] == "name") {
+            std::string name;
+            std::cout << "Enter the name: ";
+            std::getline(std::cin, name);
+            try {
+                location->people[index]->set_name(name);
+                std::cout << "Name was set successfully.\n";
+            } catch (const std::invalid_argument& e) {
+                std::cout << "Invalid input! Name set failed. " << e.what() << std::endl;
+            } catch (const std::out_of_range& e) {
+                std::cout << "Input out of range! Name set failed. " << e.what() << std::endl;
+            }
+        }
 
     } else if (parts[0] == "rm"){
         std::string name = parts[1] + " " + parts[2];
         if(location->rmPerson(name)){
-            std::cout << name << "was successfully removed.\n";
-        } else {std::cout << name << "was not removed, please check your spelling.\n";}
+            std::cout << name << " was successfully removed.\n";
+        } else {std::cout << name << " was not removed, please check your spelling.\n";}
 
     } else if (parts[0] == "add"){
         for (int i = 0; i < location->get_curr_size(); i++){
             if (parts[2] == location->people[i]->get_name()){
                 std::cout << "A person with this name already exists in your data base, please rename the person or remove the existing person.\n";
-                break;
+                return;
             }
         }
         if (parts[1] == "Customer"){
@@ -960,14 +994,17 @@ void runCommand(Location *location, std::string command) {
 
             std::cin.ignore(); // Clear the newline character left in the input buffer
 
-            std::cout << "Please enter Customer name: ";
-            std::getline(std::cin, name);
+            // std::cout << "Please enter Customer name: ";
+            // std::getline(std::cin, name);
+            // if (name.empty()) {name = "none";}
+
+            name = parts[2];
             if (name.empty()) {name = "none";}
 
             std::cout << "Please enter Customer address: ";
             std::getline(std::cin, address);
             if (address.empty()) {address = "none";}
-
+      
             std::cout << "Please enter Customer bank number: ";
             std::cin >> input;
             bank_number = toInt(input);
@@ -1037,8 +1074,7 @@ void runCommand(Location *location, std::string command) {
             std::getline(std::cin, address);
             if (address.empty()) {address = "none";}
 
-            std::cout << "Please enter Design name: ";
-            std::getline(std::cin, name);
+            name = parts[2];
             if (name.empty()) {name = "none";}
 
             std::cout << "Please enter Design position: ";
@@ -1113,8 +1149,7 @@ void runCommand(Location *location, std::string command) {
             std::getline(std::cin, address);
             if (address.empty()) {address = "none";}
 
-            std::cout << "Please enter Finances name: ";
-            std::getline(std::cin, name);
+            name = parts[2];
             if (name.empty()) {name = "none";}
 
             std::cout << "Please enter Finances position: ";
@@ -1165,8 +1200,7 @@ void runCommand(Location *location, std::string command) {
             std::getline(std::cin, address);
             if (address.empty()) {address = "none";}
 
-            std::cout << "Please enter HumanResources name: ";
-            std::getline(std::cin, name);
+            name = parts[2];
             if (name.empty()) {name = "none";}
 
             std::cout << "Please enter HumanResources position: ";
@@ -1223,8 +1257,7 @@ void runCommand(Location *location, std::string command) {
             std::getline(std::cin, address);
             if (address.empty()) {address = "none";}
 
-            std::cout << "Please enter Investor name: ";
-            std::getline(std::cin, name);
+            name = parts[2];
             if (name.empty()) {name = "none";}
 
             Investor* investor = new Investor(age, phone, name, address, amount_of_investment);
@@ -1269,8 +1302,7 @@ void runCommand(Location *location, std::string command) {
             std::getline(std::cin, address);
             if (address.empty()) {address = "none";}
 
-            std::cout << "Please enter Manager name: ";
-            std::getline(std::cin, name);
+            name = parts[2];
             if (name.empty()) {name = "none";}
 
             std::cout << "Please enter Manager position: ";
@@ -1325,8 +1357,7 @@ void runCommand(Location *location, std::string command) {
             std::getline(std::cin, address);
             if (address.empty()) {address = "none";}
 
-            std::cout << "Please enter Manufacturing name: ";
-            std::getline(std::cin, name);
+            name = parts[2];
             if (name.empty()) {name = "none";}
 
             std::cout << "Please enter Manufacturing certification: ";
@@ -1381,8 +1412,7 @@ void runCommand(Location *location, std::string command) {
             std::getline(std::cin, address);
             if (address.empty()) {address = "none";}
 
-            std::cout << "Please enter Marketing name: ";
-            std::getline(std::cin, name);
+            name = parts[2];
             if (name.empty()) {name = "none";}
 
             std::cout << "Please enter Marketing position: ";
@@ -1439,8 +1469,7 @@ void runCommand(Location *location, std::string command) {
             std::getline(std::cin, address);
             if (address.empty()) {address = "none";}
 
-            std::cout << "Please enter ResearchDev name: ";
-            std::getline(std::cin, name);
+            name = parts[2];
             if (name.empty()) {name = "none";}
 
             std::cout << "Please enter ResearchDev position: ";
@@ -1502,15 +1531,12 @@ void runCommand(Location *location, std::string command) {
             std::getline(std::cin, address);
             if (address.empty()) {address = "none";}
 
-            std::cout << "Please enter Sales name: ";
-            std::getline(std::cin, name);
+            name = parts[2];
             if (name.empty()) {name = "none";}
 
             std::cout << "Please enter Sales position: ";
             std::getline(std::cin, position);
             if (position.empty()) {position = "none";}
-
-            std::cin.ignore(); // Clear the newline character left in the input buffer
 
             std::cout << "Please enter Sales conversion rate: ";
             std::cin >> input;
@@ -1542,7 +1568,7 @@ void runCommand(Location *location, std::string command) {
             std::string projects_current;
             
             
-            std::cout << "Please enter their Software hourly: ";
+            std::cout << "Please enter their Software salary hourly: ";
             std::cin >> input;
             salary_hourly = toFloat(input);
 
@@ -1568,8 +1594,7 @@ void runCommand(Location *location, std::string command) {
             std::getline(std::cin, address);
             if (address.empty()) {address = "none";}
 
-            std::cout << "Please enter Software name: ";
-            std::getline(std::cin, name);
+            name = parts[2];
             if (name.empty()) {name = "none";}
 
             std::cout << "Please enter Software position: ";
@@ -1614,8 +1639,7 @@ void runCommand(Location *location, std::string command) {
 
             std::cin.ignore(); // Clear the newline character left in the input buffer
 
-            std::cout << "Please enter Supplier name: ";
-            std::getline(std::cin, name);
+            name = parts[2];
             if (name.empty()) {name = "none";}
 
             std::cout << "Please enter Supplier address: ";
@@ -1625,8 +1649,6 @@ void runCommand(Location *location, std::string command) {
             std::cout << "Please enter what Supplier cargo is: ";
             std::getline(std::cin, cargo);
             if (cargo.empty()) {address = "none";}
-
-            std::cin.ignore(); // Clear the newline character left in the input buffer
 
             std::cout << "Please enter the amount of Supplier cargo (int): ";
             std::cin >> input;
@@ -1664,8 +1686,7 @@ void runCommand(Location *location, std::string command) {
 
             std::cin.ignore(); // Clear the newline character left in the input buffer
 
-            std::cout << "Please enter VIP name: ";
-            std::getline(std::cin, name);
+            name = parts[2];
             if (name.empty()) {name = "none";}
 
             std::cout << "Please enter VIP address: ";
@@ -2680,18 +2701,40 @@ bool Load(Location *location, std::string file){
 
 void clear(){
     system("clear");
-    std::cout << "        BBBBBBq  BBBBBBE    BBBBBBBQ     BBQBi  BQBB     BBBBQBBi     iBBBBBBBBi    BQBQBBBBb\n"
-                 "        BBQBBBB  BBBBBBP    QBBBBBBB     BBBBB  BBBB    iBBBQBBB2    rQBBBQQBBBBi   BBBBQBQBZ\n"
-                 "        BBBBBBB iBBBBBB5    BBBBBQBB     QBBBB  BBBQ    IBBBBBBBB    BBBBB  BQBBB   BBBBBrrLi\n"
-                 "        BBQBBBQ vBBBBBBS   rBBBZUBBBi    BBBBBE BBBB    QBBBYQBBB    BBBBB  BBBBB   BBBBB\n"
-                 "        BBBBgBBiqBQMBBB2   SBBB7iBBQX    BBBBQB BBBB    BBBB bBBB    BBBBQ  7iir7   BBBBB\n"
-                 "        BBBB7BBgBB2PBBQS   BBBBi BBBB    BBBBBQQQBBB    BBQB KBBBv   BBBQB          BBBBBBBBi\n"
-                 "        BBBBigBBBBr5BBBI   BBBB  BBBB    BBQBBBBBBBB   iBQBQ 7BBBD   BBBBB BBQBBB   BBBBBBBB7\n"
-                 "        BBBB 5QBBB KQBB5   BBBB  BBBQi   BBBD1BBBBBB   SBBBd iBBBB   BBBBB sQBBBB   QBBBBi i\n"
-                 "        BQBQ iBBBB PBBBI  rBBQBQBBBQBJ   BBBQ BBBQBB   BBBBBBBBBBB   BBBBB  BBBBB   BBBBB\n"
-                 "        BBBB  BBQB gBBB5  PBBBBBBBBBBB   BBBB 5BBBQB   BQBBBBBQBBBi  BBBBB  BBBBB   BBBBB\n"
-                 "        BBBB  BBBg MBQBI  BBBBBi QBBBB   BBBB  QBQBB   BBBBQ iBBBBP  bBBBBi BBBBB   BQBBBBBBB\n"
-                 "        BBBBi QBBX BQBQg  QBBBQ  BQBBBi  BBBB  BBBBB  jBBBBZ  BBQBB   QBBBBBBBBBB   QBBBBBBBB\n"
-                 "        gPPZ  1bZi udqZr  RqqqK  rEKPDi  DPPE  iEKPg  vEPKEi  dqqPR    rQBBR  PPq   qPqXKKPbP\n\n"
-                 "                             Code By: Victor, Elijah, and Kurt\n\n\n\n";
+    // std::cout << "        BBBBBBq  BBBBBBE    BBBBBBBQ     BBQBi  BQBB     BBBBQBBi     iBBBBBBBBi    BQBQBBBBb\n"
+    //              "        BBQBBBB  BBBBBBP    QBBBBBBB     BBBBB  BBBB    iBBBQBBB2    rQBBBQQBBBBi   BBBBQBQBZ\n"
+    //              "        BBBBBBB iBBBBBB5    BBBBBQBB     QBBBB  BBBQ    IBBBBBBBB    BBBBB  BQBBB   BBBBBrrLi\n"
+    //              "        BBQBBBQ vBBBBBBS   rBBBZUBBBi    BBBBBE BBBB    QBBBYQBBB    BBBBB  BBBBB   BBBBB\n"
+    //              "        BBBBgBBiqBQMBBB2   SBBB7iBBQX    BBBBQB BBBB    BBBB bBBB    BBBBQ  7iir7   BBBBB\n"
+    //              "        BBBB7BBgBB2PBBQS   BBBBi BBBB    BBBBBQQQBBB    BBQB KBBBv   BBBQB          BBBBBBBBi\n"
+    //              "        BBBBigBBBBr5BBBI   BBBB  BBBB    BBQBBBBBBBB   iBQBQ 7BBBD   BBBBB BBQBBB   BBBBBBBB7\n"
+    //              "        BBBB 5QBBB KQBB5   BBBB  BBBQi   BBBD1BBBBBB   SBBBd iBBBB   BBBBB sQBBBB   QBBBBi i\n"
+    //              "        BQBQ iBBBB PBBBI  rBBQBQBBBQBJ   BBBQ BBBQBB   BBBBBBBBBBB   BBBBB  BBBBB   BBBBB\n"
+    //              "        BBBB  BBQB gBBB5  PBBBBBBBBBBB   BBBB 5BBBQB   BQBBBBBQBBBi  BBBBB  BBBBB   BBBBB\n"
+    //              "        BBBB  BBBg MBQBI  BBBBBi QBBBB   BBBB  QBQBB   BBBBQ iBBBBP  bBBBBi BBBBB   BQBBBBBBB\n"
+    //              "        BBBBi QBBX BQBQg  QBBBQ  BQBBBi  BBBB  BBBBB  jBBBBZ  BBQBB   QBBBBBBBBBB   QBBBBBBBB\n"
+    //              "        gPPZ  1bZi udqZr  RqqqK  rEKPDi  DPPE  iEKPg  vEPKEi  dqqPR    rQBBR  PPq   qPqXKKPbP\n\n"
+    //              "                             Code By: Victor, Elijah, and Kurt\n\n\n\n";
+
+    std::string lines[] = {
+        "        BBBBBBq  BBBBBBE    BBBBBBBQ     BBQBi  BQBB     BBBBQBBi     iBBBBBBBBi    BQBQBBBBb",
+        "        BBQBBBB  BBBBBBP    QBBBBBBB     BBBBB  BBBB    iBBBQBBB2    rQBBBQQBBBBi   BBBBQBQBZ",
+        "        BBBBBBB iBBBBBB5    BBBBBQBB     QBBBB  BBBQ    IBBBBBBBB    BBBBB  BQBBB   BBBBBrrLi",
+        "        BBQBBBQ vBBBBBBS   rBBBZUBBBi    BBBBBE BBBB    QBBBYQBBB    BBBBB  BBBBB   BBBBB",
+        "        BBBBgBBiqBQMBBB2   SBBB7iBBQX    BBBBQB BBBB    BBBB bBBB    BBBBQ  7iir7   BBBBB",
+        "        BBBB7BBgBB2PBBQS   BBBBi BBBB    BBBBBQQQBBB    BBQB KBBBv   BBBQB          BBBBBBBBi",
+        "        BBBBigBBBBr5BBBI   BBBB  BBBB    BBQBBBBBBBB   iBQBQ 7BBBD   BBBBB BBQBBB   BBBBBBBB7",
+        "        BBBB 5QBBB KQBB5   BBBB  BBBQi   BBBD1BBBBBB   SBBBd iBBBB   BBBBB sQBBBB   QBBBBi i",
+        "        BQBQ iBBBB PBBBI  rBBQBQBBBQBJ   BBBQ BBBQBB   BBBBBBBBBBB   BBBBB  BBBBB   BBBBB",
+        "        BBBB  BBQB gBBB5  PBBBBBBBBBBB   BBBB 5BBBQB   BQBBBBBQBBBi  BBBBB  BBBBB   BBBBB",
+        "        BBBB  BBBg MBQBI  BBBBBi QBBBB   BBBB  QBQBB   BBBBQ iBBBBP  bBBBBi BBBBB   BQBBBBBBB",
+        "        BBBBi QBBX BQBQg  QBBBQ  BQBBBi  BBBB  BBBBB  jBBBBZ  BBQBB   QBBBBBBBBBB   QBBBBBBBB",
+        "        gPPZ  1bZi udqZr  RqqqK  rEKPDi  DPPE  iEKPg  vEPKEi  dqqPR    rQBBR  PPq   qPqXKKPbP\n",
+        "                             Code By: Victor, Elijah, and Kurt\n\n\n\n"
+    };
+
+    for (const auto& line : lines) {
+        std::cout << line << std::endl;
+        std::this_thread::sleep_for(std::chrono::milliseconds(20)); // Adjust the delay as needed
+    }
 }

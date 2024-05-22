@@ -7,7 +7,7 @@ Location::Location() {
     people = new Person*[0];    //Creats an array with 0 size as people will be added with a function
     curr_size = 0;
 };
-Location::Location(string address) {
+Location::Location(std::string address) {
     this->address = address;
     people = new Person*[0];
     curr_size = 0;
@@ -58,11 +58,11 @@ bool Location::rmPerson(const std::string& name) {
 
 
 // Getters
-string Location::get_address() {return address;};
+std::string Location::get_address() {return address;};
 int Location::get_curr_size() {return curr_size;};
 
 //Setters
-void Location::set_address(string address) {this->address = address;};
+void Location::set_address(std::string address) {this->address = address;};
 
 //Deconstructor
 Location::~Location() {delete[] people;}

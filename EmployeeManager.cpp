@@ -15,11 +15,6 @@
 #include "Supplier.h"
 #include "VIP.h"
 
-// intorduction screen asking for user to input load file/create new - must setup a manager to use password
-// password screen
-// help command
-// need to setup reading user input
-// need to create commands, lets start with get info commands and set info
  
 int main(){
 
@@ -91,10 +86,10 @@ int main(){
         std::cin.ignore(); // Clear newline left in buffer from previous std::cin
 
         for (int attempts = 5; attempts > 0; attempts--) {
-            std::cout << "Enter your name: ";
+            std::cout << "Username: ";
             std::getline(std::cin, username);
 
-            std::cout << "Enter your password: ";
+            std::cout << "Password: ";
             std::getline(std::cin, password);
 
             if (Access(&location, username, password)) {
@@ -122,7 +117,6 @@ int main(){
             runCommand(&location, n_input);
         }
 
-        clear();
         std::string save;
         do {
         std::cout << "Do you want to save (y/n): ";
@@ -152,8 +146,7 @@ int main(){
             clear();
             runCommand(&location, n_input);
         }
-
-        clear();
+ 
         std::string save;
         do {
         std::cout << "Do you want to save (y/n): ";
@@ -163,6 +156,9 @@ int main(){
         if (save == "y") {
             runCommand(&location, "save");
         }
+        // if (save == "n") {
+        //     std::cout << "Are you sure? (y/n)";
+        // }
         std::cout << "Program shutting down.\n";
         return 0;
         

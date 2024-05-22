@@ -3,45 +3,46 @@
 
 #include <iostream>
 #include <string>
-using namespace std;
 
 class Person {
 private:
   int age;
   int phone_number;
-  string name;
-  string address;
+  std::string name;
+  std::string address;
 
 public:
+  //Initialisastion
   Person();
-  Person(int age, int phone_number, string name, string address);
+  Person(int age, int phone_number, std::string name, std::string address);
 
+  //Getters
   int get_age() const;
-  void set_age(int age);
-
   int get_phone() const;
+  std::string get_name() const;
+  std::string get_address() const;
+
+  //Setters
+  void set_age(int age);
   void set_phone(int phone);
+  void set_name(std::string name);
+  void set_address(std::string address);
 
-  string get_name() const;
-  void set_name(string name);
-
-  string get_address() const;
-  void set_address(string address);
-
+  //Operator command
   bool operator==(const Person& other) const;
 
 
   // Virtual functions
   // Software functions
-  virtual void set_position(string position);
-  virtual void set_language(string languages);
-  virtual void set_finished(string finsihed);
-  virtual void set_projects_current(string currentProjects);
+  virtual void set_position(std::string position);
+  virtual void set_language(std::string languages);
+  virtual void set_finished(std::string finsihed);
+  virtual void set_projects_current(std::string currentProjects);
 
-  virtual string get_position();
-  virtual string get_languages();
-  virtual string get_projects_current();
-  virtual string get_finished();
+  virtual std::string get_position();
+  virtual std::string get_languages();
+  virtual std::string get_projects_current();
+  virtual std::string get_finished();
 
 
   // Finances functions
@@ -52,7 +53,6 @@ public:
   virtual void set_budget(int Budget);
   virtual void set_expense(int Expense);
 
-  
   virtual int get_turnover();
   virtual int get_profit();
   virtual int get_budget();
@@ -62,28 +62,28 @@ public:
   virtual int get_bankAccount();
   virtual void set_bankAccount(int bank_num);
 
-  virtual string get_bank();
-  virtual void set_bank(string BANK);
+  virtual std::string get_bank();
+  virtual void set_bank(std::string BANK);
 
-  virtual string get_purchase_history();
-  virtual void set_purchase_history(string history);
+  virtual std::string get_purchase_history();
+  virtual void set_purchase_history(std::string history);
   virtual int get_spendings();
   virtual void set_spendings(int spendings);
   virtual int get_clientId();
   virtual void set_clientId(int clientId);
 
-  virtual string get_notes();
-  virtual void set_notes(string new_note);
+  virtual std::string get_notes();
+  virtual void set_notes(std::string new_note);
 
   //Design functions
-  // /virtual string get_position();
-  // virtual void set_position(string position);
+  // /virtual std::string get_position();
+  // virtual void set_position(std::string position);
 
-  // virtual string get_finished();
-  // virtual void add_finished(string amount_design_finished);
+  // virtual std::string get_finished();
+  // virtual void add_finished(std::string amount_design_finished);
 
-  virtual string get_design_current();
-  virtual void set_design_current(string design_current);
+  virtual std::string get_design_current();
+  virtual void set_design_current(std::string design_current);
 
 
   // Sales
@@ -98,13 +98,13 @@ public:
   
 
   // Researh Development
-  //virtual void set_finished(string finished);
+  //virtual void set_finished(std::string finished);
 
-  virtual string get_research();
-  virtual void set_research(string current);
+  virtual std::string get_research();
+  virtual void set_research(std::string current);
 
-  virtual string get_expertise();
-  virtual void set_expertise(string expert);
+  virtual std::string get_expertise();
+  virtual void set_expertise(std::string expert);
 
   // Employee functions
   virtual int get_ID();
@@ -119,8 +119,8 @@ public:
   virtual int get_performance();
   virtual void set_performance(int performance);
 
-  virtual string get_date_joined();
-  virtual void set_date_joined(string date_joined);
+  virtual std::string get_date_joined();
+  virtual void set_date_joined(std::string date_joined);
 
   virtual float get_salary_hourly();
   virtual void set_salary_hourly(float salary_hourly);
@@ -129,7 +129,7 @@ public:
   virtual void set_hours_weekly(float hours_weekly);
 
   //HumanResources
-  //virtual string get_position();
+  //virtual std::string get_position();
   //virtual void set_position(std::string new_position);
 
   virtual int get_trained();
@@ -150,11 +150,11 @@ public:
   virtual void set_amount_of_investment(float amount);
   
   //Manager
-  virtual string get_password();
-  virtual void set_password(string pass);
+  virtual std::string get_password();
+  virtual void set_password(std::string pass);
 
-  //virtual string get_position();
-  //virtual void set_position(string pos);
+  //virtual std::string get_position();
+  //virtual void set_position(std::string pos);
 
   //Marketing
   virtual float get_success_rate();
@@ -163,29 +163,29 @@ public:
   //Supplier
 
   virtual int get_amount_of_cargo();
-  virtual string get_cargo();
+  virtual std::string get_cargo();
   virtual float get_cost_annually();
 
   virtual void set_amount_of_cargo(int amountCargo);
-  virtual void set_cargo(string cargo);
+  virtual void set_cargo(std::string cargo);
   void set_cost_annually(float costAnnually);
   
   
   //VIP
-  virtual string get_VIP_type();
-  virtual void set_VIP_type(string VIP_type);
+  virtual std::string get_VIP_type();
+  virtual void set_VIP_type(std::string VIP_type);
 
   virtual int get_referrals();
   virtual void set_referrals(int referals);
 
   virtual void displayPrizes();
-  virtual bool buy_prize(string prizeName);
+  virtual bool buy_prize(std::string prizeName);
 
 
 
 // Manufacturing
-virtual string get_certification();
-virtual void set_certification(string certification);
+virtual std::string get_certification();
+virtual void set_certification(std::string certification);
 virtual int get_cars_complete();
 virtual void set_cars_complete(int cars_complete);
 

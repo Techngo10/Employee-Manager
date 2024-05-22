@@ -1,20 +1,18 @@
 #include "Sales.h"
-#include <iostream>
-#include <string.h>
-using namespace std;
 
+//Initialisation
 Sales::Sales() : position("none"), conversion_rate(0), cars_sold(0), revenue(0) {}
-Sales::Sales(float salary_hourly, float hours_weekly, string date_joined, int age, int phone, string name, string address, string new_position, float con_rate, int sales, float rev)
-: Employee(salary_hourly, hours_weekly, date_joined, age, phone, name, address), position(new_position), conversion_rate(con_rate), cars_sold(sales), revenue(rev) {}
+Sales::Sales(float salary_hourly, float hours_weekly, std::string date_joined, int age, int phone, std::string name, std::string address, std::string position, float conversion_rate, int cars_sold, float revenue)
+: Employee(salary_hourly, hours_weekly, date_joined, age, phone, name, address), position(position), conversion_rate(conversion_rate), cars_sold(cars_sold), revenue(revenue) {}
 
-string Sales::get_position(){return position;};
-void Sales::set_position(string new_position){position = new_position;};
- 
+//Getters
+std::string Sales::get_position(){return position;};
 float Sales::get_conversion_rate(){return conversion_rate;};
-void Sales::set_conversion_rate(float con_rate){conversion_rate = con_rate;};
-
 int Sales::get_cars_sold(){return cars_sold;};
-void Sales::set_cars_sold(int sales){cars_sold = sales;};
-
 float Sales::get_revenue(){return revenue;};
-void Sales::set_revenue(float rev){revenue = rev;};
+
+//Setters
+void Sales::set_position(std::string position){this->position = position;};
+void Sales::set_conversion_rate(float conversion_rate){this->conversion_rate = conversion_rate;};
+void Sales::set_cars_sold(int cars_sold){this->cars_sold = cars_sold;};
+void Sales::set_revenue(float revenue){this->revenue = revenue;};

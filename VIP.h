@@ -2,27 +2,26 @@
 #define VIP_H
 
 #include "Customer.h"
-#include <iostream>
-#include <string>
 #include <map> // Include the <map> header for the map data structure
-
-using namespace std;
 
 class VIP : public Customer {
     private:
-        //string VIP_type;
+        //std::string VIP_type;
         int referrals;
  
     public:
+        //Initialisation
         VIP();
-        VIP(int bank_num, int spent, int C_ID, string BANK, string pur_his, string new_note,
-            int age, int phone, string name, string address, int referrals);
-
+        VIP(int bank_number, int spent, int Client_ID, std::string BANK, std::string purchase_history, std::string new_note,
+            int age, int phone, std::string name, std::string address, int referrals);
+            
+        //Getter
         int get_referrals() override;
+
+        //Setter
         void set_referrals(int referrals) override;
 
         void displayPrizes() override;
-        //bool buy_prize(string prizeName);
  
         // Declare the availablePrizes map directly in the class
         std::map<std::string, int> availablePrizes = {
@@ -32,4 +31,4 @@ class VIP : public Customer {
         };
 };
 
-#endif
+#endif //VIP_H

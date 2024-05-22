@@ -1,0 +1,237 @@
+location_address: none
+curr_size: 13
+counter: 9
+0type: manager
+0manager_age: 32
+0manager_phone: 412345678
+0manager_name: Leo Furnell
+0manager_address: 90 Currie St, Adelaide SA 5000
+0manager_ID: 0
+0manager_salary_hourly: 35
+0manager_hours_weekly: 40
+0manager_attendance0: 1
+0manager_attendance1: 1
+0manager_attendance2: 1
+0manager_attendance3: 1
+0manager_attendance4: 1
+0manager_attendance5: 0
+0manager_attendance6: 0
+0manager_date_joined: December 23, 2019
+0manager_performance: 5
+0manager_position: General Manager
+0manager_password: password
+1type: customer
+1customer_age: 68
+1customer_phone: 412345678
+1customer_name: Zac Finckh
+1customer_address: 13D Browning St, Clearview SA 5085
+1customer_bank_number: 123456789
+1customer_spendings: 50000
+1customer_clientId: 112
+1customer_bank: Bendigo Bank
+1customer_purchase_history: 1 Sedan
+1customer_notes: Likes to spend lots of money
+2type: design
+2design_age: 79
+2design_phone: 412345678
+2design_name: Alexandra Boake
+2design_address: 1 Northbrook Ave, Forestville SA 5035
+2design_ID: 1
+2design_salary_hourly: 40
+2design_hours_weekly: 40
+2design_attendance0: 1
+2design_attendance1: 1
+2design_attendance2: 1
+2design_attendance3: 1
+2design_attendance4: 1
+2design_attendance5: 0
+2design_attendance6: 0
+2design_date_joined: 12/04/2016
+2design_performance: 5
+2design_position: Top Designer
+2design_finished: New SUV design plan 2025
+2design_current: New Hatchback design plan 2027
+3type: finances
+3finances_age: 54
+3finances_phone: 412345678
+3finances_name: Jacob McBryde
+3finances_address: 47 Begley St, Watsonville QLD 4887
+3finances_ID: 2
+3finances_salary_hourly: 50
+3finances_hours_weekly: 35
+3finances_attendance0: 1
+3finances_attendance1: 1
+3finances_attendance2: 1
+3finances_attendance3: 1
+3finances_attendance4: 1
+3finances_attendance5: 0
+3finances_attendance6: 0
+3finances_date_joined: 08/11/2009
+3finances_performance: 5
+3finances_positions: Top Financer
+3finances_turnover_monthly: 100000
+3finances_profit_monthly: 50000
+3finances_budget: 200000
+3finances_expense: 50000
+4type: humanResources
+4humanResources_age: 40
+4humanResources_phone: 412345678
+4humanResources_name: Matilda Edith
+4humanResources_address: 33 Hodgson St, Junabee QLD 4370
+4humanResources_ID: 3
+4humanResources_salary_hourly: 30
+4humanResources_hours_weekly: 30
+4humanResources_attendance0: 1
+4humanResources_attendance1: 1
+4humanResources_attendance2: 1
+4humanResources_attendance3: 1
+4humanResources_attendance4: 1
+4humanResources_attendance5: 0
+4humanResources_attendance6: 0
+4humanResources_date_joined: 24/01/2018
+4humanResources_performance: 5
+4humanResources_position: Front Desk
+4humanResources_trained: 10
+4humanResources_hired: 15
+4humanResources_fired: 20
+4humanResources_retired: 3
+5type: investor
+5investor_age: 61
+5investor_phone: 412345678
+5investor_name: Jett Fong
+5investor_address: 92 Aquatic Rd, Dumaresq Island NSW 2430
+5investor_ID: 0
+5investor_salary_hourly: 0
+5investor_hours_weekly: 0
+5investor_attendance0: 1
+5investor_attendance1: 1
+5investor_attendance2: 1
+5investor_attendance3: 1
+5investor_attendance4: 1
+5investor_attendance5: 1
+5investor_attendance6: 1
+5investor_date_joined: 
+5investor_performance: 0
+5investor_amount_of_investment: 100000
+6type: manufacturing
+6manufacturing_age: 38
+6manufacturing_phone: 412345678
+6manufacturing_name: Zara Alston
+6manufacturing_address: 56 Weigall Ave, Tarnma SA 5413
+6manufacturing_ID: 4
+6manufacturing_salary_hourly: 40
+6manufacturing_hours_weekly: 40
+6manufacturing_attendance0: 1
+6manufacturing_attendance1: 1
+6manufacturing_attendance2: 1
+6manufacturing_attendance3: 1
+6manufacturing_attendance4: 1
+6manufacturing_attendance5: 0
+6manufacturing_attendance6: 0
+6manufacturing_date_joined: 11/09/2001
+6manufacturing_performance: 5
+6manufacturing_position: 
+6manufacturing_certification: Welding, Forklift
+6manufacturing_cars_complete: 0
+7type: marketing
+7marketing_age: 56
+7marketing_phone: 412345678
+7marketing_name: Dakota Ten
+7marketing_address: 68 Bresnhans Lane, Meryla NSW 2577
+7marketing_ID: 5
+7marketing_salary_hourly: 45
+7marketing_hours_weekly: 40
+7marketing_attendance0: 1
+7marketing_attendance1: 1
+7marketing_attendance2: 1
+7marketing_attendance3: 1
+7marketing_attendance4: 1
+7marketing_attendance5: 0
+7marketing_attendance6: 0
+7marketing_date_joined: 02/12/2008
+7marketing_performance: 5
+7marketing_position: Marketing Manager
+7marketing_performance: 0
+8type: researchDev
+8researchDev_age: 30
+8researchDev_phone: 412345678
+8researchDev_name: Lucy Wade
+8researchDev_address: 43 Fernleigh Ave, Cardina NSW 2831
+8researchDev_ID: 6
+8researchDev_salary_hourly: 50
+8researchDev_hours_weekly: 40
+8researchDev_attendance0: 1
+8researchDev_attendance1: 1
+8researchDev_attendance2: 1
+8researchDev_attendance3: 1
+8researchDev_attendance4: 1
+8researchDev_attendance5: 0
+8researchDev_attendance6: 0
+8researchDev_date_joined: 43 Fernleign Ave, Cardina NSW 2831
+8researchDev_performance: 5
+8researchDev_position:  Chemical Research
+8finished_research: Corrosion study 1, paint study 5
+8current_research: Corrosion study 2
+8expertise: Chemical
+9type: sales
+9sales_age: 25
+9sales_phone: 412345678
+9sales_name: Kayla Steigrad
+9sales_address: 36 Thomas Lane, Donnybrooke VIC 3064
+9sales_ID: 7
+9sales_salary_hourly: 50
+9sales hours_weekly: 40
+9sales_attendance0: 1
+9sales_attendance1: 1
+9sales_attendance2: 1
+9sales_attendance3: 1
+9sales_attendance4: 1
+9sales_attendance5: 0
+9sales_attendance6: 0
+9sales_date_joined: 28/05/2022
+9sales_performance: 5
+9sales_position: Floor Sales
+9sales_conversion_rate: 50.2
+9sales_cars_sold: 10
+9sales_revenue: 200000
+10type: software
+10software_age: 24
+10software_phone: 412345678
+10software_name: Callum Hogarth
+10software_address: 5 Walpole Ave, Nirranda South VIC 3268
+10software_positions: ECU Programmer
+10software_languages: C++, Javascript, C#
+10software_projects_finished: ECU for SUV 2021
+10software_projects_current: ECU for SUV
+10software_ID : 8
+10software_salary_hourly: 40
+10software_hours_weekly: 40
+10software_attendance0: 1
+10software_attendance1: 1
+10software_attendance2: 1
+10software_attendance3: 1
+10software_attendance4: 1
+10software_attendance5: 0
+10software_attendance6: 0
+10software_date_joined: 16/08/2020
+10software_performance: 5
+11type: supplier
+11supplier_age: 40
+11supplier_phone: 412345678
+11supplier_name: Jett Sheridan
+11supplier_address: 37 Endeavour Drive, Poonindie SA 5607
+11supplier_amount_cargo: 500
+11supplier_cost_annually: 10000
+11supplier_cargo: Steel
+12type: VIP
+12VIP_referrals: 20
+12VIP_age: 22
+12VIP_phone: 412345678
+12VIP_name: Ali Edmond
+12VIP_address: 57 Saggers Rd, Hopetoun WA 6348
+12VIP_bank_number: 123456789
+12VIP_spendings: 2000000
+12VIP_clientId: 1156
+12VIP_bank: NAB
+12VIP_purchase_history: 100 Company Sedans
+12VIP_notes: Purchases cars for his company

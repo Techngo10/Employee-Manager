@@ -233,11 +233,11 @@ counter: 12
 11type: manager
 11manager_age: 29
 11manager_phone: 8828011
-11manager_name: Kurt Brice
+11manager_name: Kurt
 11manager_address: Hutt Street
 11manager_ID: 11
 11manager_salary_hourly: 50
-11manager_hours_weekly: 40
+11manager_hours_weekly: 50
 11manager_attendance0: 1
 11manager_attendance1: 1
 11manager_attendance2: 1

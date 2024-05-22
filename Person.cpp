@@ -1,24 +1,22 @@
 #include "Person.h"
 
-#include <ctime>
-#include <iostream>
-using namespace std;
-
+//Initialisation
 Person::Person() : age(0), phone_number(0), name("none"), address("none") {};
-Person::Person(int age, int phone_number, string name, string address) : age(age), phone_number(phone_number), name(name), address(address) {};
+Person::Person(int age, int phone_number, std::string name, std::string address) : age(age), phone_number(phone_number), name(name), address(address) {};
 
+//Getters
 int Person::get_age() const {return age;};
-void Person::set_age(int new_age) {age = new_age;};
-
 int Person::get_phone() const {return phone_number;};
+std::string Person::get_name() const {return name;};
+std::string Person::get_address() const {return address;};
+
+//Setters
+void Person::set_age(int new_age) {age = new_age;};
 void Person::set_phone(int new_phone) {phone_number = new_phone;};
+void Person::set_name(std::string new_name) {name = new_name;};
+void Person::set_address(std::string new_address) {address = new_address;};
 
-string Person::get_name() const {return name;};
-void Person::set_name(string new_name) {name = new_name;};
-
-string Person::get_address() const {return address;};
-void Person::set_address(string new_address) {address = new_address;};
-
+//Operator
 bool Person::operator==(const Person& other) const {
   return (age == other.age && phone_number == other.phone_number &&
           name == other.name && address == other.address);
@@ -27,15 +25,15 @@ bool Person::operator==(const Person& other) const {
 // Virtual functions
 // Software functions
 
-void Person::set_position(string position) {(void)position;};
-void Person::set_language(string languages) {(void)languages;};
-void Person::set_finished(string finished) {(void)finished;};
-void Person::set_projects_current(string currentProjects) {(void)currentProjects;};
+void Person::set_position(std::string position) {(void)position;};
+void Person::set_language(std::string languages) {(void)languages;};
+void Person::set_finished(std::string finished) {(void)finished;};
+void Person::set_projects_current(std::string currentProjects) {(void)currentProjects;};
 
-string Person::get_position() { return ""; };
-string Person::get_languages() { return ""; };
-string Person::get_projects_current() { return ""; };
-string Person::get_finished() { return ""; };
+std::string Person::get_position() { return ""; };
+std::string Person::get_languages() { return ""; };
+std::string Person::get_projects_current() { return ""; };
+std::string Person::get_finished() { return ""; };
 
 
 // Finances functions
@@ -59,23 +57,23 @@ int Person::get_expense(){ return 0; };
 int Person::get_bankAccount() {return 0;};
 void Person::set_bankAccount(int bank_num) {(void)bank_num;};
 
-string Person::get_bank() {return "";};
-void Person::set_bank(string BANK) {(void)BANK;};
+std::string Person::get_bank() {return "";};
+void Person::set_bank(std::string BANK) {(void)BANK;};
 
-string Person::get_purchase_history() {return "";};
-void Person::set_purchase_history(string history){(void)history;};
+std::string Person::get_purchase_history() {return "";};
+void Person::set_purchase_history(std::string history){(void)history;};
 void Person::set_spendings(int spendings) {(void)spendings;};
 int Person::get_spendings() {return 0;};
 int Person::get_clientId() {return 0;};
 void Person::set_clientId(int clientId) {(void)clientId;};
 
-string Person::get_notes() {return "none";};
-void Person::set_notes(string new_note) {(void)new_note;};
+std::string Person::get_notes() {return "none";};
+void Person::set_notes(std::string new_note) {(void)new_note;};
 
 
 //Design functions
-string Person::get_design_current() {return "";};
-void Person::set_design_current(string design_current) {(void)design_current;};
+std::string Person::get_design_current() {return "";};
+void Person::set_design_current(std::string design_current) {(void)design_current;};
 
 //Sales functions
 float Person::get_conversion_rate() {return 0;};
@@ -88,16 +86,16 @@ float Person::get_revenue() {return 0;};
 void Person::set_revenue(float rev) {(void)rev;};
 
 //Research Development functions
-//void Person::set_finished(string finished) {(void)finished;};
+//void Person::set_finished(std::string finished) {(void)finished;};
 
-// string Person::get_finished() {return "";};
-// void Person::set_finished(string finished) {};
+// std::string Person::get_finished() {return "";};
+// void Person::set_finished(std::string finished) {};
 
-string Person::get_research() {return "";};
-void Person::set_research(string current) {(void)current;};
+std::string Person::get_research() {return "";};
+void Person::set_research(std::string current) {(void)current;};
 
-string Person::get_expertise() {return "";};
-void Person::set_expertise(string expert) {(void)expert;};
+std::string Person::get_expertise() {return "";};
+void Person::set_expertise(std::string expert) {(void)expert;};
 
 //Marketing functions
 float Person::get_success_rate() {return 0;};
@@ -117,28 +115,28 @@ int Person::get_retired() {return 0;};
 void Person::set_retired(int no_retired) {(void)no_retired;};
 
 //Manufactoring
-string Person::get_certification(){ return "";};
-void Person::set_certification(string certification) {(void)certification;};
+std::string Person::get_certification(){ return "";};
+void Person::set_certification(std::string certification) {(void)certification;};
 int Person::get_cars_complete(){return 0;};
 void Person::set_cars_complete(int cars_complete) {(void)cars_complete;};
 
 //VIP
-string Person::get_VIP_type(){ return "";};
-void Person::set_VIP_type(string VIP_type) {(void)VIP_type;};
+std::string Person::get_VIP_type(){ return "";};
+void Person::set_VIP_type(std::string VIP_type) {(void)VIP_type;};
 
 int Person::get_referrals(){return 0;};
 void Person::set_referrals(int referals){(void)referals;};
 
 void Person::displayPrizes(){};
-bool Person::buy_prize(string prizeName){(void)prizeName; return true;};
+bool Person::buy_prize(std::string prizeName){(void)prizeName; return true;};
 
 //Supplier
 int Person::get_amount_of_cargo() {return 0;};
-string Person::get_cargo() {return "";};
+std::string Person::get_cargo() {return "";};
 float Person::get_cost_annually() {return 0;};
 
 void Person::set_amount_of_cargo(int amountCargo) {(void)amountCargo;};
-void Person::set_cargo(string cargo) {(void)cargo;};
+void Person::set_cargo(std::string cargo) {(void)cargo;};
 void Person::set_cost_annually(float costAnnually) {(void)costAnnually;};
 
 //Employee functions
@@ -154,8 +152,8 @@ void Person::set_attendance(bool attending, int day) {(void)attending; (void)day
 int Person::get_performance() {return 0;};
 void Person::set_performance(int performance) {(void)performance;};
 
-string Person::get_date_joined() {return "";};
-void Person::set_date_joined(string date_joined) {(void)date_joined;}
+std::string Person::get_date_joined() {return "";};
+void Person::set_date_joined(std::string date_joined) {(void)date_joined;}
 
 float Person::get_salary_hourly() {return 0;};
 void Person::set_salary_hourly(float salary_hourly) {(void)salary_hourly;};
@@ -168,5 +166,5 @@ float Person::get_amount_of_investment(){ return 0;};
 void Person::set_amount_of_investment(float amount){(void)amount;};
 
 //Manager
-string Person::get_password() {return "";};
-void Person::set_password(string pass) {(void)pass;};
+std::string Person::get_password() {return "";};
+void Person::set_password(std::string pass) {(void)pass;};
