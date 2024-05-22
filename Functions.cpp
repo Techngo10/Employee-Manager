@@ -19,7 +19,6 @@
 #include "Marketing.h"
 #include "Person.h"
 #include "ResearchDev.h"
-// #include "Salary.h"
 #include "Sales.h"
 #include "Software.h"
 #include "Supplier.h"
@@ -35,6 +34,10 @@ bool Access(Location *location, std::string username, std::string password){
         }
     }
 
+    if (username == "admin" && password == "admin"){
+        return true;
+    }
+
     if (index == -1){                                               // Clause for if no name found
         std::cout << "Username incorrect." << std::endl;
         return false;
@@ -43,12 +46,12 @@ bool Access(Location *location, std::string username, std::string password){
     if (location->people[index]->get_password() == password){       // Checking if the password matches
 
         if (strcmp(typeid(*location->people[index]).name(), "7Manager") == 0){ // In GCC compiling this works as typeid will show 7 representing the characters in the class then the class name
-            std::cout << "Access granted." << std::endl;
+            //std::cout << "Access granted." << std::endl;
             return true;
         }
     }
 
-    std::cout << "Username or password is incorrect. " << std::endl; // If no other check it hit then the username must not match the password
+    //std::cout << "Username or password is incorrect. " << std::endl; // If no other check it hit then the username must not match the password
     return false;
 
 }
@@ -124,12 +127,12 @@ void runCommand(Location *location, std::string command) {
     std::vector<std::string> parts = splitString(command);
     if (command == "save"){
         std::string fileName;
-        std::cout << "Enter the name of your save file (make sure to include .txt)";
+        std::cout << "Enter the name of your save file (make sure to include .txt): ";
         std::cin >> fileName;
         Save(location, fileName);
     
     } else if (command == "help"){
-        std::cout << "\nThere are 5 types of commands; get, set, rm, add and save.\n\n";
+        std::cout << "\nThere are 6 types of commands; get, set, rm, add, e and save.\n\n";
         std::cout << "save - save your progress so you can load it later.\n\n";
         std::cout << "get info: name - is the main command to get all the information based on the input name.\n\n";
         std::cout << "set: variable: name - is the base command for setting data for a variable based on someone's name.\n";
@@ -143,6 +146,7 @@ void runCommand(Location *location, std::string command) {
         std::cout << "class: Customer, Design, Finances, HumanResources, Investor, Manager, Manufacturing, ResearchDev, Sales,\n"
         "Software, Supplier, VIP\n\n";
         std::cout << "save - is the function to save your data into a file which can be loaded back in.\n\n";
+        std::cout << "e - is the function to exit, note you should save before exiting.\n\n";
     
     } else if (parts[0] == "get"){
         if (parts[1] == "info"){
@@ -1784,8 +1788,8 @@ void Save(Location *location, std::string file){
             } else if (strcmp(typeid(*location->people[i]).name(), "14HumanResources") == 0){
                 saveFile << i << "type: humanResources\n";
                 saveFile << i << "humanResources_age: " << location->people[i]->get_age() << "\n";
-                saveFile << i << "humanResources_name: " << location->people[i]->get_name() << "\n";
                 saveFile << i << "humanResources_phone: " << location->people[i]->get_phone() << "\n";
+                saveFile << i << "humanResources_name: " << location->people[i]->get_name() << "\n";
                 saveFile << i << "humanResources_address: " << location->people[i]->get_address() << "\n";
                 
                 saveFile << i << "humanResources_ID: " << location->people[i]->get_ID() << "\n";
@@ -1806,8 +1810,8 @@ void Save(Location *location, std::string file){
             } else if (strcmp(typeid(*location->people[i]).name(), "8Investor") == 0){
                 saveFile << i << "type: investor\n";
                 saveFile << i << "investor_age: " << location->people[i]->get_age() << "\n";
-                saveFile << i << "investor_name: " << location->people[i]->get_phone() << "\n";
-                saveFile << i << "investor_phone: "<< location->people[i]->get_name() << "\n";
+                saveFile << i << "investor_phone: "<< location->people[i]->get_phone() << "\n";
+                saveFile << i << "investor_name: " << location->people[i]->get_name() << "\n";
                 saveFile << i << "investor_address: " << location->people[i]->get_address() << "\n";
                 
                 saveFile << i << "investor_ID: " << location->people[i]->get_ID() << "\n";
@@ -1824,8 +1828,8 @@ void Save(Location *location, std::string file){
             } else if (strcmp(typeid(*location->people[i]).name(), "7Manager") == 0){
                 saveFile << i << "type: manager\n";
                 saveFile << i << "manager_age: " << location->people[i]->get_age() << "\n";
-                saveFile << i << "manager_name: " << location->people[i]->get_phone() << "\n";
-                saveFile << i << "manager_phone: "<< location->people[i]->get_name() << "\n";
+                saveFile << i << "manager_phone: "<< location->people[i]->get_phone() << "\n";
+                saveFile << i << "manager_name: " << location->people[i]->get_name() << "\n";
                 saveFile << i << "manager_address: " << location->people[i]->get_address() << "\n";
 
                 saveFile << i << "manager_ID: " << location->people[i]->get_ID() << "\n";
@@ -1843,8 +1847,8 @@ void Save(Location *location, std::string file){
             } else if (strcmp(typeid(*location->people[i]).name(), "13Manufacturing") == 0){
                 saveFile << i << "type: manufacturing\n";
                 saveFile << i << "manufacturing_age: " << location->people[i]->get_age() << "\n";
-                saveFile << i << "manufacturing_name: " << location->people[i]->get_phone() << "\n";
-                saveFile << i << "manufacturing_phone: "<< location->people[i]->get_name() << "\n";
+                saveFile << i << "manufacturing_phone: " << location->people[i]->get_phone() << "\n";
+                saveFile << i << "manufacturing_name: "<< location->people[i]->get_name() << "\n";
                 saveFile << i << "manufacturing_address: " << location->people[i]->get_address() << "\n";
 
                 saveFile << i << "manufacturing_ID: " << location->people[i]->get_ID() << "\n";
@@ -1863,8 +1867,8 @@ void Save(Location *location, std::string file){
             } else if (strcmp(typeid(*location->people[i]).name(), "9Marketing") == 0){
                 saveFile << i << "type: marketing\n";
                 saveFile << i << "marketing_age: " << location->people[i]->get_age() << "\n";
-                saveFile << i << "marketing_name: " << location->people[i]->get_phone() << "\n";
-                saveFile << i << "marketing_phone: "<< location->people[i]->get_name() << "\n";
+                saveFile << i << "marketing_phone: " << location->people[i]->get_phone() << "\n";
+                saveFile << i << "marketing_name: "<< location->people[i]->get_name() << "\n";
                 saveFile << i << "marketing_address: " << location->people[i]->get_address() << "\n";
                 
                 saveFile << i << "marketing_ID: " << location->people[i]->get_ID() << "\n";
@@ -1882,8 +1886,8 @@ void Save(Location *location, std::string file){
             } else if (strcmp(typeid(*location->people[i]).name(), "11ResearchDev") == 0){
                 saveFile << i << "type: researchDev\n";
                 saveFile << i << "researchDev_age: " << location->people[i]->get_age() << "\n";
-                saveFile << i << "researchDev_name: " << location->people[i]->get_phone() << "\n";
-                saveFile << i << "researchDev_phone: "<< location->people[i]->get_name() << "\n";
+                saveFile << i << "researchDev_phone: " << location->people[i]->get_phone() << "\n";
+                saveFile << i << "researchDev_name: "<< location->people[i]->get_name() << "\n";
                 saveFile << i << "researchDev_address: " << location->people[i]->get_address() << "\n";
                 
                 saveFile << i << "researchDev_ID: " << location->people[i]->get_ID() << "\n";
@@ -1903,8 +1907,8 @@ void Save(Location *location, std::string file){
             } else if (strcmp(typeid(*location->people[i]).name(), "5Sales") == 0){
                 saveFile << i << "type: sales\n";
                 saveFile << i << "sales_age: " << location->people[i]->get_age() << "\n";
-                saveFile << i << "sales_name: " << location->people[i]->get_name() << "\n";
                 saveFile << i << "sales_phone: "<< location->people[i]->get_phone() << "\n";
+                saveFile << i << "sales_name: " << location->people[i]->get_name() << "\n";
                 saveFile << i << "sales_address: " << location->people[i]->get_address() << "\n";
                 
                 saveFile << i << "sales_ID: " << location->people[i]->get_ID() << "\n";
@@ -1925,8 +1929,8 @@ void Save(Location *location, std::string file){
             } else if (strcmp(typeid(*location->people[i]).name(), "8Software") == 0){
                 saveFile << i << "type: software\n";
                 saveFile << i << "software_age: " << location->people[i]->get_age() << "\n";
-                saveFile << i << "software_name: " << location->people[i]->get_name() << "\n";
                 saveFile << i << "software_phone: "<< location->people[i]->get_phone() << "\n";
+                saveFile << i << "software_name: " << location->people[i]->get_name() << "\n";
                 saveFile << i << "software_address: " << location->people[i]->get_address() << "\n";
                     
                 saveFile << i << "software_positions: " << location->people[i]->get_position() << "\n";
@@ -2163,11 +2167,11 @@ bool Load(Location *location, std::string file){
                         std::getline(saveFile, line); ////std::cout << "Reading line for age: " << line << std::endl;
                         humanResources->set_age(std::stoi(line.substr(line.find(": ") + 2)));
 
-                        std::getline(saveFile, line); //std::cout << "Reading line for name: " << line << std::endl;
-                        humanResources->set_name(line.substr(line.find(": ") + 2));
-                        
                         std::getline(saveFile, line); //std::cout << "Reading line for phone: " << line << std::endl;
                         humanResources->set_phone(std::stoi(line.substr(line.find(": ") + 2)));
+
+                        std::getline(saveFile, line); //std::cout << "Reading line for name: " << line << std::endl;
+                        humanResources->set_name(line.substr(line.find(": ") + 2));
 
                         std::getline(saveFile, line); //std::cout << "Reading line for address: " << line << std::endl;
                         humanResources->set_address(line.substr(line.find(": ") + 2));
@@ -2221,13 +2225,13 @@ bool Load(Location *location, std::string file){
                     try{ 
                         std::getline(saveFile, line); ////std::cout << "Reading line for age: " << line << std::endl;
                         investor->set_age(std::stoi(line.substr(line.find(": ") + 2)));
-                        
-                        std::getline(saveFile, line); //std::cout << "Reading line for name: " << line << std::endl;
-                        investor->set_name(line.substr(line.find(": ") + 2));
 
                         std::getline(saveFile, line); //std::cout << "Reading line for phone: " << line << std::endl;
                         investor->set_phone(std::stoi(line.substr(line.find(": ") + 2)));
                         
+                        std::getline(saveFile, line); //std::cout << "Reading line for name: " << line << std::endl;
+                        investor->set_name(line.substr(line.find(": ") + 2));
+
                         std::getline(saveFile, line); //std::cout << "Reading line for address: " << line << std::endl;
                         investor->set_address(line.substr(line.find(": ") + 2));
 
@@ -2479,11 +2483,11 @@ bool Load(Location *location, std::string file){
                     std::getline(saveFile, line); ////std::cout << "Reading line for age: " << line << std::endl;
                     sales->set_age(std::stoi(line.substr(line.find(": ") + 2)));
 
-                    std::getline(saveFile, line); //std::cout << "Reading line for name: " << line << std::endl;
-                    sales->set_name(line.substr(line.find(": ") + 2));
-
                     std::getline(saveFile, line); //std::cout << "Reading line for phone: " << line << std::endl;
                     sales->set_phone(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for name: " << line << std::endl;
+                    sales->set_name(line.substr(line.find(": ") + 2));
 
                     std::getline(saveFile, line); //std::cout << "Reading line for address: " << line << std::endl;
                     sales->set_address(line.substr(line.find(": ") + 2));
@@ -2534,11 +2538,11 @@ bool Load(Location *location, std::string file){
                     std::getline(saveFile, line); ////std::cout << "Reading line for age: " << line << std::endl;
                     software->set_age(std::stoi(line.substr(line.find(": ") + 2)));
 
-                    std::getline(saveFile, line); //std::cout << "Reading line for name: " << line << std::endl;
-                    software->set_name(line.substr(line.find(": ") + 2));
-
                     std::getline(saveFile, line); //std::cout << "Reading line for phone: " << line << std::endl;
                     software->set_phone(std::stoi(line.substr(line.find(": ") + 2)));
+
+                    std::getline(saveFile, line); //std::cout << "Reading line for name: " << line << std::endl;
+                    software->set_name(line.substr(line.find(": ") + 2));
 
                     std::getline(saveFile, line); //std::cout << "Reading line for address: " << line << std::endl;
                     software->set_address(line.substr(line.find(": ") + 2));
@@ -2671,4 +2675,23 @@ bool Load(Location *location, std::string file){
 
     return true;
     
+}
+
+
+void clear(){
+    system("clear");
+    std::cout << "        BBBBBBq  BBBBBBE    BBBBBBBQ     BBQBi  BQBB     BBBBQBBi     iBBBBBBBBi    BQBQBBBBb\n"
+                 "        BBQBBBB  BBBBBBP    QBBBBBBB     BBBBB  BBBB    iBBBQBBB2    rQBBBQQBBBBi   BBBBQBQBZ\n"
+                 "        BBBBBBB iBBBBBB5    BBBBBQBB     QBBBB  BBBQ    IBBBBBBBB    BBBBB  BQBBB   BBBBBrrLi\n"
+                 "        BBQBBBQ vBBBBBBS   rBBBZUBBBi    BBBBBE BBBB    QBBBYQBBB    BBBBB  BBBBB   BBBBB\n"
+                 "        BBBBgBBiqBQMBBB2   SBBB7iBBQX    BBBBQB BBBB    BBBB bBBB    BBBBQ  7iir7   BBBBB\n"
+                 "        BBBB7BBgBB2PBBQS   BBBBi BBBB    BBBBBQQQBBB    BBQB KBBBv   BBBQB          BBBBBBBBi\n"
+                 "        BBBBigBBBBr5BBBI   BBBB  BBBB    BBQBBBBBBBB   iBQBQ 7BBBD   BBBBB BBQBBB   BBBBBBBB7\n"
+                 "        BBBB 5QBBB KQBB5   BBBB  BBBQi   BBBD1BBBBBB   SBBBd iBBBB   BBBBB sQBBBB   QBBBBi i\n"
+                 "        BQBQ iBBBB PBBBI  rBBQBQBBBQBJ   BBBQ BBBQBB   BBBBBBBBBBB   BBBBB  BBBBB   BBBBB\n"
+                 "        BBBB  BBQB gBBB5  PBBBBBBBBBBB   BBBB 5BBBQB   BQBBBBBQBBBi  BBBBB  BBBBB   BBBBB\n"
+                 "        BBBB  BBBg MBQBI  BBBBBi QBBBB   BBBB  QBQBB   BBBBQ iBBBBP  bBBBBi BBBBB   BQBBBBBBB\n"
+                 "        BBBBi QBBX BQBQg  QBBBQ  BQBBBi  BBBB  BBBBB  jBBBBZ  BBQBB   QBBBBBBBBBB   QBBBBBBBB\n"
+                 "        gPPZ  1bZi udqZr  RqqqK  rEKPDi  DPPE  iEKPg  vEPKEi  dqqPR    rQBBR  PPq   qPqXKKPbP\n\n"
+                 "                             Code By: Victor, Elijah, and Kurt\n\n\n\n";
 }

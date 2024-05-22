@@ -162,11 +162,9 @@ std::cout <<location.people[9]->get_expertise()<< std::endl;
 
   //Testing access function
 
-  string Permission;
 
-  Access(&location, Permission, "Kurt", "123");
+  Access(&location, "Kurt", "123");
   
-  cout << "Permission level: " << Permission << endl;
 
   Save(&location, "savetest.txt");
 

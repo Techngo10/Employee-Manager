@@ -3,8 +3,8 @@ curr_size: 14
 counter: 12
 0type: software
 0software_age: 20
-0software_name: Victor
 0software_phone: 69834025
+0software_name: Victor
 0software_address: city
 0software_positions: Top Programmer
 0software_languages: none
@@ -24,8 +24,8 @@ counter: 12
 0software_performance: 5
 1type: software
 1software_age: 20
-1software_name: Victor
 1software_phone: 69834025
+1software_name: Victor
 1software_address: city
 1software_positions: Top Programmer
 1software_languages: none
@@ -45,8 +45,8 @@ counter: 12
 1software_performance: 5
 2type: software
 2software_age: 20
-2software_name: Victor
 2software_phone: 69834025
+2software_name: Victor
 2software_address: city
 2software_positions: Top Programmer
 2software_languages: none
@@ -66,8 +66,8 @@ counter: 12
 2software_performance: 5
 3type: software
 3software_age: 20
-3software_name: Victor
 3software_phone: 69834025
+3software_name: Victor
 3software_address: city
 3software_positions: Manager
 3software_languages: C++, C
@@ -109,8 +109,8 @@ counter: 12
 4finances_expense: 2000
 5type: sales
 5sales_age: 32
-5sales_name: John
 5sales_phone: 123410
+5sales_name: John
 5sales_address: somewhere
 5sales_ID: 5
 5sales_salary_hourly: 15
@@ -150,8 +150,8 @@ counter: 12
 6design_current: motorbike color
 7type: manufacturing
 7manufacturing_age: 22
-7manufacturing_name: 123321
-7manufacturing_phone: Jones
+7manufacturing_phone: 123321
+7manufacturing_name: Jones
 7manufacturing_address: Japan
 7manufacturing_ID: 7
 7manufacturing_salary_hourly: 12
@@ -170,8 +170,8 @@ counter: 12
 7manufacturing_cars_complete: 109
 8type: humanResources
 8humanResources_age: 20
-8humanResources_name: Copper
 8humanResources_phone: 234432
+8humanResources_name: Copper
 8humanResources_address: Germany
 8humanResources_ID: 8
 8humanResources_salary_hourly: 31
@@ -192,8 +192,8 @@ counter: 12
 8humanResources_retired: 44
 9type: researchDev
 9researchDev_age: 56
-9researchDev_name: 45666
-9researchDev_phone: Jacky
+9researchDev_phone: 45666
+9researchDev_name: Jacky
 9researchDev_address: Henly St
 9researchDev_ID: 9
 9researchDev_salary_hourly: 66
@@ -207,14 +207,14 @@ counter: 12
 9researchDev_attendance6: 0
 9researchDev_date_joined: 24ed Jan
 9researchDev_performance: 5
-9researchDev_position:  research manager
+9researchDev_position:    research manager
 9finished_research: finished idk
 9current_research:  concistent driving
 9expertise: AI driving
 10type: marketing
 10marketing_age: 29
-10marketing_name: 999000
-10marketing_phone: Charile
+10marketing_phone: 999000
+10marketing_name: Charile
 10marketing_address: William St
 10marketing_ID: 10
 10marketing_salary_hourly: 49.1
@@ -232,8 +232,8 @@ counter: 12
 10marketing_performance: 2.11
 11type: manager
 11manager_age: 29
-11manager_name: 8828011
-11manager_phone: Kurt
+11manager_phone: 8828011
+11manager_name: Kurt
 11manager_address: Hutt Street
 11manager_ID: 11
 11manager_salary_hourly: 50
@@ -264,7 +264,7 @@ counter: 12
 13customer_address: 
 13customer_bank_number: 1
 13customer_spendings: 1
-13customer_clientId: 1
+13customer_clientId: 0
 13customer_bank: 
 13customer_purchase_history: 
 13customer_notes: 

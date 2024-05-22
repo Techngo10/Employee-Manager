@@ -23,21 +23,7 @@
  
 int main(){
 
-    system("clear");
-    std::cout << "        BBBBBBq  BBBBBBE    BBBBBBBQ     BBQBi  BQBB     BBBBQBBi     iBBBBBBBBi    BQBQBBBBb\n"
-                 "        BBQBBBB  BBBBBBP    QBBBBBBB     BBBBB  BBBB    iBBBQBBB2    rQBBBQQBBBBi   BBBBQBQBZ\n"
-                 "        BBBBBBB iBBBBBB5    BBBBBQBB     QBBBB  BBBQ    IBBBBBBBB    BBBBB  BQBBB   BBBBBrrLi\n"
-                 "        BBQBBBQ vBBBBBBS   rBBBZUBBBi    BBBBBE BBBB    QBBBYQBBB    BBBBB  BBBBB   BBBBB\n"
-                 "        BBBBgBBiqBQMBBB2   SBBB7iBBQX    BBBBQB BBBB    BBBB bBBB    BBBBQ  7iir7   BBBBB\n"
-                 "        BBBB7BBgBB2PBBQS   BBBBi BBBB    BBBBBQQQBBB    BBQB KBBBv   BBBQB          BBBBBBBBi\n"
-                 "        BBBBigBBBBr5BBBI   BBBB  BBBB    BBQBBBBBBBB   iBQBQ 7BBBD   BBBBB BBQBBB   BBBBBBBB7\n"
-                 "        BBBB 5QBBB KQBB5   BBBB  BBBQi   BBBD1BBBBBB   SBBBd iBBBB   BBBBB sQBBBB   QBBBBi i\n"
-                 "        BQBQ iBBBB PBBBI  rBBQBQBBBQBJ   BBBQ BBBQBB   BBBBBBBBBBB   BBBBB  BBBBB   BBBBB\n"
-                 "        BBBB  BBQB gBBB5  PBBBBBBBBBBB   BBBB 5BBBQB   BQBBBBBQBBBi  BBBBB  BBBBB   BBBBB\n"
-                 "        BBBB  BBBg MBQBI  BBBBBi QBBBB   BBBB  QBQBB   BBBBQ iBBBBP  bBBBBi BBBBB   BQBBBBBBB\n"
-                 "        BBBBi QBBX BQBQg  QBBBQ  BQBBBi  BBBB  BBBBB  jBBBBZ  BBQBB   QBBBBBBBBBB   QBBBBBBBB\n"
-                 "        gPPZ  1bZi udqZr  RqqqK  rEKPDi  DPPE  iEKPg  vEPKEi  dqqPR    rQBBR  PPq   qPqXKKPbP\n\n"
-                 "                             Code By: Victor, Elijah, and Kurt\n\n\n\n";
+    clear();
     std::string input;
     std::cout << "Do you want to load a file or start new or exit (l/n/e) : ";
     std::cin >> input;
@@ -48,7 +34,7 @@ int main(){
     }
 
     if (input == "e"){
-        system("clear");
+        clear();
         std::cout << "Program shutting down.\n";
         return 0;
     }
@@ -60,7 +46,7 @@ int main(){
         std::cout << "Please enter your file name: ";
         std::cin >> fileName;
         if (fileName == "e"){
-            system("clear");
+            clear();
             std::cout << "Program shutting down.\n";
             return 0;
         }
@@ -68,7 +54,7 @@ int main(){
             std::cout << "Please enter correct file name: ";
             std::cin >> fileName;
             if (fileName == "e"){
-                system("clear");
+                clear();
                 std::cout << "Program shutting down.\n";
                 return 0;
             }
@@ -83,7 +69,7 @@ int main(){
                 std::cout << "Please enter your file name: ";
                 std::cin >> fileName;
                 if (fileName == "e"){
-                    system("clear");
+                    clear();
                     std::cout << "Program shutting down.\n";
                     return 0;
                 }
@@ -91,7 +77,7 @@ int main(){
         }
 
         if (!loaded){
-            system("clear");
+            clear();
             std::cout << "Please go back and check your load file is correct.\n";
             return 0;
         } 
@@ -100,55 +86,85 @@ int main(){
 
         /////////////////////////////////////////////////
         std::string username;
-        std::cout << "Enter your name: ";
-        std::getline(std::cin, username);
-
-        std::cin.ignore(); // Clear the newline character left in the input buffer
-
         std::string password;
-        std::cout << "Enter your password: ";
-        std::getline(std::cin, password);
 
-        std::cin.ignore(); // Clear the newline character left in the input buffer
+        std::cin.ignore(); // Clear newline left in buffer from previous std::cin
 
-        if(Access(&location, username, password) == 0){
-            std::cout << "Sorry, you can't access. Only manager can log in.\n";
-            for(int j = 5 ; j > 0 ; j--){
-                std::cout << "you have "<<j<<"chances left.\n";
-                std::cout << "Enter the password again: "<< std::endl;
-                std::cin >> password;
-                 if(Access(&location, username, password) == 1){
-                    std::cout <<"Welcome back!\n";
-                    break;
-                 }
-                 system("clear");
+        for (int attempts = 5; attempts > 0; attempts--) {
+            std::cout << "Enter your name: ";
+            std::getline(std::cin, username);
+
+            std::cout << "Enter your password: ";
+            std::getline(std::cin, password);
+
+            if (Access(&location, username, password)) {
+                clear();
+                std::cout << "Welcome back!\n";
+                break;
+            } else {
+                clear();
+                std::cout << "Sorry, you can't access. Only manager and administrator can log in.\n";
+                if (attempts > 1) {
+                    std::cout << "You have " << attempts - 1 << " chances left.\n";
+                }
+                if (attempts == 1){
+                    clear();
                     std::cout << "Program shutting down.\n";
                     return 0;
-            }
-        } else{
-            std::cout <<"Welcome back!\n";
-
-            std::string n_input = "";
-
-            while(n_input != "e"){
-                std::getline(std::cin, n_input);
-                runCommand(&location, n_input);
+                }
             }
         }
-        ///////////////////////////////////////////////
-    }
-
-    if (input == "n"){
         std::string n_input = "";
-        std::cout << "Create a new Location."<< std :: endl;
-        Location location;
-
-        runCommand(&location, "add Manager");
 
         while(n_input != "e"){
             std::getline(std::cin, n_input);
+            clear();
             runCommand(&location, n_input);
         }
+
+        clear();
+        std::string save;
+        do {
+        std::cout << "Do you want to save (y/n): ";
+        std::cin >> save;
+        } while (save != "y" && save != "n");
+
+        if (save == "y") {
+            runCommand(&location, "save");
+        }
+        std::cout << "Program shutting down.\n";
+        return 0;
+    }
+    ///////////////////////////////////////////////
+
+    if (input == "n"){
+        std::string n_input = "";
+        std::cout << "Createing a new Location.\n"<< std::endl;
+        Location location;
+
+        std::cout << "You must now initialise a manager.\n"<< std::endl;
+
+        runCommand(&location, "add Manager");
+        clear();
+
+        while(n_input != "e"){
+            std::getline(std::cin, n_input);
+            clear();
+            runCommand(&location, n_input);
+        }
+
+        clear();
+        std::string save;
+        do {
+        std::cout << "Do you want to save (y/n): ";
+        std::cin >> save;
+        } while (save != "y" && save != "n");
+
+        if (save == "y") {
+            runCommand(&location, "save");
+        }
+        std::cout << "Program shutting down.\n";
+        return 0;
         
     }   
     

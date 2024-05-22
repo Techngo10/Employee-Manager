@@ -10,6 +10,8 @@ bool Access(Location *location, std::string username, std::string password);
 
 bool fileExists(const std::string& filename);
 
+void clear();
+
 std::vector<std::string> splitString(const std::string& input);
 
 int toInt(std::string input);
