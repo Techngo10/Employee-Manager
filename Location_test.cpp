@@ -2,7 +2,6 @@
 
 #include <iostream>
 
-#include "Functions.h"
 #include "Software.h"
 #include "Finances.h"
 #include "Design.h"
@@ -163,14 +162,14 @@ std::cout <<location.people[9]->get_expertise()<< std::endl;
   //Testing access function
 
 
-  Access(&location, "Kurt", "123");
+  location.Access("Kurt", "123");
   
 
-  Save(&location, "savetest.txt");
+  location.Save("savetest.txt");
 
   Location location3;
 
-  Load(&location3, "savetest.txt");
+  location3.Load("savetest.txt");
 
 
   //cout << location3.people[1]->get_age() << endl;
