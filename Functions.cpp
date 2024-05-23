@@ -2701,20 +2701,6 @@ bool Load(Location *location, std::string file){
 
 void clear(){
     system("clear");
-    // std::cout << "        BBBBBBq  BBBBBBE    BBBBBBBQ     BBQBi  BQBB     BBBBQBBi     iBBBBBBBBi    BQBQBBBBb\n"
-    //              "        BBQBBBB  BBBBBBP    QBBBBBBB     BBBBB  BBBB    iBBBQBBB2    rQBBBQQBBBBi   BBBBQBQBZ\n"
-    //              "        BBBBBBB iBBBBBB5    BBBBBQBB     QBBBB  BBBQ    IBBBBBBBB    BBBBB  BQBBB   BBBBBrrLi\n"
-    //              "        BBQBBBQ vBBBBBBS   rBBBZUBBBi    BBBBBE BBBB    QBBBYQBBB    BBBBB  BBBBB   BBBBB\n"
-    //              "        BBBBgBBiqBQMBBB2   SBBB7iBBQX    BBBBQB BBBB    BBBB bBBB    BBBBQ  7iir7   BBBBB\n"
-    //              "        BBBB7BBgBB2PBBQS   BBBBi BBBB    BBBBBQQQBBB    BBQB KBBBv   BBBQB          BBBBBBBBi\n"
-    //              "        BBBBigBBBBr5BBBI   BBBB  BBBB    BBQBBBBBBBB   iBQBQ 7BBBD   BBBBB BBQBBB   BBBBBBBB7\n"
-    //              "        BBBB 5QBBB KQBB5   BBBB  BBBQi   BBBD1BBBBBB   SBBBd iBBBB   BBBBB sQBBBB   QBBBBi i\n"
-    //              "        BQBQ iBBBB PBBBI  rBBQBQBBBQBJ   BBBQ BBBQBB   BBBBBBBBBBB   BBBBB  BBBBB   BBBBB\n"
-    //              "        BBBB  BBQB gBBB5  PBBBBBBBBBBB   BBBB 5BBBQB   BQBBBBBQBBBi  BBBBB  BBBBB   BBBBB\n"
-    //              "        BBBB  BBBg MBQBI  BBBBBi QBBBB   BBBB  QBQBB   BBBBQ iBBBBP  bBBBBi BBBBB   BQBBBBBBB\n"
-    //              "        BBBBi QBBX BQBQg  QBBBQ  BQBBBi  BBBB  BBBBB  jBBBBZ  BBQBB   QBBBBBBBBBB   QBBBBBBBB\n"
-    //              "        gPPZ  1bZi udqZr  RqqqK  rEKPDi  DPPE  iEKPg  vEPKEi  dqqPR    rQBBR  PPq   qPqXKKPbP\n\n"
-    //              "                             Code By: Victor, Elijah, and Kurt\n\n\n\n";
 
     std::string lines[] = {
         "        BBBBBBq  BBBBBBE    BBBBBBBQ     BBQBi  BQBB     BBBBQBBi     iBBBBBBBBi    BQBQBBBBb",
@@ -2730,7 +2716,8 @@ void clear(){
         "        BBBB  BBBg MBQBI  BBBBBi QBBBB   BBBB  QBQBB   BBBBQ iBBBBP  bBBBBi BBBBB   BQBBBBBBB",
         "        BBBBi QBBX BQBQg  QBBBQ  BQBBBi  BBBB  BBBBB  jBBBBZ  BBQBB   QBBBBBBBBBB   QBBBBBBBB",
         "        gPPZ  1bZi udqZr  RqqqK  rEKPDi  DPPE  iEKPg  vEPKEi  dqqPR    rQBBR  PPq   qPqXKKPbP\n",
-        "                             Code By: Victor, Elijah, and Kurt\n\n\n\n"
+        "                             Code By: Victor, Elijah, and Kurt\n\n\n\n",
+        "                                     Location: "
     };
 
     for (const auto& line : lines) {
