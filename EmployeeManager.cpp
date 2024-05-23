@@ -24,11 +24,11 @@ int main(){
     location.clear();
     std::string input;
     std::cout << "Do you want to load a file or start new or exit (l/n/e) : ";
-    std::cin >> input;
+    std::getline(std::cin, input);
     
     while (input != "n" && input != "l" && input != "e") {
-        std::cout << "Please enter l, n, or e";
-        std::cin >> input;
+        std::cout << "Please enter l, n, or e: ";
+        std::getline(std::cin, input);
     }
 
     if (input == "e"){
@@ -41,7 +41,7 @@ int main(){
         std::cout << "Loading your location.\n";
         std::string fileName;
         std::cout << "Please enter your file name: ";
-        std::cin >> fileName;
+        std::getline(std::cin, fileName);
         if (fileName == "e"){
             location.clear();
             std::cout << "Program shutting down.\n";
@@ -49,7 +49,7 @@ int main(){
         }
         while (location.fileExists(fileName) != true){
             std::cout << "Please enter correct file name: ";
-            std::cin >> fileName;
+            std::getline(std::cin, fileName);
             if (fileName == "e"){
                 location.clear();
                 std::cout << "Program shutting down.\n";
@@ -64,7 +64,7 @@ int main(){
                 std::cout << "Error loading file, either change your file or choose the correct name.\n";
                 std::cout<<"You have "<< 4-i << " chances left.\n";
                 std::cout << "Please enter your file name: ";
-                std::cin >> fileName;
+                std::getline(std::cin, fileName);
                 if (fileName == "e"){
                     location.clear();
                     std::cout << "Program shutting down.\n";
@@ -139,8 +139,6 @@ int main(){
         std::string n_input = "";
         std::cout << "\nCreateing a new Location.\n"<< std::endl;
 
-        std::cin.ignore(); // location.clear newline left in buffer from previous std::cin
-
         std::cout << "Please enter the address of the location: ";
 
 
@@ -151,8 +149,12 @@ int main(){
 
         std::cout << "You must now initialise a manager.\n"<< std::endl;
 
+        std::cout << "Enter the manager's name: ";
+        std::getline(std::cin, n_input);
 
         location.runCommand("add Manager");
+        location.people[0]->set_name(n_input);
+
         location.clear();
 
         while(n_input != "e"){

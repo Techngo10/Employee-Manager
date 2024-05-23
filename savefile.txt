@@ -1,4 +1,4 @@
-location_address: none
+location_address: Adelaide SA 5005
 curr_size: 13
 counter: 9
 0type: manager

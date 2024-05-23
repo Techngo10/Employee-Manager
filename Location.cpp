@@ -222,7 +222,7 @@ void Location::runCommand(std::string command) {
         std::cout << "get info: name - is the main command to get all the information based on the input name.\n";
         std::cout << "get names - is the command to list all of the avaliable names.\n\n";
         std::cout << "set: variable: name - is the base command for setting data for a variable based on someone's name.\n";
-        std::cout << "variable: age, phonenumber, address, id, hourlysalary, weeklyhours, attendance, datejoined, performance,\n" 
+        std::cout << "variable: name, age, phonenumber, address, id, hourlysalary, weeklyhours, attendance, datejoined, performance,\n" 
         "position, banknumber, bank, spendings, purchasehistory, notes, finisheddesigns, currentdesigns, turnover, profit,\n"
         "budget, expense, trained, hired, fired, retired, investment, password, certification, carscomplete, success,\n" 
         "finishedresearch, currentresearch, expertise, conversion, sold, revenue, languages, finishedprojects, currentprojects,\n" 
@@ -2768,7 +2768,7 @@ bool Location::Load(std::string file){
     
 }
 
-
+//Clear command
 void Location::clear(){
     system("clear");
 
@@ -2787,7 +2787,7 @@ void Location::clear(){
         "        BBBBi QBBX BQBQg  QBBBQ  BQBBBi  BBBB  BBBBB  jBBBBZ  BBQBB   QBBBBBBBBBB   QBBBBBBBB",
         "        gPPZ  1bZi udqZr  RqqqK  rEKPDi  DPPE  iEKPg  vEPKEi  dqqPR    rQBBR  PPq   qPqXKKPbP\n",
         "                             Code By: Victor, Elijah, and Kurt\n",
-        "                                     Location: " + address + "\n\n"
+        "        Location: " + address + "\n\n"
     };
 
     for (const auto& line : lines) {
